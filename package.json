@@ -35,8 +35,7 @@
     }
   },
   "scripts": {
-    "start-docs": "start-storybook -p 9001 -c .storybook",
-    "docz:dev": "docz dev",
-    "docz:build": "docz build"
+    "start:docs": "docz dev",
+    "build:docs": "docz build"
   }
 }

@@ -31,7 +31,7 @@ const Button = ({
     return (
         <button
             type={type}
-            className={className ? `${buttonClassNames} ${className}` : className}
+            className={className ? `${buttonClassNames} ${className}` : buttonClassNames}
             disabled={disabled}
             onMouseLeave={onMouseLeave}
             onMouseEnter={onMouseEnter}
