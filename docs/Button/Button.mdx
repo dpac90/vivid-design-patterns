@@ -1,0 +1,45 @@
+---
+    name: Button
+---
+
+import { PropsTable, Playground } from 'docz'
+import Button from '../../src/components/atoms/Button';
+import "../../src/styles/_button.scss";
+import "./buttonDocs.scss";
+
+## Basic Usage
+<Playground>
+<Button>Click</Button>
+</Playground>
+
+## Props
+<PropsTable of={Button}/>
+
+## Attributes
+### Sizing
+
+<Playground>
+    <Button size='small'>Small</Button>
+    <Button size='large'>Large</Button>
+</Playground>
+
+### Importance
+
+<Playground>
+    <Button>Primary</Button>
+    <Button importance='secondary'>Secondary</Button>
+    <Button importance='tertiary'>Tertiary</Button>
+</Playground>
+
+### Grouped
+<Playground>
+    <Button grouped>Grouped Button</Button>
+    <Button grouped>Grouped Button</Button>
+    <Button grouped>Grouped Button</Button>
+</Playground>
+
+### Miscellaneous
+<Playground>
+    <Button raised>Raised</Button>
+    <Button disabled>Disabled</Button>
+</Playground>

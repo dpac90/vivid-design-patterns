@@ -23,6 +23,7 @@ const Button = ({
     const buttonClassNames = classNames(baseButtonClass, {
         [`--${size}`]: size,
         [`--${importance}`]: importance,
+        [`--disabled`]: disabled,
         [`--selected`]: selected,
         [`--raised`]: raised
     });
@@ -30,7 +31,7 @@ const Button = ({
     return (
         <button
             type={type}
-            className={className || buttonClassNames}
+            className={className ? `${buttonClassNames} ${className}` : className}
             disabled={disabled}
             onMouseLeave={onMouseLeave}
             onMouseEnter={onMouseEnter}
@@ -55,6 +56,7 @@ Button.propTypes = {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onMouseLeave: PropTypes.func,
+    onMouseEnter: PropTypes.func,
     importance: PropTypes.oneOf(['secondary', 'tertiary'])
 };
 

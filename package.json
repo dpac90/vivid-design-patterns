@@ -4,13 +4,19 @@
   "version": "0.0.1",
   "devDependencies": {
     "@babel/core": "^7.2.0",
-    "@storybook/react": "^4.0.12",
     "babel-loader": "^8.0.4",
+    "docz": "^0.13.4",
+    "docz-plugin-css": "^0.11.0",
+    "docz-theme-default": "^0.13.4",
     "husky": "^1.2.0",
     "lint-staged": "^8.1.0",
     "node-sass": "^4.11.0",
     "prettier": "^1.15.3",
     "sass-loader": "^7.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -29,6 +35,8 @@
     }
   },
   "scripts": {
-    "start-docs": "start-storybook -p 9001 -c .storybook"
+    "start-docs": "start-storybook -p 9001 -c .storybook",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
   }
 }

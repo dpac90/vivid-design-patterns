@@ -1,14 +1,17 @@
 // Tokens
 @import 'tokens';
+@import 'prefixes';
+
 $button-height-default: $sizing-3XL; // 40px
 $button-height-small: $sizing-2XL; // 32px
 $button-height-large: $sizing-4XL; // 48px
 $button-padding-default: $button-height-default / 2;
 $button-padding-small: $button-height-small / 2;
 $button-padding-large: $button-height-large / 2;
+
 // Mixins
 @mixin button-base($fontWeight: $font-weight-med) {
-    //@include transition(all $transition-2);
+    @include transition(all $transition-2);
     border-radius: $border-radius-SM;
     cursor: pointer;
     display: inline-block;
@@ -28,7 +31,7 @@ $button-padding-large: $button-height-large / 2;
 [class^='vp-button'] {
     @include button-base;
     @include button-size;
-    //@include linear-gradient(to bottom, $color-gradient-red);
+    @include linear-gradient(to bottom, $color-gradient-red);
     border: none;
     color: $text-color-white;
     &[class*='--disabled'] {
@@ -37,10 +40,10 @@ $button-padding-large: $button-height-large / 2;
         color: $text-color-muted;
     }
     &[class*='--secondary'] {
-        //@include linear-gradient(to bottom, $color-gradient-blue);
+        @include linear-gradient(to bottom, $color-gradient-blue);
     }
     &[class*='--tertiary'] {
-        //@include border($color: $color-brand-slate);
+        border: 1px solid $color-brand-slate;
         background: $color-white;
         background-image: none;
         color: $text-color-slate;
@@ -94,7 +97,7 @@ $button-padding-large: $button-height-large / 2;
         border: 1px solid transparent;
         color: $text-color-white;
         cursor: default;
-        //@include linear-gradient(to bottom, $color-gradient-blue);
+        @include linear-gradient(to bottom, $color-gradient-blue);
     }
     &[class*='--small'] {
         @include button-size($font-size-2, $button-height-small, $button-padding-small);

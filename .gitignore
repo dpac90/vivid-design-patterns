@@ -3,4 +3,5 @@ node/
 npm-debug.log
 yarn-error.log
 /.idea/
+.docz
 *.DS_Store
