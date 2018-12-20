@@ -24,7 +24,7 @@ module.exports = {
     // collectCoverageFrom: null,
 
     // The directory where Jest should output its coverage files
-    coverageDirectory: 'coverage'
+    coverageDirectory: 'coverage',
 
     // An array of regexp pattern strings used to skip coverage collection
     // coveragePathIgnorePatterns: [
@@ -118,7 +118,7 @@ module.exports = {
     // setupFiles: [],
 
     // The path to a module that runs some code to configure or set up the testing framework before each test
-    // setupTestFrameworkScriptFile: null,
+    setupTestFrameworkScriptFile: '<rootDir>test/setUpTests.js',
 
     // A list of paths to snapshot serializer modules Jest should use for snapshot testing
     // snapshotSerializers: [],
@@ -133,10 +133,7 @@ module.exports = {
     // testLocationInResults: false,
 
     // The glob patterns Jest uses to detect test files
-    // testMatch: [
-    //   "**/__tests__/**/*.js?(x)",
-    //   "**/?(*.)+(spec|test).js?(x)"
-    // ],
+    testMatch: ['**/test/**/*Spec.js?(x)']
 
     // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
     // testPathIgnorePatterns: [
