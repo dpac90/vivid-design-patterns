@@ -43,6 +43,25 @@ describe('<Button />', () => {
         expect(wrapper.find('.vp-grouped-button').length).toBe(2);
     });
 
+    it('renders grouped buttons with selected state for one button element', () => {
+        const wrapper = mount(
+            <React.Fragment>
+                <Button grouped>Grouped Button</Button>
+                <Button grouped>Grouped Button</Button>
+                <Button grouped selected>
+                    Grouped Button
+                </Button>
+            </React.Fragment>
+        );
+        expect(wrapper.find('.vp-grouped-button').length).toBe(3);
+        expect(
+            wrapper
+                .find('.vp-grouped-button')
+                .last()
+                .hasClass('--selected')
+        ).toBe(true);
+    });
+
     it('handles onClick event', () => {
         const mockOnClick = jest.fn();
         const wrapper = shallow(<Button size="small" onClick={mockOnClick} />);
