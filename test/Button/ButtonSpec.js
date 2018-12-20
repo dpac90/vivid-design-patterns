@@ -103,4 +103,9 @@ describe('<Button />', () => {
         wrapper.find('.vp-button').simulate('focus');
         expect(mockOnClick).toHaveBeenCalledTimes(1);
     });
+
+    it('renders an anchor tag when an href is provided', () => {
+        const wrapper = shallow(<Button href="www.vividseats.com" />);
+        expect(wrapper.find('a').hasClass('vp-button')).toBe(true);
+    });
 });
