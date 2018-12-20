@@ -43,7 +43,7 @@ describe('<Button />', () => {
         expect(wrapper.find('.vp-grouped-button').length).toBe(2);
     });
 
-    it('renders grouped buttons with selected state for one button element', () => {
+    it('renders grouped buttons with selected state for the  button element', () => {
         const wrapper = mount(
             <React.Fragment>
                 <Button grouped>Grouped Button</Button>
