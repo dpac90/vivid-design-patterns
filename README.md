@@ -15,6 +15,10 @@ To run and view documentation locally:
 
 `yarn start:docs`
 
+You can view and modify the jsx of any component by pressing the view code button `</>`.
+
+For more information on creating documentation with Docz, visit: https://github.com/pedronauck/docz/blob/master/README.md
+
 
 ## Testing
 To run tests:
