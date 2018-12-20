@@ -28,6 +28,11 @@ describe('<Button />', () => {
         expect(wrapper.find('.vp-button').hasClass('--tertiary')).toBe(true);
     });
 
+    it('renders a raised button', () => {
+        const wrapper = shallow(<Button raised />);
+        expect(wrapper.find('.vp-button').hasClass('--raised')).toBe(true);
+    });
+
     it('renders grouped buttons', () => {
         const wrapper = mount(
             <React.Fragment>
