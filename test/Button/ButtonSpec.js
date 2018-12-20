@@ -2,15 +2,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Button from '../../src/components/atoms/Button';
 
-/*
-
--handles on click when clicked
--doesn't call onclick when disabled
--assert mouseover/mouseout/hover
--
-
- */
-
 describe('<Button />', () => {
     it('renders a small button', () => {
         const wrapper = shallow(<Button size="small" />);
