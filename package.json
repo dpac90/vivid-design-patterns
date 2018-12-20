@@ -4,6 +4,8 @@
   "version": "0.0.1",
   "devDependencies": {
     "@babel/core": "^7.2.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "docz": "^0.13.4",
     "docz-plugin-css": "^0.11.0",
