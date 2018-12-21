@@ -19,12 +19,12 @@ describe('<Button />', () => {
     });
 
     it('renders a secondary button', () => {
-        const wrapper = shallow(<Button importance={'secondary'} />);
+        const wrapper = shallow(<Button importance='secondary' />);
         expect(wrapper.find('.vp-button').hasClass('--secondary')).toBe(true);
     });
 
     it('renders a tertiary button', () => {
-        const wrapper = shallow(<Button importance={'tertiary'} />);
+        const wrapper = shallow(<Button importance='tertiary' />);
         expect(wrapper.find('.vp-button').hasClass('--tertiary')).toBe(true);
     });
 
