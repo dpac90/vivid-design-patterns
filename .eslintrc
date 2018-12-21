@@ -1,0 +1,19 @@
+{
+  "plugins": ["import"],
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/react"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "rules": {
+    "no-plusplus":["error", {"allowForLoopAfterthoughts": true}],
+    "react/require-default-props": 0, // Off
+    "react/button-has-type": 1 // Warn
+  },
+  "parser": "babel-eslint"
+}

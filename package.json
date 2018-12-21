@@ -1,30 +1,54 @@
 {
   "name": "@vividseats/vivid-design-patterns",
   "Author": "Vivid Seats",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
+    "babel-plugin-array-includes": "^2.0.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
+    "babel-plugin-transform-es3-property-literals": "^6.22.0",
+    "babel-plugin-transform-es5-property-mutators": "^6.24.1",
+    "babel-plugin-transform-object-assign": "^6.22.0",
     "docz": "^0.13.4",
     "docz-plugin-css": "^0.11.0",
     "docz-theme-default": "^0.13.4",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "gulp": "^4.0.0",
+    "gulp-rollup-each": "^2.2.0",
     "husky": "^1.2.0",
     "jest": "^23.6.0",
     "lint-staged": "^8.1.0",
     "node-sass": "^4.11.0",
     "prettier": "^1.15.3",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.68.1",
+    "rollup-plugin-babel": "^4.1.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-terser": "^3.0.0",
     "sass-loader": "^7.1.0"
   },
   "files": [
-    "src/**"
+    "dist/**",
+    "src/styles/**"
   ],
   "peerDependencies": {
+    "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
   },
@@ -45,8 +69,12 @@
     }
   },
   "scripts": {
-    "start:docs": "docz dev",
-    "build:docs": "docz build",
+    "clean": "./node_modules/.bin/rimraf ./dist",
+    "start:docs": "./node_modules/.bin/docz dev",
+    "build:docs": "./node_modules/.bin/docz build",
+    "build:js": "test && ./node_modules/.bin/gulp bundle_js",
+    "publish:": "yarn run build && yarn publish",
+    "lint:js": "eslint",
     "test": "jest"
   }
 }

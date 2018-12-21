@@ -6,3 +6,5 @@ yarn-error.log
 .docz
 *.DS_Store
 package-lock.json
+*.iml
+dist/

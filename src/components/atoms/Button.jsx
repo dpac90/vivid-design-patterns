@@ -10,7 +10,7 @@ const Button = ({
     importance,
     className,
     href,
-    type,
+    type = 'submit',
     grouped,
     disabled,
     onClick = () => {},
@@ -39,30 +39,32 @@ const Button = ({
         ...htmlAttributes
     };
 
-    return !!href ? <a {...{ ...props, href }}> {children}</a> : <button {...{ ...props, type, disabled }}>{children}</button>;
+    return href ? <a {...{ ...props, href }}> {children}</a> : <button {...{ ...props, type, disabled }}>{children}</button>;
 };
 
 Button.propTypes = {
+    /** html button types eg submit, reset, button` */
+    type: PropTypes.string,
     children: PropTypes.node,
-    /** renders to html class `--small`, `--large`*/
+    /** renders to html class `--small`, `--large` */
     size: PropTypes.oneOf(['small', 'large']),
-    /** renders to html class `--raised`*/
+    /** renders to html class `--raised` */
     raised: PropTypes.bool,
-    /** renders to html class `--select`*/
+    /** renders to html class `--select` */
     selected: PropTypes.bool,
-    /** Components will render as anchor tags when href is provided*/
+    /** Components will render as anchor tags when href is provided */
     href: PropTypes.string,
-    /** renders to html class `--disabled`*/
+    /** renders to html class `--disabled` */
     disabled: PropTypes.bool,
     className: PropTypes.string,
-    /** has html class of `vp-grouped-button`*/
+    /** has html class of `vp-grouped-button` */
     grouped: PropTypes.bool,
     onClick: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onMouseEnter: PropTypes.func,
-    /** renders to html `--secondary`, `--tertiary`*/
+    /** renders to html `--secondary`, `--tertiary` */
     importance: PropTypes.oneOf(['secondary', 'tertiary'])
 };
 
