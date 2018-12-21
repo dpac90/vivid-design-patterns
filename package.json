@@ -73,9 +73,9 @@
     "start:docs": "./node_modules/.bin/docz dev",
     "build:docs": "./node_modules/.bin/docz build",
     "build:js": "test && ./node_modules/.bin/gulp bundle_js",
-    "publish:": "yarn run build && yarn publish",
+    "publish:": "yarn run format && yarn run lin && yarn run build && yarn publish",
     "format": "./node_modules/.bin/prettier --write **/*/*.{js,jsx}",
-    "lint:js": "./node_modules/.bin/eslint --ext .js,.jsx ./src",
+    "lint": "./node_modules/.bin/eslint --ext .js,.jsx ./src",
     "test": "jest"
   }
 }
