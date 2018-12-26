@@ -4,23 +4,6 @@ spec:
   imagePullSecrets:
     - name: dockerhub
   containers:
-    - name: maven
-      image: maven:3.5.4-jdk-8-slim 
-      command: ["tail", "-f", "/dev/null"]
-      imagePullPolicy: Always
-      env:
-        - name: "LC_ALL" 
-          value: "en_US.UTF-8"
-        - name: "LANG"
-          value: "en_US.UTF-8"
-        - name: "TZ"
-          value: "America/Chicago"
-      resources:
-        requests:
-          memory: "8Gi"
-          cpu: "500m"
-        limits:
-          memory: "8Gi"
     - name: docker
       image: docker:18.06.1
       command: ["tail", "-f", "/dev/null"]
@@ -29,7 +12,7 @@ spec:
         - name: docker
           mountPath: /var/run/docker.sock
         - name: docker-conf
-          mountPath: /root/.dockercfg 
+          mountPath: /root/.dockercfg
           subPath: .dockercfg
     - name: skipper
       image: vividseats/skipper

@@ -42,25 +42,9 @@ pipeline {
     // Don't remove BRANCH_LOWER. it is used in deploy-config.yaml file
     //
     BRANCH_LOWER = sh returnStdout: true, script: "echo ${ buildContext.branchName(env) } | awk '{print tolower(\$0)}' | tr -d '\n'"
-
-    MAVEN_OPTS = '-Xmx512m'
   }
 
   stages {
-    stage('Build Application') {
-      when {
-        expression {
-          return params.PACKAGE
-        }
-        not {
-          expression { buildContext.branchName(env) == 'master' }
-        }
-      }
-      steps {
-        sh 'yarn run build:docs'
-      }
-    }
-
     stage('Produce Image') {
       when {
         expression {
