@@ -1,28 +1,6 @@
 def GIT_CREDENTIALS='github-username-and-token-as-password'
 def FAILED_STAGE = 'BUILD'
 
-def checkoutRepository(String gitUrl, String branch, String fallback, String credentials) {
-  def ERROR_MESSAGE = 'Verify the repository and branch configuration for this job'
-  try {
-    git branch: branch, credentialsId: credentials, url: gitUrl
-  } catch (branchException) {
-    echo 'Branch \'' + branch + '\' does not exist. Trying fallback branch \'' + fallback + '\''
-    if (branchException.toString().contains(ERROR_MESSAGE)) {
-      try {
-        git branch: fallback, credentialsId: credentials, url: gitUrl
-      } catch (fallbackException) {
-        if (fallbackException.toString().contains(ERROR_MESSAGE)) {
-          error('Fallback branch does not exist')
-        } else {
-          error(fallbackException.toString())
-        }
-      }
-    } else {
-      error(branchException.toString())
-    }
-  }
-}
-
 pipeline {
   agent {
     kubernetes {
