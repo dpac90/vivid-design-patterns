@@ -1,0 +1,66 @@
+# Helm Values File
+
+name: vivid-design-patterns
+version: {{ index .Env "BRANCH_LOWER" }}
+
+web:
+  hosts:
+    - vivid-design-patterns-{{ index .Env "BRANCH_LOWER" }}.vividseats.test
+  port: 80
+
+containers:
+- name: vivid-design-patterns
+  image:
+    repository: vividseats/vivid-design-patterns
+    tag: {{ index .Env "BRANCH_LOWER" }}
+
+  ports:
+  - name: http
+    port: 80
+
+  probe:
+    path: /
+    port: http
+
+  env:
+  - name: VAULT_ADDR
+    value: {{ index .Env "VAULT_ADDR" }}
+  - name: VAULT_TOKEN
+    value: {{ index .Env "VAULT_TOKEN" }}
+  - name: PARENT_HOST_ID
+    valueFrom:
+      fieldRef:
+        apiVersion: v1
+        fieldPath: spec.nodeName
+  - name: ENVIRONMENT
+    value: stage # we only have stage and production configs
+
+  resources:
+    requests: { memory: 1Gi, cpu: 500m }
+    limits:   { memory: 2Gi }
+
+kube_filebeat: |
+  [
+      {
+          "container": "vivid-design-patterns",
+          "log": "/var/log/tomcat7/localhost_access_log.*.txt",
+          "exclude_lines": [".*kube-probe.*"],
+          "ignore_older": "24h",
+          "close_older": "24h",
+          "fields": {
+              "app": "vivid-design-patterns",
+              "branch": "{{ index .Env "BRANCH_LOWER" }}"
+          }
+      },
+      {
+          "container": "vivid-design-patterns",
+          "log": "/var/log/tomcat7/vivid-design-patterns.log.json",
+          "ignore_older": "24h",
+          "close_older": "24h",
+          "json": true,
+          "fields": {
+              "app": "vivid-design-patterns",
+              "branch": "{{ index .Env "BRANCH_LOWER" }}"
+          }
+      }
+  ]
