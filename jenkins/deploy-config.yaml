@@ -6,7 +6,7 @@ version: {{ index .Env "BRANCH_LOWER" }}
 web:
   hosts:
     - vivid-design-patterns-{{ index .Env "BRANCH_LOWER" }}.vividseats.test
-  port: 80
+  port: 8080
 
 containers:
 - name: vivid-design-patterns
@@ -16,7 +16,7 @@ containers:
 
   ports:
   - name: http
-    port: 80
+    port: 8080
 
   probe:
     path: /
