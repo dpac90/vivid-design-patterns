@@ -1,6 +1,6 @@
 # Helm Values File
 
-name: vivid-design-patterns
+name: design-patterns
 version: {{ index .Env "BRANCH_LOWER" }}
 
 web:
@@ -9,7 +9,7 @@ web:
   port: 8080
 
 containers:
-- name: vivid-design-patterns
+- name: design-patterns
   image:
     repository: vividseats/vivid-design-patterns
     tag: {{ index .Env "BRANCH_LOWER" }}
