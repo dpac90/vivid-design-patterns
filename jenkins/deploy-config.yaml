@@ -38,29 +38,3 @@ containers:
   resources:
     requests: { memory: 1Gi, cpu: 500m }
     limits:   { memory: 2Gi }
-
-kube_filebeat: |
-  [
-      {
-          "container": "vivid-design-patterns",
-          "log": "/var/log/tomcat7/localhost_access_log.*.txt",
-          "exclude_lines": [".*kube-probe.*"],
-          "ignore_older": "24h",
-          "close_older": "24h",
-          "fields": {
-              "app": "vivid-design-patterns",
-              "branch": "{{ index .Env "BRANCH_LOWER" }}"
-          }
-      },
-      {
-          "container": "vivid-design-patterns",
-          "log": "/var/log/tomcat7/vivid-design-patterns.log.json",
-          "ignore_older": "24h",
-          "close_older": "24h",
-          "json": true,
-          "fields": {
-              "app": "vivid-design-patterns",
-              "branch": "{{ index .Env "BRANCH_LOWER" }}"
-          }
-      }
-  ]
