@@ -57,7 +57,7 @@ pipeline {
         }
       }
       steps {
-        sh 'mvn -B clean install'
+        sh 'yarn run build:docs'
       }
     }
 
