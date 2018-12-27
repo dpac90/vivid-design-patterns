@@ -1,6 +1,7 @@
 import { css } from 'docz-plugin-css';
 
 export default {
+    debug: true,
     port: 3636,
     plugins: [
         css({
