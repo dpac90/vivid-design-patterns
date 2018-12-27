@@ -80,21 +80,4 @@ pipeline {
       }
     }
   }
-  post {
-    success {
-      script {
-        slackSend(color: '#339966', message: "Vivid Design Patterns » SUCCESS » Job '${env.JOB_NAME} [$env.BUILD_NUMBER]' (<${env.BUILD_URL}|Open>)\n*${buildContext.branchName(env)}*", channel: "${CHANNEL}")
-      }
-    }
-    failure {
-      script {
-        slackSend(color: '#990000', message: "Vivid Design Patterns » ${FAILED_STAGE} FAILED » Job '${env.JOB_NAME} [$env.BUILD_NUMBER]' (<${env.BUILD_URL}|Open>)\n*${buildContext.branchName(env)}*", channel: "${CHANNEL}")
-      }
-    }
-    aborted {
-      script {
-        slackSend(color: '#CC9933', message: "Vivid Design Patterns » ABORTED » Job '${env.JOB_NAME} [$env.BUILD_NUMBER]' (<${env.BUILD_URL}|Open>)\n*${buildContext.branchName(env)}*", channel: "${CHANNEL}")
-      }
-    }
-  }
 }
