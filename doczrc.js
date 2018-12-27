@@ -2,7 +2,7 @@ import { css } from 'docz-plugin-css';
 
 export default {
     debug: true,
-    port: 3636,
+    port: 8080,
     plugins: [
         css({
             preprocessor: 'sass',
