@@ -25,9 +25,7 @@ pipeline {
         }
       }
     }
-  }
 
-  stages {
     stage('Produce Image') {
       steps {
         container('docker') {
