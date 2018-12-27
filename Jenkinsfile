@@ -7,7 +7,6 @@ pipeline {
       label 'vivid-design-patterns-2018-11-09-5'
       idleMinutes 10
       yamlFile 'jenkins/kubernetes/build-pod.yaml'
-      defaultContainer 'maven'
     }
   }
 
