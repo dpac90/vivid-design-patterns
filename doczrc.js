@@ -1,9 +1,11 @@
 import { css } from 'docz-plugin-css';
 
 export default {
+    port: 3636,
     plugins: [
         css({
-            preprocessor: 'sass'
+            preprocessor: 'sass',
+            cssmodules: true
         })
     ],
     themeConfig: {
@@ -16,5 +18,7 @@ export default {
                 fontFamily: "'Roboto', 'Arial', 'Helvetica', 'sans-serif"
             }
         }
-    }
+    },
+    base: './',
+    dest: 'server/static/'
 };
