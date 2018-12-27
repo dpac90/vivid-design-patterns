@@ -8,11 +8,12 @@ WORKDIR /app
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN yarn install --ignore-scripts
+RUN npm install
+
+COPY . .
+
 RUN yarn run build:docs
 
-# Bundle app source
-COPY . .
 
 EXPOSE 8080
 CMD [ "yarn", "start:server" ]
