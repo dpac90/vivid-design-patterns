@@ -8,7 +8,7 @@ WORKDIR /
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN yarn
+RUN yarn install --ignore-scripts
 RUN yarn run build:docs
 
 # Bundle app source
