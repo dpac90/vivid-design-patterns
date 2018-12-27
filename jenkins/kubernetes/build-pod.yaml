@@ -8,7 +8,6 @@ spec:
       image: node:8.11.1
       command: ["tail", "-f", "/dev/null"]
       imagePullPolicy: Always
-  containers:
     - name: docker
       image: docker:18.06.1
       command: ["tail", "-f", "/dev/null"]
