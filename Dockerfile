@@ -8,7 +8,8 @@ WORKDIR /
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN npm install
+RUN yarn
+RUN yarn run build:docs
 
 # Bundle app source
 COPY . .

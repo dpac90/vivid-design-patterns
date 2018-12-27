@@ -74,7 +74,7 @@
   },
   "scripts": {
     "clean": "./node_modules/.bin/rimraf ./server/static",
-    "start:server": "yarn run build:docs && node ./server/server.js",
+    "start:server": "node ./server/server.js",
     "start:docs": "./node_modules/.bin/docz dev",
     "build:docs": "./node_modules/.bin/docz build",
     "build:js": "test && ./node_modules/.bin/gulp bundle_js",
