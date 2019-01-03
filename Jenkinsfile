@@ -29,7 +29,7 @@ pipeline {
     stage('Test') {
         steps {
             container('node') {
-                sh 'yarn run build:docs'
+                sh 'yarn run test:ci'
             }
         }
     }
