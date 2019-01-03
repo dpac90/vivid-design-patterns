@@ -29,7 +29,7 @@ pipeline {
     stage('Test') {
         steps {
             container('node') {
-                sh 'yarn run test:ci'
+                sh 'yarn run test'
             }
         }
     }
@@ -67,8 +67,7 @@ pipeline {
 
   post {
     always {
-        archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
-        junit 'build/reports/**/*.xml'
+        junit 'reports/**/*.xml'
     }
   }
 }
