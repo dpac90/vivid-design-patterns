@@ -1,0 +1,24 @@
+// === Standard layout & styling
+@mixin linear-gradient($angle, $gradient) {
+    background-color: nth($gradient, 1); /* Fallback Color */
+    background-image: -webkit-gradient(linear, $angle, from(nth($gradient, 1)), to(nth($gradient, 2))); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient($angle, $gradient); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image: -moz-linear-gradient($angle, $gradient); /* FF3.6 */
+    background-image: -ms-linear-gradient($angle, $gradient); /* IE10 */
+    background-image: -o-linear-gradient($angle, $gradient); /* Opera 11.10+ */
+    background-image: linear-gradient($angle, $gradient);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=$angle,StartColorStr='#{nth($gradient,1)}', EndColorStr='#{nth($gradient,2)}');
+}
+
+// === Animations
+
+@mixin transition($value) {
+    -webkit-transition: $value;
+    transition: $value;
+}
+@mixin transform($value) {
+    -o-transform: $value;
+    -ms-transform: $value;
+    -webkit-transform: $value;
+    transform: $value;
+}

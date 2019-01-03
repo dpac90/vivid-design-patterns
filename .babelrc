@@ -1,0 +1,23 @@
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "targets": {
+                    "browsers": ["ie >= 10"]
+                },
+                "useBuiltIns": "usage"
+            }
+        ],
+        "@babel/preset-react"
+    ],
+    "plugins": [
+        "array-includes",
+        "@babel/plugin-proposal-object-rest-spread",
+        "transform-es3-member-expression-literals",
+        "transform-es3-property-literals",
+        "transform-es5-property-mutators",
+        "transform-object-assign",
+        "transform-class-properties"
+    ]
+}

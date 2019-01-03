@@ -1,0 +1,57 @@
+---
+    name: Button
+---
+
+import { PropsTable, Playground } from 'docz'
+import Button from '../../src/components/atoms/Button';
+import "../../src/styles/_button.scss";
+import "./buttonDocs.scss";
+
+## Basic Usage
+`class="vp-button"`
+<Playground>
+<Button>Click</Button>
+</Playground>
+
+## Props
+<PropsTable of={Button}/>
+
+## Attributes
+### Links
+
+Buttons with a href attribute will render as `<a>` tags instead of `<button>` tags
+
+### Sizing
+`class="vp-button--small"`
+`class="vp-button--large"`
+<Playground>
+    <Button size='small'>Small</Button>
+    <Button>Default</Button>
+    <Button size='large'>Large</Button>
+</Playground>
+
+### Importance
+`class="vp-button--secondary"`
+`class="vp-button--tertiary"`
+<Playground>
+    <Button>Default</Button>
+    <Button importance='secondary'>Secondary</Button>
+    <Button importance='tertiary'>Tertiary</Button>
+</Playground>
+
+### Grouped
+`class="vp-grouped-button"`
+`class="vp-grouped-button--selected"`
+<Playground>
+    <Button grouped>Grouped Button</Button>
+    <Button grouped>Grouped Button</Button>
+    <Button grouped selected>Selected Grouped Button</Button>
+</Playground>
+
+### Miscellaneous
+`class="vp-button--raised"`
+`class="vp-button--disabled"`
+<Playground>
+    <Button raised>Raised</Button>
+    <Button disabled>Disabled</Button>
+</Playground>

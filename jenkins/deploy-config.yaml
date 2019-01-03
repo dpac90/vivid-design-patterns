@@ -1,0 +1,40 @@
+# Helm Values File
+
+name: design-patterns
+version: {{ index .Env "BRANCH_LOWER" }}
+
+web:
+  hosts:
+    - vivid-design-patterns-{{ index .Env "BRANCH_LOWER" }}.vividseats.test
+  port: 80
+
+containers:
+- name: design-patterns
+  image:
+    repository: vividseats/vivid-design-patterns
+    tag: {{ index .Env "BRANCH_LOWER" }}
+
+  ports:
+  - name: http
+    port: 80
+
+  probe:
+    path: /
+    port: http
+
+  env:
+  - name: VAULT_ADDR
+    value: {{ index .Env "VAULT_ADDR" }}
+  - name: VAULT_TOKEN
+    value: {{ index .Env "VAULT_TOKEN" }}
+  - name: PARENT_HOST_ID
+    valueFrom:
+      fieldRef:
+        apiVersion: v1
+        fieldPath: spec.nodeName
+  - name: ENVIRONMENT
+    value: stage # we only have stage and production configs
+
+  resources:
+    requests: { memory: 1Gi, cpu: 500m }
+    limits:   { memory: 2Gi }
