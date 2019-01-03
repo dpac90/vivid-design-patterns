@@ -8,3 +8,5 @@ yarn-error.log
 package-lock.json
 *.iml
 server/static
+dist
+reports

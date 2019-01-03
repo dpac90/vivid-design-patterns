@@ -26,6 +26,15 @@ pipeline {
       }
     }
 
+    stage('Test') {
+        steps {
+            container('node') {
+                sh 'yarn run test'
+                sh 'yarn run lint'
+            }
+        }
+    }
+
     stage('Produce Image') {
       steps {
         container('docker') {
@@ -54,6 +63,12 @@ pipeline {
           }
         }
       }
+    }
+  }
+
+  post {
+    always {
+        junit 'reports/**/*.xml'
     }
   }
 }

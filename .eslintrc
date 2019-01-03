@@ -13,7 +13,7 @@
   "rules": {
     "no-plusplus":["error", {"allowForLoopAfterthoughts": true}],
     "react/require-default-props": 0, // Off
-    "react/button-has-type": 1 // Warn
+    "react/button-has-type": 0 // Limitation by eslint-plugin-react that doesnt take default props into account https://github.com/yannickcr/eslint-plugin-react/issues/1846
   },
   "parser": "babel-eslint"
 }
