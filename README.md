@@ -24,3 +24,6 @@ For more information on creating documentation with Docz, visit: https://github.
 To run tests:
 
 `yarn test`
+
+
+Full documentation here: http://vivid-design-patterns-master.vividseats.test/docs-button-button
