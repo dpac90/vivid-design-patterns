@@ -82,7 +82,7 @@
     "prepublish": "yarn run test",
     "publish:": "yarn run format && yarn run lint && yarn run build",
     "format": "./node_modules/.bin/prettier --write **/*/*.{js,jsx}",
-    "lint": "./node_modules/.bin/eslint --ext .js,.jsx ./src",
+    "lint": "./node_modules/.bin/eslint --format junit --output-file ./reports/eslint.xml --ext .js,.jsx ./src",
     "test": "./node_modules/.bin/jest"
   }
 }
