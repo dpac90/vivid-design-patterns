@@ -7,6 +7,7 @@ import Button from '../../src/components/atoms/Button';
 import "../../src/styles/_button.scss";
 import "./buttonDocs.scss";
 
+# Button
 ## Installation
 Using the react components:
 
@@ -43,11 +44,13 @@ Buttons with a href attribute will render as `<a>` tags instead of `<button>` ta
 `class="vp-button--secondary"`
 `class="vp-button--tertiary"`
 `class="vp-button--text"`
+`class="vp-button--text--muted"`
 <Playground>
     <Button>Default</Button>
     <Button importance='secondary'>Secondary</Button>
     <Button importance='tertiary'>Tertiary</Button>
     <Button importance='text'>Text</Button>
+    <Button importance='text' muted>Muted Text</Button>
 </Playground>
 
 ### Grouped
@@ -57,6 +60,12 @@ Buttons with a href attribute will render as `<a>` tags instead of `<button>` ta
     <Button grouped>Grouped Button</Button>
     <Button grouped>Grouped Button</Button>
     <Button grouped selected>Selected Grouped Button</Button>
+</Playground>
+
+### Block
+ `class="vp-button--block"`
+<Playground>
+    <Button block>Block</Button>
 </Playground>
 
 ### Miscellaneous
