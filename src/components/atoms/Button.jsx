@@ -45,7 +45,6 @@ const Button = ({
 Button.propTypes = {
     /** html button types eg submit, reset, button` */
     type: PropTypes.string,
-    children: PropTypes.node,
     /** renders to html class `--small`, `--large` */
     size: PropTypes.oneOf(['small', 'large']),
     /** renders to html class `--raised` */

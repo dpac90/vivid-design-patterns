@@ -1,0 +1,66 @@
+// Tokens
+@import 'tokens';
+
+// Mixins
+@mixin background-cover() {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
+@mixin border($side: null, $width: 1px, $style: solid, $color: $color-gray-light) {
+    @if $side == null {
+        border: $width $style $color;
+    } @else {
+        border-#{$side}: $width $style $color;
+    }
+}
+
+@mixin pseudo-icon($icon, $color: $color-gray, $height: $sizing-XL, $size: $sizing-XL, $margin: auto, $pointerEvents: none) {
+    color: $color;
+    content: $icon;
+    font-family: 'Material Icons';
+    font-size: $size;
+    height: $height;
+    line-height: $height;
+    margin: $margin;
+    pointer-events: $pointerEvents;
+}
+
+// Responsive Media Queries
+@mixin size-min-tablet {
+    @media screen and (min-width: $breakpoint-tablet) {
+        @content;
+    }
+}
+@mixin size-min-desktop {
+    @media screen and (min-width: $breakpoint-desktop) {
+        @content;
+    }
+}
+@mixin size-min-desktopXL {
+    @media screen and (min-width: $breakpoint-desktop-XL) {
+        @content;
+    }
+}
+@mixin size-only-mobile {
+    @media screen and (max-width: #{$breakpoint-tablet - 1}) {
+        @content;
+    }
+}
+@mixin size-only-tablet {
+    @media screen and (min-width: $breakpoint-tablet) and (max-width: #{$breakpoint-desktop - 1}) {
+        @content;
+    }
+}
+@mixin size-only-desktop {
+    @media screen and (min-width: $breakpoint-desktop) and (max-width: #{$breakpoint-desktop-XL - 1}) {
+        @content;
+    }
+}
+
+@mixin vertical-align($pos: relative, $amount: 50%) {
+    @include transform(translateY(-$amount));
+    position: $pos;
+    top: $amount;
+}

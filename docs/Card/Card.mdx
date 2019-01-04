@@ -1,0 +1,62 @@
+---
+    name: Card
+---
+
+import { PropsTable, Playground } from 'docz'
+import Card from '../../src/components/molecules/Card';
+import Button from '../../src/components/atoms/Button';
+import './cardDocs.scss';
+
+## Installation
+Using the react components:
+
+    import Card from @vividseats/vivid-design-patterns/dist/molecule/Card
+
+Using the scss files:
+
+    @import @vividseats/vivid-design-patterns/src/styles/card.scss
+
+## Basic Usage
+`class="vp-card"`
+
+<Playground>
+<Card>
+    <p className="vp-type-body1">
+    What evidence is there that cats are so smart, anyway? Huh? What do they do? Because they’re clean? I am sorry. My Uncle Pete showers four times a day and he can’t count to ten. So don’t give me hygiene
+</p>
+</Card>
+</Playground>
+
+## Props
+<PropsTable of={Card}/>
+
+## Headers and Footers
+`class="vp-card__header"`
+`class="vp-card__body"`
+`class="vp-card__footer"`
+
+<Playground>
+    <Card>
+        <Card.Header>
+            <h5 className="vp-type-headline6">Bandersnatch</h5>
+        </Card.Header>
+        <Card.Body>
+            <p className="vp-type-body1">There's messages in every game. Like Pac-Man. Do you know what PAC stands for? P-A-C: "program and control." He's Program and Control Man the whole things a metaphor, he thinks he's got free will but really he's trapped in a maze, in a system, all he can do is consume, he's pursued by demons that are probably just in his own head, and even if he does manage to escape by slipping out one side of the maze, what happens? He comes right back in the other side.</p>
+        </Card.Body>
+        <Card.Footer>
+            <Button>
+                Sugar puffs
+            </Button>
+            <Button>
+                Frosties
+            </Button>
+        </Card.Footer>
+    </Card>
+</Playground>
+
+## Attributes
+<Playground>
+    <Card list>
+        Hello
+    </Card>
+</Playground>
