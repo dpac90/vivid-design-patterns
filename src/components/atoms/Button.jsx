@@ -65,7 +65,7 @@ Button.propTypes = {
     onMouseLeave: PropTypes.func,
     onMouseEnter: PropTypes.func,
     /** renders to html `--secondary`, `--tertiary` */
-    importance: PropTypes.oneOf(['secondary', 'tertiary'])
+    importance: PropTypes.oneOf(['secondary', 'tertiary', 'text'])
 };
 
 export default Button;
