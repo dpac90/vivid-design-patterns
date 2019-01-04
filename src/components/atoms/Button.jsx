@@ -72,7 +72,7 @@ Button.propTypes = {
     onBlur: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onMouseEnter: PropTypes.func,
-    /** renders to html `--secondary`, `--tertiary` `--text`*/
+    /** renders to html `--secondary`, `--tertiary` `--text` */
     importance: PropTypes.oneOf(['secondary', 'tertiary', 'text'])
 };
 
