@@ -1,7 +1,7 @@
 {
   "name": "@vividseats/vivid-design-patterns",
   "Author": "Vivid Seats",
-  "version": "0.0.6-alpha",
+  "version": "0.0.7",
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
@@ -54,13 +54,9 @@
     "react-dom": "^16.6.3"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
     "classnames": "^2.2.6",
-    "connect": "^3.6.6",
-    "express": "^4.16.4",
     "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "serve-static": "^1.13.2"
+    "react-dom": "^16.6.3"
   },
   "lint-staged": {
     "*.{js,jsx,scss}": [
@@ -77,9 +73,8 @@
     "clean": "./node_modules/.bin/rimraf ./dist",
     "start:docs": "./node_modules/.bin/docz dev",
     "build:docs": "./node_modules/.bin/docz build",
-    "build:js": "test && ./node_modules/.bin/gulp bundle_js",
-    "prepublish": "yarn run test",
-    "publish:": "yarn run format && yarn run lint && yarn run build:js",
+    "build:js": "./node_modules/.bin/gulp bundle_js",
+    "prepublish": "yarn run format && yarn run test && yarn run lint && yarn run build:js",
     "format": "./node_modules/.bin/prettier --write **/*/*.{js,jsx}",
     "lint": "./node_modules/.bin/eslint --format junit --output-file ./reports/eslint.xml --ext .js,.jsx ./src",
     "test": "./node_modules/.bin/jest"
