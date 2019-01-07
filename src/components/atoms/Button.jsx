@@ -4,6 +4,8 @@ import classNames from 'classnames';
 
 const Button = ({
     children,
+    block,
+    muted,
     size,
     raised,
     selected,
@@ -26,7 +28,9 @@ const Button = ({
         [`--${importance}`]: importance,
         [`--disabled`]: disabled,
         [`--selected`]: selected,
-        [`--raised`]: raised
+        [`--muted`]: muted,
+        [`--raised`]: raised,
+        [`--block`]: block
     });
 
     const props = {
@@ -45,6 +49,10 @@ const Button = ({
 Button.propTypes = {
     /** html button types eg submit, reset, button` */
     type: PropTypes.string,
+    /** block property makes button 100% */
+    block: PropTypes.bool,
+    /** muted prop only works when importance is of type 'text' */
+    muted: PropTypes.bool,
     children: PropTypes.node,
     /** renders to html class `--small`, `--large` */
     size: PropTypes.oneOf(['small', 'large']),
@@ -64,8 +72,8 @@ Button.propTypes = {
     onBlur: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onMouseEnter: PropTypes.func,
-    /** renders to html `--secondary`, `--tertiary` */
-    importance: PropTypes.oneOf(['secondary', 'tertiary'])
+    /** renders to html `--secondary`, `--tertiary` `--text` */
+    importance: PropTypes.oneOf(['secondary', 'tertiary', 'text'])
 };
 
 export default Button;
