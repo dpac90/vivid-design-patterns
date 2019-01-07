@@ -54,9 +54,38 @@ Using the scss files:
     </Card>
 </Playground>
 
-## Attributes
+Cards that do not have header and footer child components are automatically wrapped with `<Card.Body/>`.
+For example:
+```<Card>Hello</Card>```
+is the same as
+```<Card><Card.Body>Hello</Card.Body></Card>```
+
+## Card Types
+### List Cards
 <Playground>
-    <Card list>
-        Hello
+    <Card type="list">
+        <Card.Header>
+            <h5 className="vp-type-headline6">List Card</h5>
+        </Card.Header>
+        <Card.Body>
+            <ul>
+                <li> One item </li>
+                <li> Two item </li>
+                <li> Three item </li>
+            </ul>
+        </Card.Body>
+    </Card>
+</Playground>
+
+### Anchor Cards
+
+<Playground>
+    <Card type="anchor">
+        <Card.Header>
+            <h5 className="vp-type-headline6">Anchor Card</h5>
+        </Card.Header>
+        <Card.Body>
+            Anchor
+        </Card.Body>
     </Card>
 </Playground>

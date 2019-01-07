@@ -6,13 +6,13 @@ class Card extends React.Component {
     static propTypes = {
         header: PropTypes.node,
         footer: PropTypes.node,
-        anchor: PropTypes.bool,
-        list: PropTypes.bool,
+        type: PropTypes.oneOf(['standard', 'list', 'anchor']),
         className: PropTypes.string
     };
 
     static defaultProps = {
-        className: ''
+        className: '',
+        type: 'standard'
     };
 
     static Footer({ className = '', children, centered = false, ...htmlAttributes }) {
@@ -43,17 +43,37 @@ class Card extends React.Component {
         );
     }
 
-    render() {
-        const { className, list, anchor, children, ...htmlAttributes } = this.props;
-        const cardClassNames = classNames(`vp-card ${className}`, {
-            ['--anchor']: anchor,
-            ['--list']: list
-        });
+    static Hero({ className = '', children, imageSrc }) {
+        return <div className={`vp-card__hero ${className}`} />;
+    }
 
-        console.log('Children Length', React.Children.toArray().length);
+    render() {
+        const { className, type, children, ...htmlAttributes } = this.props;
+        let cardClassNames = className;
+
+        switch (type) {
+            case 'list': {
+                cardClassNames += 'vp-card--list';
+                break;
+            }
+            case 'anchor': {
+                cardClassNames += 'vp-card--anchor';
+                break;
+            }
+            default: {
+                cardClassNames += 'vp-card';
+            }
+        }
+
         return (
             <div className={cardClassNames} {...htmlAttributes}>
-                {React.Children.toArray().length ? { children } : <Card.Body>{children}</Card.Body>}
+                {React.Children.map(children, child => {
+                    if (typeof child.type === 'function') {
+                        return child;
+                    } else {
+                        return <Card.Body>{child}</Card.Body>;
+                    }
+                })}
             </div>
         );
     }

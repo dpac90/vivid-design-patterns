@@ -30,7 +30,7 @@ $card-hero-height: 8rem; // 128px
 .vp-card--list {
     @include card-base;
 
-    &__header {
+    .vp-card__header {
         @include border(bottom);
         padding: ($sizing-LG + $sizing-XS) $sizing-LG ($sizing-LG + $sizing-XS) $sizing-LG;
         text-transform: uppercase;
