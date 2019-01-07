@@ -1,0 +1,288 @@
+@import '_tokens';
+
+$fontFaces: (
+    RobotoRegular: (
+        'Roboto',
+        400,
+        normal,
+        regular
+    ),
+    RobotoItalic: (
+        'Roboto',
+        400,
+        italic,
+        italic
+    ),
+    RobotoMedium: (
+        'Roboto',
+        500,
+        normal,
+        medium
+    ),
+    RobotoBold: (
+        'Roboto',
+        700,
+        normal,
+        bold
+    ),
+    RobotoBlack: (
+        'Roboto',
+        900,
+        normal,
+        black
+    )
+);
+$typeStyles: (
+    headline1: (
+        $font-size-10,
+        $font-weight-blk,
+        $line-height-XS,
+        null
+    ),
+    headline2: (
+        $font-size-9,
+        $font-weight-blk,
+        $line-height-XS,
+        null
+    ),
+    headline3: (
+        $font-size-8,
+        $font-weight-blk,
+        $line-height-XS,
+        null
+    ),
+    headline4: (
+        $font-size-7,
+        $font-weight-blk,
+        $line-height-XS,
+        null
+    ),
+    headline5: (
+        $font-size-6,
+        $font-weight-blk,
+        $line-height-XS,
+        null
+    ),
+    headline6: (
+        $font-size-5,
+        $font-weight-blk,
+        $sizing-XL,
+        null
+    ),
+    subtitle1: (
+        $font-size-6,
+        $font-weight-reg,
+        $line-height-SM,
+        null
+    ),
+    subtitle2: (
+        $font-size-5,
+        $font-weight-reg,
+        $line-height-MD,
+        null
+    ),
+    body1: (
+        $font-size-4,
+        $font-weight-reg,
+        $line-height-LG,
+        null
+    ),
+    body2: (
+        $font-size-3,
+        $font-weight-reg,
+        $line-height-LG,
+        null
+    ),
+    small: (
+        $font-size-2,
+        $font-weight-reg,
+        $line-height-SM,
+        null
+    ),
+    subhead: (
+        $font-size-2,
+        $font-weight-blk,
+        $line-height-MD,
+        uppercase
+    ),
+    tiny: (
+        $font-size-1,
+        $font-weight-reg,
+        $line-height-SM,
+        null
+    )
+);
+
+// Build @font-face declarations
+@each $fontFace, $attr in $fontFaces {
+    $fontName: to_lower_case(#{nth($attr, 1)}-#{nth($attr, 4)});
+    @font-face {
+        font-family: nth($attr, 1);
+        font-weight: nth($attr, 2);
+        font-style: nth($attr, 3);
+        src: url('https://a.vsstatic.com/font/#{$fontName}.eot');
+        src: url('https://a.vsstatic.com/font/#{$fontName}.eot?#iefix') format('embedded-opentype'),
+            url('https://a.vsstatic.com/font/#{$fontName}.woff2') format('woff2'),
+            url('https://a.vsstatic.com/font/#{$fontName}.woff') format('woff'),
+            url('https://a.vsstatic.com/font/#{$fontName}.ttf') format('ttf'),
+            url('https://a.vsstatic.com/font/#{$fontName}.svg##{$fontName}') format('svg');
+    }
+}
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url('https://a.vsstatic.com/font/MaterialIcons-Regular.eot');
+    src: url('https://a.vsstatic.com/font/MaterialIcons-Regular.eot?#iefix') format('embedded-opentype'),
+        url('https://a.vsstatic.com/font/MaterialIcons-Regular.woff2') format('woff2'),
+        url('https://a.vsstatic.com/font/MaterialIcons-Regular.woff') format('woff'),
+        url('https://a.vsstatic.com/font/MaterialIcons-Regular.ttf') format('truetype');
+}
+.material-icons {
+    direction: ltr;
+    display: inline-block;
+    font-family: 'Material Icons';
+    font-feature-settings: 'liga';
+    font-size: $font-size-6; /* Preferred icon size */
+    font-style: normal;
+    font-weight: normal;
+    letter-spacing: normal;
+    line-height: 1;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: normal;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+// Typography Base
+.vp-type {
+    color: $text-color-default;
+    font-family: $font-family-default;
+    font-size: $font-size-base;
+    font-weight: $font-weight-reg;
+    line-height: $line-height-MD;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+// Build Base Type Styles
+@each $style, $attr in $typeStyles {
+    [class^='vp-type-#{$style}'] {
+        @include margin(0 null);
+        font-size: nth($attr, 1);
+        font-weight: nth($attr, 2);
+        line-height: nth($attr, 3);
+        text-transform: nth($attr, 4);
+    }
+}
+
+// Links
+a {
+    text-decoration: none;
+    color: inherit;
+}
+[class^='vp-type-link'] {
+    color: $text-color-link;
+    cursor: pointer;
+    font-size: inherit;
+    font-weight: $font-weight-bld;
+    text-decoration: none;
+    @include transition(all $transition-1);
+
+    &:active,
+    &:focus,
+    &:hover {
+        color: $text-color-link-hover;
+        text-decoration: underline;
+        outline: none;
+    }
+    &[class*='--inverted'],
+    &[class*='--muted'] {
+        text-decoration: underline;
+
+        &:active,
+        &:focus,
+        &:hover {
+            color: inherit;
+        }
+    }
+}
+
+// Lists
+[class^='vp-type-list']:not([class*='__']) {
+    font-size: inherit;
+    margin: 1rem 0;
+    padding-left: $sizing-3XL;
+
+    &[class*='--inline'] .vp-type-list__item {
+        display: inline-block;
+    }
+}
+.vp-type-list__item {
+    line-height: $line-height-MD;
+    margin-bottom: $sizing-SM;
+}
+
+// Type Modifiers
+[class^='vp-type'] {
+    @each $style, $attr in $typeStyles {
+        &[class^='--#{$style}'] {
+            @include margin(0 null);
+            font-size: nth($attr, 1);
+            font-weight: nth($attr, 2);
+            line-height: nth($attr, 3);
+            text-transform: nth($attr, 4);
+        }
+    }
+    &[class*='--blk'] {
+        font-weight: $font-weight-blk;
+    }
+    &[class*='--bld'] {
+        font-weight: $font-weight-bld;
+    }
+    &[class*='--med'] {
+        font-weight: $font-weight-med;
+    }
+
+    &[class*='--compressed'] {
+        line-height: $line-height-SM;
+    }
+    &[class*='--expanded'] {
+        line-height: $line-height-XL;
+    }
+
+    &[class*='--inverted'] {
+        color: $text-color-white;
+    }
+    &[class*='--muted'] {
+        color: $text-color-muted;
+    }
+
+    &[class*='--left'] {
+        text-align: left;
+    }
+    &[class*='--center'] {
+        text-align: center;
+    }
+    &[class*='--right'] {
+        text-align: right;
+    }
+
+    &[class*='--caps'] {
+        text-transform: uppercase;
+    }
+    &[class*='--truncate'] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+@include size-only-mobile {
+    .vp-type-headline1 {
+        font-size: $font-size-8;
+    }
+}
