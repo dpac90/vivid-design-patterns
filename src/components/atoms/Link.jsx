@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 const Link = ({ children, className, href, size }) => {
     Link.propTypes = {
-        children: PropTyles.node,
+        children: PropTypes.node,
         className: PropTypes.string,
         href: PropTypes.string.isRequired,
         size: PropTypes.oneOf(['body-1', 'body-2', 'small', 'tiny'])
