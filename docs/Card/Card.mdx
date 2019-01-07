@@ -44,10 +44,10 @@ Using the scss files:
             <p className="vp-type-body1">There's messages in every game. Like Pac-Man. Do you know what PAC stands for? P-A-C: "program and control." He's Program and Control Man the whole things a metaphor, he thinks he's got free will but really he's trapped in a maze, in a system, all he can do is consume, he's pursued by demons that are probably just in his own head, and even if he does manage to escape by slipping out one side of the maze, what happens? He comes right back in the other side.</p>
         </Card.Body>
         <Card.Footer>
-            <Button>
+            <Button type='text' muted>
                 Sugar puffs
             </Button>
-            <Button>
+            <Button type='text'>
                 Frosties
             </Button>
         </Card.Footer>
@@ -87,5 +87,17 @@ is the same as
         <Card.Body>
             Anchor
         </Card.Body>
+    </Card>
+</Playground>
+
+## Cards with Hero Images
+
+<Playground>
+    <Card>
+        <Card.Hero imageSrc="https://a.vsstatic.com/mobile/app/mlb/washington-nationals.jpg"/>
+        <Card.Footer centered>
+            <Button importance="text">Click me</Button>
+            <Button importance="text" muted>Click me</Button>
+        </Card.Footer>
     </Card>
 </Playground>

@@ -26,4 +26,4 @@ To run tests:
 `yarn test`
 
 
-Full documentation here: http://vivid-design-patterns-master.vividseats.test/docs-button-button
+Full documentation here: http://vivid-design-patterns-master.vividseats.test

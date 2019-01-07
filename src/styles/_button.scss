@@ -1,5 +1,6 @@
 // Tokens
 @import 'tokens';
+@import 'mixins';
 @import 'prefixes';
 
 $button-height-default: $sizing-3XL; // 40px
@@ -21,19 +22,20 @@ $button-padding-large: $button-height-large / 2;
     text-align: center;
     text-decoration: none;
 }
-@mixin button-size($fontSize: $font-size-3, $lineHeight: $button-height-default, $padding: $button-padding-default) {
+@mixin button-size($fontSize: $font-size-MD, $lineHeight: $button-height-default, $padding: $button-padding-default) {
     font-size: $fontSize;
     line-height: $lineHeight;
     padding: 0 $padding;
 }
 
-// Standard Button
+// Block
 [class^='vp-button'] {
     @include button-base;
     @include button-size;
     @include linear-gradient(to bottom, $color-gradient-red);
     border: none;
-    color: $text-color-white;
+    color: $color-white;
+
     &[class*='--disabled'] {
         background: $color_gray_light;
         background-image: none;
@@ -43,39 +45,44 @@ $button-padding-large: $button-height-large / 2;
         @include linear-gradient(to bottom, $color-gradient-blue);
     }
     &[class*='--tertiary'] {
-        border: 1px solid $color-brand-slate;
+        @include border($color: $color-brand-slate);
         background: $color-white;
         background-image: none;
         color: $text-color-slate;
     }
+    &[class*='--text'] {
+        @include button-size($fontSize: $font-size-SM, $lineHeight: $button-height-small, $padding: $sizing-SM);
+        font-weight: $font-weight-bld;
+        background: none;
+        border: none;
+        color: $text-color-link;
+        text-transform: uppercase;
+
+        &:hover {
+            background: $color-off-white;
+            box-shadow: none;
+        }
+        &[class*='--muted'] {
+            color: $text-color-muted;
+        }
+    }
     &[class*='--small'] {
-        @include button-size($font-size-2, $button-height-small, $button-padding-small);
+        @include button-size($fontSize: $font-size-SM, $lineHeight: $button-height-small, $padding: $button-padding-small);
     }
     &[class*='--large'] {
-        @include button-size($font-size-4, $button-height-large, $button-padding-large);
+        @include button-size($lineHeight: $button-height-large, $padding: $button-padding-large);
     }
     &[class*='--raised'] {
         box-shadow: $elevation-1;
+    }
+    &[class*='--block'] {
+        width: 100%;
     }
     &:hover {
         box-shadow: $elevation-2;
     }
 }
-// Text Button
-[class^='vp-text-button'] {
-    @include button-base($fontWeight: $font-weight-bld);
-    @include button-size($font-size-2, $button-height-small, $sizing-SM);
-    background: none;
-    border: none;
-    color: $text-color-link;
-    text-transform: uppercase;
-    &[class*='--muted'] {
-        color: $text-color-muted;
-    }
-    &:hover {
-        background: $color-off-white;
-    }
-}
+
 // Button Group
 [class^='vp-grouped-button'] {
     @include button-base;
@@ -86,6 +93,7 @@ $button-padding-large: $button-height-large / 2;
     border-radius: 0;
     color: $text-color-muted;
     margin: 0 0;
+
     &:first-child {
         border-left: 1px solid $color-gray-light;
         border-radius: $border-radius-SM 0 0 $border-radius-SM;
@@ -95,15 +103,15 @@ $button-padding-large: $button-height-large / 2;
     }
     &[class*='--selected'] {
         border: 1px solid transparent;
-        color: $text-color-white;
+        color: $color-white;
         cursor: default;
         @include linear-gradient(to bottom, $color-gradient-blue);
     }
     &[class*='--small'] {
-        @include button-size($font-size-2, $button-height-small, $button-padding-small);
+        @include button-size($font-size-SM, $button-height-small, $button-padding-small);
     }
     &[class*='--large'] {
-        @include button-size($font-size-4, $button-height-large, $button-padding-large);
+        @include button-size($button-height-large, $button-padding-large);
     }
     &:hover {
         box-shadow: none;
@@ -112,13 +120,15 @@ $button-padding-large: $button-height-large / 2;
         background: $color-gray-highlight;
     }
 }
+
 // Button Elements
 .vp-button__icon {
     display: inline-block;
-    font-size: $font-size-6;
+    font-size: $font-size-2XL;
     margin-right: $sizing-SM;
+
     [class^='vp-button'][class*='--small'] & {
-        font-size: $font-size-5;
+        font-size: $font-size-XL;
         margin-right: $sizing-XS;
     }
 }

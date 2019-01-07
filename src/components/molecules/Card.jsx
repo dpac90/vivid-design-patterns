@@ -7,12 +7,14 @@ class Card extends React.Component {
         header: PropTypes.node,
         footer: PropTypes.node,
         type: PropTypes.oneOf(['standard', 'list', 'anchor']),
-        className: PropTypes.string
+        className: PropTypes.string,
+        onClick: PropTypes.func
     };
 
     static defaultProps = {
         className: '',
-        type: 'standard'
+        type: 'standard',
+        onClick: () => {}
     };
 
     static Footer({ className = '', children, centered = false, ...htmlAttributes }) {
@@ -43,12 +45,16 @@ class Card extends React.Component {
         );
     }
 
-    static Hero({ className = '', children, imageSrc }) {
-        return <div className={`vp-card__hero ${className}`} />;
+    static Hero({ className = '', desktopOnly = false, imageSrc }) {
+        if (desktopOnly) {
+            return <div className="vp-card__hero" style={{ backgroundImage: `url('${imageSrc}');` }} />;
+        }
+
+        return <img className="vp-card__hero__image" src={imageSrc} />;
     }
 
     render() {
-        const { className, type, children, ...htmlAttributes } = this.props;
+        const { className, type, children, onClick, ...htmlAttributes } = this.props;
         let cardClassNames = className;
 
         switch (type) {
@@ -66,7 +72,7 @@ class Card extends React.Component {
         }
 
         return (
-            <div className={cardClassNames} {...htmlAttributes}>
+            <div className={cardClassNames} onClick={onClick} {...htmlAttributes}>
                 {React.Children.map(children, child => {
                     if (typeof child.type === 'function') {
                         return child;

@@ -34,79 +34,79 @@ $fontFaces: (
 );
 $typeStyles: (
     headline1: (
-        $font-size-10,
+        $font-size-6XL,
         $font-weight-blk,
         $line-height-XS,
         null
     ),
     headline2: (
-        $font-size-9,
+        $font-size-5XL,
         $font-weight-blk,
         $line-height-XS,
         null
     ),
     headline3: (
-        $font-size-8,
+        $font-size-4XL,
         $font-weight-blk,
         $line-height-XS,
         null
     ),
     headline4: (
-        $font-size-7,
+        $font-size-3XL,
         $font-weight-blk,
         $line-height-XS,
         null
     ),
     headline5: (
-        $font-size-6,
+        $font-size-2XL,
         $font-weight-blk,
         $line-height-XS,
         null
     ),
     headline6: (
-        $font-size-5,
+        $font-size-XL,
         $font-weight-blk,
         $sizing-XL,
         null
     ),
     subtitle1: (
-        $font-size-6,
+        $font-size-2XL,
         $font-weight-reg,
         $line-height-SM,
         null
     ),
     subtitle2: (
-        $font-size-5,
+        $font-size-XL,
         $font-weight-reg,
         $line-height-MD,
         null
     ),
     body1: (
-        $font-size-4,
+        $font-size-LG,
         $font-weight-reg,
         $line-height-LG,
         null
     ),
     body2: (
-        $font-size-3,
+        $font-size-MD,
         $font-weight-reg,
         $line-height-LG,
         null
     ),
     small: (
-        $font-size-2,
+        $font-size-SM,
         $font-weight-reg,
         $line-height-SM,
         null
     ),
     subhead: (
-        $font-size-2,
+        $font-size-SM,
         $font-weight-blk,
         $line-height-MD,
         uppercase
     ),
     tiny: (
-        $font-size-1,
+        $font-size-XS,
         $font-weight-reg,
         $line-height-SM,
         null
@@ -143,7 +143,7 @@ $typeStyles: (
     display: inline-block;
     font-family: 'Material Icons';
     font-feature-settings: 'liga';
-    font-size: $font-size-6; /* Preferred icon size */
+    font-size: $font-size-2XL; /* Preferred icon size */
     font-style: normal;
     font-weight: normal;
     letter-spacing: normal;
@@ -246,7 +246,7 @@ a {
     }
 
     &[class*='--inverted'] {
-        color: $text-color-white;
+        color: $text-color-slate;
     }
     &[class*='--muted'] {
         color: $text-color-muted;
@@ -274,6 +274,6 @@ a {
 
 @include size-only-mobile {
     .vp-type-headline1 {
-        font-size: $font-size-8;
+        font-size: $font-size-4XL;
     }
 }
