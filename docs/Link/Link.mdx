@@ -11,17 +11,29 @@ import "./linkDocs.scss";
 ## Installation
 Using the react components:
 
-``` import Link from @vividseats/vivid-design-patterns/dist/atoms/Link ```
+    import Link from @vividseats/vivid-design-patterns/dist/atoms/Link
 
 Using the scss files:
 
-``` @import @vividseats/vivid-design-patterns/src/styles/link.scss ```
+    @import @vividseats/vivid-design-patterns/src/styles/link.scss
 
 ## Basic Usage
 `class="vp-type-link"`
 <Playground>
-<Link>Click</Link>
+  <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Click me</Link>
 </Playground>
 
 ## Props
 <PropsTable of={Link}/>
+
+## Sizing
+`class="vp-type-link --small"`
+<Playground>
+  <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" size="small">Click me</Link>
+</Playground>
+
+## Add custom class names
+`class="vp-type-link custom-class-name"`
+<Playground>
+  <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" className="custom-class-name">Click me</Link>
+</Playground>
