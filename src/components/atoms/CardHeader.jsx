@@ -1,20 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class CardHeader extends React.Component {
-    static propTypes = {
-        className: PropTypes.string
-    };
+const CardHeader = ({ className = '', children, ...htmlAttributes }) => {
+    return (
+        <div className={`vp-card__header ${className}`} {...htmlAttributes}>
+            {children}
+        </div>
+    );
+};
 
-    render() {
-        const { className = '', children, ...htmlAttributes } = this.props;
-
-        return (
-            <div className={`vp-card__header ${className}`} {...htmlAttributes}>
-                {children}
-            </div>
-        );
-    }
-}
+CardHeader.propTypes = {
+    className: PropTypes.string
+};
 
 export default CardHeader;
