@@ -11,7 +11,8 @@ const Link = ({ children, className, href, size }) => {
     };
 
     const aTagClassNames = classNames('vp-type-link', {
-        [`--${size}`]: size
+        [`--${size}`]: !!size,
+        [className]: !!className
     });
 
     return <a {...{ href, className: aTagClassNames }}>{children}</a>;
