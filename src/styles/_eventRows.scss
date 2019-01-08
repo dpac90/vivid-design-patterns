@@ -1,0 +1,115 @@
+// Tokens
+@import 'tokens';
+$column-button-width: 6.75rem;
+$column-date-width: 5rem;
+$column-thumb-width: 4.25rem;
+$column-thumb-margin: $sizing-MD;
+$row-height: 4.5rem;
+
+// Block
+.vp-event-row {
+    @include align-items(center);
+    @include border(bottom);
+    @include flex(0 1 auto);
+    @include flex-wrap(wrap);
+    @include transition(all $transition-1);
+    cursor: pointer;
+    margin-left: 0;
+    margin-right: 0;
+    min-height: $row-height;
+    padding: $sizing-SM 0;
+
+    @include size-min-tablet {
+        padding: $sizing-MD 0;
+        height: $row-height;
+    }
+    &:visible:last-child {
+        border: none;
+    }
+    &:hover {
+        background: $color-off-white;
+    }
+    &__button,
+    &__date,
+    &__info,
+    &__thumb {
+        @include flex;
+        @include flex-direction(column);
+        @include justify-content(center);
+    }
+    &__button,
+    &__date,
+    &__thumb {
+        @include flex-grow(0);
+    }
+    &__button {
+        display: none;
+        min-width: $column-button-width;
+        padding-right: $sizing-MD;
+        text-align: right;
+
+        @include size-min-tablet {
+            display: inherit;
+        }
+    }
+    &__date {
+        @include border(right);
+        padding: $sizing-2XS 0;
+        min-width: $column-date-width;
+
+        > * {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        + .vp-event-row__info {
+            max-width: calc(100% - #{$column-date-width});
+        }
+    }
+    &__info {
+        padding: $sizing-2XS $sizing-LG !important;
+
+        &__title {
+        }
+        &__subtitle {
+        }
+    }
+    &__thumb {
+        @include justify-content(flex-start);
+        border-radius: $border-radius-SM;
+        height: $sizing-3XL;
+        margin-left: $sizing-MD;
+        min-width: $column-thumb-width;
+        overflow: hidden;
+        padding: 0 0;
+
+        + .vp-event-row__info {
+            max-width: calc(100% - #{$column-thumb-width + $column-thumb-margin});
+            padding-left: $sizing-MD;
+        }
+    }
+}
+
+// Modifiers
+@include size-min-tablet {
+    .vp-event-row--has-button {
+        .vp-event-row__date + .vp-event-row__info {
+            max-width: calc(100% - #{$column-date-width + $column-button-width});
+        }
+        .vp-event-row__thumb + .vp-event-row__info {
+            max-width: calc(100% - #{$column-thumb-width + $column-button-width});
+        }
+    }
+}
+
+// EVENT ROWS THAT APPEAR WITHIN AN ANCHOR CARD
+// • Reduced padding to mobile size
+// • Background color doesn't change on hover
+.vp-event-row {
+    .vp-card--anchor & {
+        padding: $sizing-SM 0;
+
+        &:hover {
+            background: $color-white !important;
+        }
+    }
+}

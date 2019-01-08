@@ -1,0 +1,307 @@
+// Tokens
+@import 'tokens';
+
+// Mixins
+@mixin input-base() {
+    @include appearance(none);
+    @include transition(all $transition-1);
+    background-color: inherit;
+    border-color: $color-gray-light;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    box-shadow: none;
+    color: $text-color-default;
+    font-size: $font-size-MD;
+    font-weight: $font-weight-med;
+    height: $sizing-4XL;
+    outline: none;
+    padding: 0 $sizing-XS;
+    width: 100%;
+}
+@mixin outlined-input-base() {
+    border-radius: $border-radius-SM;
+    border-width: 1px;
+    padding: 0 $sizing-MD;
+}
+@mixin active-helper-text() {
+    height: auto;
+    opacity: 1;
+    padding-top: $sizing-SM;
+    visibility: visible;
+}
+@mixin active-label() {
+    background-color: inherit;
+    font-size: $font-size-SM;
+    font-weight: $font-weight-med;
+    line-height: $sizing-LG !important;
+    top: -$sizing-SM !important;
+
+    &:after,
+    &:before {
+        background-color: inherit;
+        content: '';
+        display: block;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        z-index: -1;
+    }
+    &:after {
+        height: calc(50% - 1px);
+        top: calc(#{$sizing-SM} + 1px);
+    }
+    &:before {
+        height: 50%;
+        top: 0;
+    }
+}
+
+// Blocks
+[class^='vp-select']:not([class*='__']),
+[class^='vp-textfield']:not([class*='__']) {
+    background-color: $color-white;
+    margin: $sizing-XL 0 $sizing-MD;
+    position: relative;
+    width: 100%;
+
+    &[class*='--outlined'] {
+        border-radius: $border-radius-SM;
+    }
+    &[data-validate] {
+        &[data-state*='error']:after {
+            @include position(absolute, 0, $sizing-SM, 0, null);
+            @include pseudo-icon('error', $text-color-error, $sizing-4XL, $margin: initial);
+        }
+        &[data-state*='success']:after {
+            @include position(absolute, 0, $sizing-SM, 0, null);
+            @include pseudo-icon('check_circle', $text-color-success, $sizing-4XL, $margin: initial);
+        }
+    }
+}
+[class^='vp-select']:not([class*='__']) {
+    &:after {
+        @include position(absolute, 0, $sizing-SM, 0, null);
+        @include pseudo-icon('arrow_drop_down');
+    }
+    &[data-state*='error']:after {
+        color: $text-color-error;
+    }
+}
+
+// Elements
+.vp-floating-label {
+    @include position(absolute, $sizing-SM, null, null, $sizing-XS);
+    @include transition(all $transition-1);
+    background-color: transparent;
+    color: $text-color-muted;
+    font-size: $font-size-MD;
+    line-height: $sizing-2XL;
+    pointer-events: none;
+    z-index: 1;
+
+    [class*='--outlined'] & {
+        left: $sizing-SM;
+        padding: 0 $sizing-XS;
+    }
+    [data-state*='error'] & {
+        color: $text-color-error !important;
+    }
+    [data-state*='success'] & {
+        color: $text-color-success !important;
+    }
+    :focus + &,
+    :-webkit-autofill + &,
+    [data-state*='filled'] & {
+        @include active-label;
+    }
+    :-webkit-autofill + & {
+        &:after {
+            background-color: rgb(250, 255, 189) !important;
+        }
+    }
+}
+
+[class^='vp-select__control'] {
+    @include input-base;
+    cursor: pointer;
+
+    &:required:invalid {
+        color: $color-gray-medium;
+
+        [data-state*='error'] & {
+            color: $text-color-error !important;
+        }
+    }
+
+    [class*='--outlined'] & {
+        @include outlined-input-base;
+    }
+    &[class*='--medium'] {
+        height: $sizing-3XL;
+
+        + .vp-floating-label {
+            top: $sizing-XS;
+        }
+    }
+    &[class*='--small'] {
+        font-size: $font-size-SM;
+        height: $sizing-2XL;
+
+        + .vp-floating-label {
+            top: $sizing-XS;
+            line-height: $sizing-XL;
+        }
+    }
+}
+
+[class^='vp-textfield__input'] {
+    @include input-base;
+
+    [class*='--outlined'] & {
+        @include outlined-input-base;
+    }
+}
+textarea[class^='vp-textfield__input'] {
+    height: auto;
+    min-height: calc(#{$sizing-4XL} * 2);
+    padding: $sizing-MD !important;
+    resize: vertical;
+}
+[class^='vp-textfield__trailing-icon'] {
+    @include position(absolute, 0, $sizing-SM, 0, null);
+    color: $color-gray;
+    cursor: pointer;
+    height: $sizing-4XL;
+    line-height: $sizing-4XL;
+    margin: initial;
+
+    span {
+        font-size: $font-size-SM;
+        font-weight: $font-weight-med;
+        color: $text-color-muted;
+    }
+}
+
+// Feedback States
+[class^='vp-select__control'],
+[class^='vp-textfield__input'] {
+    &:disabled {
+        border-color: $color-gray;
+        border-style: dashed;
+        color: $color-gray;
+        cursor: not-allowed;
+    }
+    [data-state*='error'] & {
+        border-color: $color-state-error !important;
+        color: $color-state-error !important;
+    }
+    [data-state*='success'] & {
+        border-color: $color-state-success !important;
+        color: $color-state-success !important;
+    }
+    &:focus {
+        border-color: $color-brand-blue;
+        color: $text-color-default;
+
+        + .vp-floating-label {
+            color: $color-brand-blue;
+        }
+        ~ .vp-helper-text:not([class*='--validation']) {
+            @include active-helper-text;
+        }
+    }
+}
+
+// Outlined Input Modifiers
+[class*='--outlined'] {
+    [class^='vp-select__control']:disabled {
+        box-shadow: 0 0 0 1000px $color-gray-highlight inset;
+        color: $color-gray-medium;
+
+        + .vp-floating-label:after {
+            background-color: $color-gray-highlight !important;
+        }
+    }
+}
+
+// dark background form elements
+.vp-form--inverted {
+    [class^='vp-textfield']:not([class*='__']) {
+        background-color: inherit;
+    }
+    [class^='vp-select']:not([class*='__']) {
+        background-color: inherit;
+
+        &:after {
+            color: $color-gray-light;
+        }
+    }
+
+    [class^='vp-select__control'],
+    [class^='vp-textfield__input'] {
+        border-color: $color-gray-light;
+        color: $color-white;
+
+        &:disabled {
+            border-color: rgba($color-white, 0.35);
+            color: $color-gray;
+        }
+        &:-webkit-autofill {
+            background-color: inherit !important;
+            color: inherit !important;
+        }
+    }
+    .vp-floating-label {
+        color: white;
+    }
+
+    [class*='--outlined'] {
+        [class^='vp-select__control']:disabled {
+            box-shadow: 0 0 0 1000px rgba($color-black, 0.3) inset;
+            color: rgba($color-white, 0.5);
+
+            + .vp-floating-label {
+                color: rgba($color-white, 0.5);
+                &:after {
+                    background-color: rgba($color-black, 0.3) !important;
+                }
+            }
+        }
+    }
+}
+
+[class^='vp-helper-text'] {
+    @include transition(all $transition-1);
+    color: $text-color-muted;
+    display: block;
+    font-size: $font-size-SM;
+    height: 0;
+    line-height: $line-height-XS;
+    opacity: 0;
+    padding-left: $sizing-XS;
+    padding-right: $sizing-XS;
+    visibility: hidden;
+
+    [class*='--outlined'] & {
+        padding-left: $sizing-MD;
+        padding-right: $sizing-MD;
+    }
+    &[class*='--validation'] {
+        [data-state*='error'] & {
+            @include active-helper-text;
+            color: $text-color-error;
+        }
+        [data-state*='success'] & {
+            @include active-helper-text;
+            color: $text-color-success;
+        }
+    }
+}
+
+select::-ms-expand {
+    display: none;
+}
+.vp-textfield--nested-button [type='submit'] {
+    @include position(absolute, $sizing-SM, $sizing-SM, null, null);
+}

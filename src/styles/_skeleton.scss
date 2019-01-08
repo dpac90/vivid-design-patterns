@@ -1,0 +1,39 @@
+// Tokens
+@import 'tokens';
+
+$animation-width: 600px;
+
+.vp-skeleton:hover {
+    background: inherit;
+    cursor: default;
+}
+.vp-skeleton > * {
+    border-color: $color-gray-highlight;
+}
+[class^='vp-skeleton__line'] {
+    $skeletonGradient: $color-gray-highlight 0px, $color-gray-light 48px, $color-gray-highlight 96px;
+    @include linear-gradient(90deg, $skeletonGradient);
+    animation: loading 2s infinite ease-in-out;
+    background-size: $animation-width;
+    border-radius: $border-radius-SM;
+    height: $sizing-MD;
+    margin-bottom: $sizing-2XS;
+    margin-top: $sizing-2XS;
+    width: 100%;
+
+    &[class*='--60'] {
+        width: 60%;
+    }
+    &[class*='--80'] {
+        width: 80%;
+    }
+}
+@keyframes loading {
+    0% {
+        background-position: -100px;
+    }
+    40%,
+    100% {
+        background-position: $animation-width / 2;
+    }
+}

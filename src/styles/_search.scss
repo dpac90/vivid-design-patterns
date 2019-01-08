@@ -1,0 +1,53 @@
+// Tokens
+@import 'tokens';
+
+.vp-search {
+    width: 100%;
+}
+.vp-search-field {
+    position: relative;
+    margin: $sizing-SM $sizing-LG;
+}
+[class*='vp-search-field__icon'] {
+    color: $color-gray-medium;
+    line-height: $sizing-3XL;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+}
+.vp-search-field__icon-search {
+    left: $sizing-LG;
+    pointer-events: none;
+}
+.vp-search-field__icon-close {
+    cursor: pointer;
+    display: none;
+    font-size: $font-size-XL;
+    right: $sizing-SM;
+
+    @include size-min-tablet {
+        display: none !important;
+    }
+}
+.vp-search-field__input {
+    @include border;
+    background: $color-off-white;
+    border-radius: $border-radius-XL;
+    box-shadow: none;
+    color: $text-color-muted;
+    display: block;
+    font-size: $font-size-MD;
+    height: $sizing-3XL;
+    outline: none;
+    padding: 0 $sizing-2XL 0 $sizing-3XL;
+    position: relative;
+    width: 336px;
+    z-index: 1;
+
+    &:active,
+    &:focus {
+        color: $text-color-default;
+    }
+}
+
+@import '../twitterTypeahead';

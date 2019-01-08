@@ -1,0 +1,50 @@
+// Tokens
+@import 'tokens';
+
+@mixin collapse-base($titlePadding: $sizing-MD, $indicatorPos: $sizing-SM, $indicatorDisplay: none) {
+    .vp-collapse__title {
+        cursor: pointer;
+        padding: $titlePadding 0;
+
+        &:after {
+            @include position(absolute, $indicatorPos, 0, null, null);
+            @include pseudo-icon('keyboard_arrow_up');
+            @include transition(all $transition-1);
+            display: $indicatorDisplay;
+        }
+    }
+    .vp-collapse__content {
+        @include transition(max-height $transition-3);
+        height: auto;
+        max-height: 99rem;
+        overflow: hidden;
+    }
+    .vp-collapse__trigger:checked {
+        ~ .vp-collapse__title:after {
+            transform: rotate(180deg);
+        }
+        ~ .vp-collapse__content {
+            max-height: 0;
+        }
+    }
+}
+
+// Defaults
+.vp-collapse__title {
+    display: block;
+    padding: $sizing-MD 0;
+    position: relative;
+
+    .vp-collapse__indicator {
+        display: none;
+    }
+}
+.vp-collapse {
+    @include collapse-base;
+}
+.vp-collapse--mobile {
+    @include size-only-mobile {
+        @include border(top);
+        @include collapse-base($titlePadding: $sizing-LG, $indicatorPos: $sizing-MD, $indicatorDisplay: inline-block);
+    }
+}

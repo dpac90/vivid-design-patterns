@@ -1,0 +1,35 @@
+// Tokens
+@import 'tokens';
+
+// only appears on mobile
+@include size-only-mobile {
+    [class^='vp-fab'] {
+        @include flex;
+        @include justify-content(center);
+        @include position(fixed, null, null, $sizing-XL, null);
+        @include transition(bottom $transition-2);
+        background-color: $color-white;
+        box-shadow: $elevation-3;
+        border: 1px solid $color-gray-light;
+        border-radius: $border-radius-XL;
+        font-weight: 700;
+        height: $sizing-5XL !important;
+        max-width: calc(100% - #{$sizing-6XL});
+        opacity: 0;
+        overflow: hidden;
+        z-index: $z-index-fab;
+
+        > * {
+            padding: 0 1rem;
+        }
+        i {
+            color: $text-color-link;
+        }
+    }
+    .vp-fab--double > :first-child {
+        @include border(right);
+    }
+    .scroll-hide {
+        bottom: -#{$sizing-6XL};
+    }
+}
