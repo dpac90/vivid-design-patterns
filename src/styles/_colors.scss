@@ -47,8 +47,9 @@ $overlays: (
 );
 .vp-overlay {
     @each $name, $attr in $overlays {
+        $gradient: rgba(nth($attr, 2), 0), nth($attr, 2);
         &-#{$name} {
-            @include linear-gradient(nth($attr, 1), rgba(nth($attr, 2), 0), nth($attr, 2));
+            @include linear-gradient(nth($attr, 1), $gradient);
         }
     }
 }

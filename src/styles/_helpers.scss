@@ -53,10 +53,10 @@ $spacingTypes: m, p;
 
                     &-#{nth($spacingSize, 1)} {
                         @if $type == m {
-                            @include margin($settings);
+                            margin: $settings;
                         }
                         @if $type == p {
-                            @include padding($settings);
+                            padding: $settings;
                         }
                     }
                 }
@@ -90,7 +90,7 @@ table {
     }
 }
 .vp-banner {
-    @include display(flex);
+    @include flex;
     @include justify-content(center);
 }
 .vp-inline-group {
@@ -98,12 +98,11 @@ table {
 }
 
 .vp-flex-column {
-    @include display(flex);
     @include flex(1);
     @include flex-direction(column);
 }
 .vp-flex-center {
-    @include display(flex);
+    @include flex;
     @include flex-direction(column);
     @include justify-content(center);
     height: 100%;

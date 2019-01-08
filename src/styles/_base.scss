@@ -1,9 +1,8 @@
-$output-bourbon-deprecation-warnings: false !default;
-@import 'bourbon';
-
 @import 'tokens';
-@import 'colors';
 @import 'mixins';
+@import 'prefixes';
+
+@import 'colors';
 @import 'helpers';
 @import 'layout';
 @import 'typography';

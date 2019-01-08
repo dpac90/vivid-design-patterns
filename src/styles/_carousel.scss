@@ -33,7 +33,7 @@ $carousel-height: 280px;
         &.active,
         &.next,
         &.prev {
-            @include display(flex);
+            @include flex;
         }
         &.prev {
             left: -100%;

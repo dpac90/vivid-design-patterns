@@ -10,18 +10,17 @@ $row-height: 4.5rem;
 .vp-event-row {
     @include align-items(center);
     @include border(bottom);
-    @include display(flex);
     @include flex(0 1 auto);
     @include flex-wrap(wrap);
-    @include padding($sizing-SM 0);
     @include transition(all $transition-1);
     cursor: pointer;
     margin-left: 0;
     margin-right: 0;
     min-height: $row-height;
+    padding: $sizing-SM 0;
 
     @include size-min-tablet {
-        @include padding($sizing-MD 0);
+        padding: $sizing-MD 0;
         height: $row-height;
     }
     &:visible:last-child {
@@ -34,7 +33,7 @@ $row-height: 4.5rem;
     &__date,
     &__info,
     &__thumb {
-        @include display(flex);
+        @include flex;
         @include flex-direction(column);
         @include justify-content(center);
     }
@@ -55,7 +54,7 @@ $row-height: 4.5rem;
     }
     &__date {
         @include border(right);
-        @include padding($sizing-2XS 0);
+        padding: $sizing-2XS 0;
         min-width: $column-date-width;
 
         > * {
@@ -67,7 +66,7 @@ $row-height: 4.5rem;
         }
     }
     &__info {
-        @include padding($sizing-2XS $sizing-LG !important);
+        padding: $sizing-2XS $sizing-LG !important;
 
         &__title {
         }
@@ -107,7 +106,7 @@ $row-height: 4.5rem;
 // • Background color doesn't change on hover
 .vp-event-row {
     .vp-card--anchor & {
-        @include padding($sizing-SM 0);
+        padding: $sizing-SM 0;
 
         &:hover {
             background: $color-white !important;
