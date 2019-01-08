@@ -4,13 +4,20 @@ import CardBody from '../atoms/CardBody';
 import CardFooter from '../atoms/CardFooter';
 import CardHeader from '../atoms/CardHeader';
 import CardHero from '../atoms/CardHero';
+
 class Card extends React.Component {
     static propTypes = {
         header: PropTypes.node,
+        role: props => {
+            if (props.type === 'anchor' && !props.role) {
+                return new Error('Card components with type anchor must contain role attribute to provide accessibility');
+            }
+        },
         footer: PropTypes.node,
         type: PropTypes.oneOf(['standard', 'list', 'anchor']),
         className: PropTypes.string,
-        onClick: PropTypes.func
+        onClick: PropTypes.func,
+        children: PropTypes.node.isRequired
     };
 
     static defaultProps = {
@@ -20,12 +27,22 @@ class Card extends React.Component {
     };
 
     static Footer = CardFooter;
+
     static Header = CardHeader;
+
     static Body = CardBody;
+
     static Hero = CardHero;
 
+    onKeyPress = e => {
+        const { onClick } = this.props;
+        if (e.keyCode === 13) {
+            onClick();
+        }
+    };
+
     render() {
-        const { className, type, children, onClick, ...htmlAttributes } = this.props;
+        const { className, type, children, onClick, role, ...htmlAttributes } = this.props;
         let cardClassNames = className;
 
         switch (type) {
@@ -43,13 +60,13 @@ class Card extends React.Component {
         }
 
         return (
-            <div className={cardClassNames} onClick={onClick} {...htmlAttributes}>
+            <div className={cardClassNames} role={role} onClick={onClick} onKeyPress={this.onKeyPress} {...htmlAttributes}>
                 {React.Children.map(children, child => {
                     if (typeof child.type === 'function') {
                         return child;
-                    } else {
-                        return <Card.Body>{child}</Card.Body>;
                     }
+
+                    return <Card.Body>{child}</Card.Body>;
                 })}
             </div>
         );

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const CardFooter = ({ className = '', children, centered = false, ...htmlAttributes }) => {
     const footerClassNames = classNames(`vp-card__footer ${className}`, {
-        ['--centered']: centered
+        '--centered': centered
     });
 
     return (
@@ -15,6 +15,7 @@ const CardFooter = ({ className = '', children, centered = false, ...htmlAttribu
 };
 
 CardFooter.propTypes = {
+    children: PropTypes.node.isRequired,
     className: PropTypes.string,
     /**  Center elements within the footer */
     centered: PropTypes.bool
