@@ -1,0 +1,23 @@
+// Tokens
+@import 'tokens';
+
+[class^='vp-backdrop'] {
+    @include position(fixed, 0, null, null, 0);
+    @include transition(all $transition-2);
+    background-color: rgba($color-black, 0.75);
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    width: 100%;
+    z-index: $z-index-backdrop;
+
+    &[data-state='visible'] {
+        opacity: 1;
+        pointer-events: all;
+    }
+    // Sibling element transitions
+    [data-state='closing'] ~ &,
+    [data-state='opening'] ~ & {
+        @include transition(all $transition-2);
+    }
+}
