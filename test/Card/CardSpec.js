@@ -27,20 +27,20 @@ describe('<Card />', () => {
     describe('<Card.Hero/>', () => {
         it('renders a div with an img child element', () => {
             const imageSrc = 'https://a.vsstatic.com/mobile/app/mlb/washington-nationals.jpg';
-            const wrapper = mount(<Card.Hero imageSrc={imageSrc} />);
+            const wrapper = mount(<Card.Hero imageSrc={imageSrc} alt="Quite the vivid picture, no?" />);
             expect(wrapper.find('img').props()['src']).toBe(imageSrc);
         });
 
         it('renders a div with a styled background image', () => {
             const imageSrc = 'https://a.vsstatic.com/mobile/app/mlb/washington-nationals.jpg';
-            const wrapper = shallow(<Card.Hero imageSrc={imageSrc} loadImageViaCss />);
+            const wrapper = shallow(<Card.Hero imageSrc={imageSrc} loadImageViaCss alt="Quite the vivid picture, no?" />);
             expect(wrapper.find('div').props()['style']).toHaveProperty('backgroundImage', `url('${imageSrc}');`);
         });
     });
 
     describe('<Card.Footer />', () => {
         it('renders a div with a centered class', () => {
-            const wrapper = mount(<Card.Footer centered />);
+            const wrapper = mount(<Card.Footer centered>Footing all-day.</Card.Footer>);
             expect(wrapper.find('div').hasClass('--centered')).toBe(true);
         });
     });
@@ -76,15 +76,16 @@ describe('<Card />', () => {
     it('renders an anchor card which is clickable', () => {
         const mockOnClick = jest.fn();
         const wrapper = mount(
-            <Card type="anchor" onClick={mockOnClick}>
+            <Card type="anchor" onClick={mockOnClick} role="Anchor">
                 <Card.Header>Anchor Card</Card.Header>
                 <Card.Body>Might as well live in Anchorage, Alaska, 'cuz I'm anchored all day.</Card.Body>
             </Card>
         );
         const cardAnchor = wrapper.find('.vp-card--anchor');
         cardAnchor.simulate('click');
+        cardAnchor.simulate('click', { key: 'Enter' });
         expect(cardAnchor.exists()).toBe(true);
-        expect(mockOnClick).toHaveBeenCalledTimes(1);
+        expect(mockOnClick).toHaveBeenCalledTimes(2);
     });
 
     it('renders a card with subcomponents', () => {
