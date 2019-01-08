@@ -11,11 +11,11 @@ import "./linkDocs.scss";
 ## Installation
 Using the react components:
 
-    import Link from @vividseats/vivid-design-patterns/dist/atoms/Link
+    import Link from '@vividseats/vivid-design-patterns/dist/atoms/Link';
 
 Using the scss files:
 
-    @import @vividseats/vivid-design-patterns/src/styles/link.scss
+    @import "@vividseats/vivid-design-patterns/src/styles/link.scss";
 
 ## Basic Usage
 `class="vp-type-link"`
@@ -25,6 +25,12 @@ Using the scss files:
 
 ## Props
 <PropsTable of={Link}/>
+
+## Add custom onClick function
+`onClick=[Function]`
+<Playground>
+  <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" onClick={function(e) { e.preventDefault(); alert('Hello'); }}>Trigger alert</Link>
+</Playground>
 
 ## Add custom class names
 `class="vp-type-link custom"` `class="vp-type-link --inverted"` `class="vp-type-link --muted"`

@@ -1,19 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import onEnterKey from '../../onEnterKey';
 
-const Link = ({ children, className, href }) => {
+const Link = ({ children, className, href, onClick, ...attributes }) => {
     Link.propTypes = {
         children: PropTypes.node,
         className: PropTypes.string,
-        href: PropTypes.string.isRequired
+        href: PropTypes.string.isRequired,
+        onClick: PropTypes.func
     };
 
-    const aTagClassNames = classNames('vp-type-link', {
-        [className]: !!className
-    });
+    const props = {
+        href,
+        onClick,
+        onKeyPress: onEnterKey.call(null, onClick),
+        className: classNames('vp-type-link', {
+            [className]: !!className
+        }),
+        ...attributes
+    };
 
-    return <a {...{ href, className: aTagClassNames }}>{children}</a>;
+    return <a {...props}>{children}</a>;
 };
 
 export default Link;
