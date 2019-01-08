@@ -1,5 +1,5 @@
 import React from 'react';
-import { getTypeClassNames } from '../../utils/typographyUtils';
+import { getTypeClassNames, getTypographyPropTypes } from '../../utils/typographyUtils';
 const Headline = ({
     children,
     className,
@@ -56,7 +56,8 @@ const Headline = ({
 };
 
 Headline.propTypes = {
-    importance: PropTypes.oneOf([1, 2, 3, 4, 5, 6])
+    importance: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
+    ...getTypographyPropTypes()
 };
 
 export default Headline;
