@@ -47,6 +47,7 @@ const Button = ({
 };
 
 Button.propTypes = {
+    children: PropTypes.node,
     /** html button types eg submit, reset, button` */
     type: PropTypes.string,
     /** block property makes button 100% */

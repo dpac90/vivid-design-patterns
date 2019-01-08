@@ -41,10 +41,10 @@ Using the scss files:
         <p className="vp-type-body1">There's messages in every game. Like Pac-Man. Do you know what PAC stands for? P-A-C: "program and control." He's Program and Control Man the whole things a metaphor, he thinks he's got free will but really he's trapped in a maze, in a system, all he can do is consume, he's pursued by demons that are probably just in his own head, and even if he does manage to escape by slipping out one side of the maze, what happens? He comes right back in the other side.</p>
         </Card.Body>
         <Card.Footer>
-            <Button type='text' muted>
+            <Button importance='text' muted>
                 Sugar puffs
             </Button>
-            <Button type='text'>
+            <Button importance='text'>
                 Frosties
             </Button>
         </Card.Footer>
@@ -79,7 +79,7 @@ is the same as
 Hero images you can place within the card.
 <Playground>
     <Card>
-        <Card.Hero imageSrc="https://a.vsstatic.com/mobile/app/mlb/washington-nationals.jpg"/>
+        <Card.Hero imageSrc="https://a.vsstatic.com/mobile/app/mlb/washington-nationals.jpg" alt="Washington Nationals Baseball Stadium"/>
         <Card.Footer centered>
             <Button importance="text">Click me</Button>
             <Button importance="text" muted>Click me</Button>
@@ -91,7 +91,7 @@ Hero images you can place within the card.
 
 ## Other Card Types
 ### List Cards
-Add a border on the title to match borders within list items.
+Adds a border on the title to match borders within list items.
 <Playground>
     <Card type="list">
         <Card.Header>
@@ -111,7 +111,7 @@ Add a border on the title to match borders within list items.
 Cards that are clickable with navigation and presents a hover effect.
 
 <Playground>
-    <Card type="anchor">
+    <Card type="anchor" role="link">
         <Card.Header>
             <h5 className="vp-type-headline6">Anchor Card</h5>
         </Card.Header>
