@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-
+import CardBody from '../atoms/CardBody';
+import CardFooter from '../atoms/CardFooter';
+import CardHeader from '../atoms/CardHeader';
+import CardHero from '../atoms/CardHero';
 class Card extends React.Component {
     static propTypes = {
         header: PropTypes.node,
@@ -17,41 +19,10 @@ class Card extends React.Component {
         onClick: () => {}
     };
 
-    static Footer({ className = '', children, centered = false, ...htmlAttributes }) {
-        const footerClassNames = classNames(`vp-card__footer ${className}`, {
-            ['--centered']: centered
-        });
-
-        return (
-            <div className={footerClassNames} {...htmlAttributes}>
-                {children}
-            </div>
-        );
-    }
-
-    static Header({ className = '', children, ...htmlAttributes }) {
-        return (
-            <div className={`vp-card__header ${className}`} {...htmlAttributes}>
-                {children}
-            </div>
-        );
-    }
-
-    static Body({ className = '', children, ...htmlAttributes }) {
-        return (
-            <div className={`vp-card__body ${className}`} {...htmlAttributes}>
-                {children}
-            </div>
-        );
-    }
-
-    static Hero({ className = '', desktopOnly = false, imageSrc }) {
-        if (desktopOnly) {
-            return <div className="vp-card__hero" style={{ backgroundImage: `url('${imageSrc}');` }} />;
-        }
-
-        return <img className="vp-card__hero__image" src={imageSrc} />;
-    }
+    static Footer = CardFooter;
+    static Header = CardHeader;
+    static Body = CardBody;
+    static Hero = CardHero;
 
     render() {
         const { className, type, children, onClick, ...htmlAttributes } = this.props;
