@@ -17,6 +17,8 @@ function getTypeClassNames(baseClassName, { weight, height, state, alignment, ca
 
 function getTypographyPropTypes() {
     return {
+        className: PropTypes.string,
+        children: PropTypes.node,
         weight: PropTypes.oneOf(['black', 'bold', 'medium']),
         height: PropTypes.oneOf(['compressed', 'expanded']),
         state: PropTypes.oneOf(['disabled, inverted, muted']),
