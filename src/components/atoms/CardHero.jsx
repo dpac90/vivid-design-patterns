@@ -18,12 +18,12 @@ const CardHero = ({ className = '', loadImageViaCss = false, imageSrc, alt, ...h
 };
 
 CardHero.propTypes = {
-    /** alt text for hero image */
+    /** Alt text for hero image */
     alt: PropTypes.string.isRequired,
     className: PropTypes.string,
     /** Hero image url */
     imageSrc: PropTypes.string.isRequired,
-    /** This property defines whether the hero image is loaded  via an image tag or a backgroundImage style property via css */
+    /** Defines whether the hero image is loaded  via an image tag or a backgroundImage style property via css */
     loadImageViaCss: PropTypes.bool
 };
 

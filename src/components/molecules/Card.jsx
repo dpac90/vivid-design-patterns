@@ -7,15 +7,15 @@ import CardHero from '../atoms/CardHero';
 
 class Card extends React.Component {
     static propTypes = {
-        header: PropTypes.node,
+        /** html attribute role must be provided if Card is of type anchor. Role prop should be of type string */
         role: props => {
             if (props.type === 'anchor' && !props.role) {
                 return new Error('Card components with type anchor must contain role attribute to provide accessibility');
             }
         },
-        footer: PropTypes.node,
         type: PropTypes.oneOf(['standard', 'list', 'anchor']),
         className: PropTypes.string,
+        /** this method is also called upon when users presses the enter key on the card element */
         onClick: PropTypes.func,
         children: PropTypes.node.isRequired
     };
