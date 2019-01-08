@@ -1,0 +1,36 @@
+---
+    name: Link
+---
+
+import { PropsTable, Playground } from 'docz'
+import Link from '../../src/components/atoms/Link';
+import "../../src/styles/_link.scss";
+import "./linkDocs.scss";
+
+## Installation
+Using the react components:
+
+``` import Link from @vividseats/vivid-design-patterns/dist/atoms/Link ```
+
+Using the scss files:
+
+``` @import @vividseats/vivid-design-patterns/src/styles/link.scss ```
+
+## Basic Usage
+`class="vp-type-link"`
+<Playground>
+<Link>Click</Link>
+</Playground>
+
+## Props
+<PropsTable of={Link}/>
+
+## Attributes
+
+### Miscellaneous
+`class="vp-button--raised"`
+`class="vp-button--disabled"`
+<Playground>
+    <Link raised>Raised</Link>
+    <Link disabled>Disabled</Link>
+</Playground>

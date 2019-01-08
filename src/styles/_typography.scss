@@ -1,4 +1,5 @@
 @import '_tokens';
+@import '_prefixes';
 
 $fontFaces: (
     RobotoRegular: (
@@ -171,7 +172,8 @@ $typeStyles: (
 // Build Base Type Styles
 @each $style, $attr in $typeStyles {
     [class^='vp-type-#{$style}'] {
-        @include margin(0 null);
+        margin-top: 0;
+        margin-bottom: 0;
         font-size: nth($attr, 1);
         font-weight: nth($attr, 2);
         line-height: nth($attr, 3);
@@ -230,7 +232,8 @@ a {
 [class^='vp-type'] {
     @each $style, $attr in $typeStyles {
         &[class^='--#{$style}'] {
-            @include margin(0 null);
+            margin-top: 0;
+            margin-bottom: 0;
             font-size: nth($attr, 1);
             font-weight: nth($attr, 2);
             line-height: nth($attr, 3);
