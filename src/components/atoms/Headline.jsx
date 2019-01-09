@@ -53,7 +53,7 @@ const Headline = ({
         case 6: {
             return <h6 {...attributes}>{children}</h6>;
         }
-        default : {
+        default: {
             return <h1 {...attributes}>{children}</h1>;
         }
     }
