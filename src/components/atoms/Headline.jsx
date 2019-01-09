@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getTypeClassNames, TYPOGRAPHY_PROP_TYPES } from '../../utils/typographyUtils';
+
 const Headline = ({
     children,
     className = '',
@@ -50,6 +51,9 @@ const Headline = ({
         }
 
         case 6: {
+            return <h6 {...attributes}>{children}</h6>;
+        }
+        default : {
             return <h1 {...attributes}>{children}</h1>;
         }
     }
