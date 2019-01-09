@@ -1,18 +1,19 @@
 import React from 'react';
 import { getTypeClassNames, TYPOGRAPHY_PROP_TYPES } from '../../utils/typographyUtils';
 
-const Subhead = ({ children, className = '', weight, height, state, alignment, capitalization, truncate, list, ...htmlAttributes }) => {
-    const baseClassName = getTypeClassNames('vp-type-subhead', {
+const Subhead = ({ children, className, weight, height, state, alignment, capitalization, truncate, list, ...htmlAttributes }) => {
+    const classNames = getTypeClassNames('vp-type-subhead', {
         weight,
         height,
         state,
         alignment,
         capitalization,
         truncate,
-        list
+        list,
+        className
     });
     const attributes = {
-        className: `${baseClassName} ${className}`,
+        className: classNames,
         ...htmlAttributes
     };
 

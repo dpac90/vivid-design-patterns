@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-function getTypeClassNames(baseClassName, { weight, height, state, alignment, capitalization, truncate, list }) {
+function getTypeClassNames(baseClassName, { weight, height, state, alignment, capitalization, truncate, list, className }) {
     return classNames(baseClassName, {
+        [className]: className,
         '--blk': weight === 'blk' || weight === 'black',
         '--bold': weight === 'bld' || weight === 'bold',
         '--med': weight === 'med' || weight === 'medium',

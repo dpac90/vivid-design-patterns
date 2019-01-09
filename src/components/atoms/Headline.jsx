@@ -4,7 +4,7 @@ import { getTypeClassNames, TYPOGRAPHY_PROP_TYPES } from '../../utils/typography
 
 const Headline = ({
     children,
-    className = '',
+    className,
     importance = 1,
     weight,
     height,
@@ -15,17 +15,18 @@ const Headline = ({
     list,
     ...htmlAttributes
 }) => {
-    const baseClassName = getTypeClassNames(`vp-type-headline${importance}`, {
+    const classNames = getTypeClassNames(`vp-type-headline${importance}`, {
         weight,
         height,
         state,
         alignment,
         capitalization,
         truncate,
-        list
+        list,
+        className
     });
     const attributes = {
-        className: `${baseClassName} ${className}`,
+        className: classNames,
         ...htmlAttributes
     };
 

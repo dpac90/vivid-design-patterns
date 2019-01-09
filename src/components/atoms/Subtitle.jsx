@@ -4,7 +4,7 @@ import { getTypeClassNames, TYPOGRAPHY_PROP_TYPES } from '../../utils/typography
 
 const Subtitle = ({
     children,
-    className = '',
+    className,
     importance = 1,
     weight,
     height,
@@ -15,18 +15,18 @@ const Subtitle = ({
     list,
     ...htmlAttributes
 }) => {
-    const baseClassName = getTypeClassNames(`vp-type-subtitle${importance}`, {
+    const classNames = getTypeClassNames(`vp-type-subtitle${importance}`, {
         weight,
         height,
         state,
         alignment,
         capitalization,
         truncate,
-        list
+        list,
+        className
     });
     const attributes = {
-        className: `${baseClassName} ${className}`,
-        ...htmlAttributes
+        className: classNames
     };
 
     return <p {...attributes}>{children}</p>;
