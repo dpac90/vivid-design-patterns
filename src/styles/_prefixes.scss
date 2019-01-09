@@ -1,4 +1,11 @@
 // === Standard layout & styling
+@mixin appearance($val) {
+    -webkit-appearance: $val;
+    -moz-appearance: $val;
+    -ms-appearance: $val;
+    -o-appearance: $val;
+    appearance: $val;
+}
 @mixin linear-gradient($angle, $gradient) {
     background-color: nth($gradient, 1); /* Fallback Color */
     background-image: -webkit-gradient(linear, $angle, from(nth($gradient, 1)), to(nth($gradient, 2))); /* Saf4+, Chrome */
@@ -8,6 +15,99 @@
     background-image: -o-linear-gradient($angle, $gradient); /* Opera 11.10+ */
     background-image: linear-gradient($angle, $gradient);
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=$angle,StartColorStr='#{nth($gradient,1)}', EndColorStr='#{nth($gradient,2)}');
+}
+
+// === Flexbox
+@mixin flex($v: null) {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    @if ($v) {
+        -ms-flex: $v;
+        flex: $v;
+    }
+}
+@mixin flex-basis($i) {
+    -ms-flex-preferred-size: $i;
+    flex-basis: $i;
+}
+@mixin flex-direction($d) {
+    -webkit-box-orient: if($d == 'row', horizontal, vertical);
+    -webkit-box-direction: normal;
+    -ms-flex-direction: $d;
+    flex-direction: $d;
+}
+@mixin flex-grow($i) {
+    -webkit-box-flex: $i;
+    -ms-flex-positive: $i;
+    flex-grow: $i;
+}
+@mixin flex-shrink($i) {
+    -ms-flex-negative: $i;
+    flex-shrink: $i;
+}
+@mixin flex-wrap($v) {
+    -ms-flex-wrap: $v;
+    flex-wrap: $v;
+}
+@mixin align-content($v) {
+    $pre-v: $v;
+    @if ($v == 'flex-start') {
+        $pre-v: 'start';
+    }
+    @if ($v == 'flex-end') {
+        $pre-v: 'end';
+    }
+    @if ($v == 'space-around') {
+        $pre-v: 'distribute';
+    }
+    @if ($v == 'space-between') {
+        $pre-v: 'justify';
+    }
+    -ms-flex-line-pack: $pre-v;
+    align-content: $v;
+}
+@mixin align-items($v) {
+    $pre-v: $v;
+    @if ($v == 'flex-start') {
+        $pre-v: 'start';
+    }
+    @if ($v == 'flex-end') {
+        $pre-v: 'end';
+    }
+    -webkit-box-align: $pre-v;
+    -ms-flex-align: $pre-v;
+    align-items: $v;
+}
+@mixin align-self($v) {
+    $pre-v: $v;
+    @if ($v == 'flex-start') {
+        $pre-v: 'start';
+    }
+    @if ($v == 'flex-end') {
+        $pre-v: 'end';
+    }
+    -ms-flex-item-align: $pre-v;
+    align-self: $v;
+}
+@mixin justify-content($v) {
+    $pre-v: $v;
+    @if ($v == 'flex-start') {
+        $pre-v: 'start';
+    }
+    @if ($v == 'flex-end') {
+        $pre-v: 'end';
+    }
+    @if ($v == 'space-around') {
+        $pre-v: 'distribute';
+    }
+    @if ($v == 'space-between') {
+        $pre-v: 'justify';
+    }
+    -webkit-box-pack: $pre-v;
+    -ms-flex-pack: $pre-v;
+    justify-content: $v;
 }
 
 // === Animations

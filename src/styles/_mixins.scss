@@ -1,7 +1,87 @@
+@mixin background-cover() {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
 @mixin border($side: null, $width: 1px, $style: solid, $color: $color-gray-light) {
     @if $side == null {
         border: $width $style $color;
     } @else {
         border-#{$side}: $width $style $color;
+    }
+}
+@mixin position($pos: relative, $t: null, $r: null, $b: null, $l: null) {
+    position: $pos;
+    @if ($t != null) {
+        top: $t;
+    }
+    @if ($r != null) {
+        right: $r;
+    }
+    @if ($b != null) {
+        bottom: $b;
+    }
+    @if ($l != null) {
+        left: $l;
+    }
+}
+@mixin pseudo-icon($icon, $color: $color-gray, $height: $sizing-XL, $size: $sizing-XL, $margin: auto, $pointerEvents: none) {
+    color: $color;
+    content: $icon;
+    direction: ltr;
+    display: inline-block;
+    font-family: $font-family-icons;
+    font-feature-settings: 'liga';
+    font-size: $size;
+    font-style: normal;
+    font-weight: normal;
+    height: $height;
+    letter-spacing: normal;
+    line-height: $height;
+    margin: $margin;
+    pointer-events: $pointerEvents;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: normal;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+@mixin vertical-align($pos: relative, $amount: 50%) {
+    @include transform(translateY(-$amount));
+    position: $pos;
+    top: $amount;
+}
+
+// Responsive Media Queries
+@mixin size-min-tablet {
+    @media screen and (min-width: $breakpoint-tablet) {
+        @content;
+    }
+}
+@mixin size-min-desktop {
+    @media screen and (min-width: $breakpoint-desktop) {
+        @content;
+    }
+}
+@mixin size-min-desktopXL {
+    @media screen and (min-width: $breakpoint-desktop-XL) {
+        @content;
+    }
+}
+@mixin size-only-mobile {
+    @media screen and (max-width: #{$breakpoint-tablet - 1}) {
+        @content;
+    }
+}
+@mixin size-only-tablet {
+    @media screen and (min-width: $breakpoint-tablet) and (max-width: #{$breakpoint-desktop - 1}) {
+        @content;
+    }
+}
+@mixin size-only-desktop {
+    @media screen and (min-width: $breakpoint-desktop) and (max-width: #{$breakpoint-desktop-XL - 1}) {
+        @content;
     }
 }
