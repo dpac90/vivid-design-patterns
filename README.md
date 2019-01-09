@@ -43,7 +43,7 @@ If you are using webpack in your other project, be sure to include this followin
 ```$xslt
     {
         resolve: {
-            symlink: false
+            symlinks: false
         }
     }
 ```
