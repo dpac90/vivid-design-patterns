@@ -83,9 +83,22 @@ describe('<Card />', () => {
         );
         const cardAnchor = wrapper.find('.vp-card--anchor');
         cardAnchor.simulate('click');
+        expect(cardAnchor.exists()).toBe(true);
+        expect(mockOnClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('renders an anchor card which is clickable with the Enter keypress', () => {
+        const mockOnClick = jest.fn();
+        const wrapper = mount(
+            <Card type="anchor" onClick={mockOnClick} role="Anchor">
+                <Card.Header>Anchor Card</Card.Header>
+                <Card.Body>Might as well live in Anchorage, Alaska, 'cuz I'm anchored all day.</Card.Body>
+            </Card>
+        );
+        const cardAnchor = wrapper.find('.vp-card--anchor');
         cardAnchor.simulate('click', { key: 'Enter' });
         expect(cardAnchor.exists()).toBe(true);
-        expect(mockOnClick).toHaveBeenCalledTimes(2);
+        expect(mockOnClick).toHaveBeenCalledTimes(1);
     });
 
     it('renders a card with subcomponents', () => {
