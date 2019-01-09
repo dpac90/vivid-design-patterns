@@ -1,0 +1,275 @@
+// Tokens
+@import 'tokens';
+$fontFaces: (
+    $font-family-icons: (
+        $font-family-icons,
+        400,
+        normal,
+        Regular
+    ),
+    RobotoRegular: (
+        'roboto',
+        400,
+        normal,
+        regular
+    ),
+    RobotoItalic: (
+        'roboto',
+        400,
+        italic,
+        italic
+    ),
+    RobotoMedium: (
+        'roboto',
+        500,
+        normal,
+        medium
+    ),
+    RobotoBold: (
+        'roboto',
+        700,
+        normal,
+        bold
+    ),
+    RobotoBlack: (
+        'roboto',
+        900,
+        normal,
+        black
+    )
+);
+$typeStyles: (
+    headline1: (
+        $font-size-6XL,
+        $font-weight-blk,
+        $line-height-XS,
+        null
+    ),
+    headline2: (
+        $font-size-5XL,
+        $font-weight-blk,
+        $line-height-XS,
+        null
+    ),
+    headline3: (
+        $font-size-4XL,
+        $font-weight-blk,
+        $line-height-XS,
+        null
+    ),
+    headline4: (
+        $font-size-3XL,
+        $font-weight-blk,
+        $line-height-XS,
+        null
+    ),
+    headline5: (
+        $font-size-2XL,
+        $font-weight-blk,
+        $line-height-XS,
+        null
+    ),
+    headline6: (
+        $font-size-XL,
+        $font-weight-blk,
+        $sizing-XL,
+        null
+    ),
+    subtitle1: (
+        $font-size-2XL,
+        $font-weight-reg,
+        $line-height-SM,
+        null
+    ),
+    subtitle2: (
+        $font-size-XL,
+        $font-weight-reg,
+        $line-height-MD,
+        null
+    ),
+    body1: (
+        $font-size-LG,
+        $font-weight-reg,
+        $line-height-LG,
+        null
+    ),
+    body2: (
+        $font-size-MD,
+        $font-weight-reg,
+        $line-height-LG,
+        null
+    ),
+    small: (
+        $font-size-SM,
+        $font-weight-reg,
+        $line-height-SM,
+        null
+    ),
+    subhead: (
+        $font-size-SM,
+        $font-weight-blk,
+        $line-height-MD,
+        uppercase
+    ),
+    tiny: (
+        $font-size-XS,
+        $font-weight-reg,
+        $line-height-SM,
+        null
+    )
+);
+
+// Build @font-face declarations
+@each $fontFace, $attr in $fontFaces {
+    $fontName: #{nth($attr, 1)}-#{nth($attr, 4)};
+    @font-face {
+        font-family: nth($attr, 1);
+        font-weight: nth($attr, 2);
+        font-style: nth($attr, 3);
+        src: url('https://a.vsstatic.com/font/#{$fontName}.eot');
+        src: url('https://a.vsstatic.com/font/#{$fontName}.eot?#iefix') format('embedded-opentype'),
+            url('https://a.vsstatic.com/font/#{$fontName}.woff2') format('woff2'),
+            url('https://a.vsstatic.com/font/#{$fontName}.woff') format('woff'),
+            url('https://a.vsstatic.com/font/#{$fontName}.ttf') format('ttf'),
+            url('https://a.vsstatic.com/font/#{$fontName}.svg##{$fontName}') format('svg');
+    }
+}
+
+.material-icons {
+    direction: ltr;
+    display: inline-block;
+    font-family: $font-family-icons;
+    font-feature-settings: 'liga';
+    font-size: $font-size-2XL; /* Preferred icon size */
+    font-style: normal;
+    font-weight: normal;
+    letter-spacing: normal;
+    line-height: 1;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: normal;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+// Typography Base
+.vp-type {
+    color: $text-color-default;
+    font-family: $font-family-default;
+    font-size: $font-size-base;
+    font-weight: $font-weight-reg;
+    line-height: $line-height-MD;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+// Build Base Type Styles
+@each $style, $attr in $typeStyles {
+    [class^='vp-type-#{$style}'] {
+        font-size: nth($attr, 1);
+        font-weight: nth($attr, 2);
+        line-height: nth($attr, 3);
+        margin-bottom: 0;
+        margin-top: 0;
+        text-transform: nth($attr, 4);
+    }
+}
+
+// Links
+a {
+    @include transition(all $transition-1);
+    text-decoration: none;
+    color: inherit;
+}
+[class^='vp-type-link'] {
+    color: $text-color-link;
+    cursor: pointer;
+    font-size: inherit;
+    font-weight: $font-weight-bld;
+    text-decoration: none;
+    @include transition(all $transition-1);
+
+    &:active,
+    &:focus,
+    &:hover {
+        color: $text-color-link-hover;
+        text-decoration: underline;
+        outline: none;
+    }
+    &[class*='--inverted'],
+    &[class*='--muted'] {
+        text-decoration: underline;
+
+        &:active,
+        &:focus,
+        &:hover {
+            color: inherit;
+        }
+    }
+}
+
+// Lists
+// ul and ol get --list appended to a type size
+.vp-type-list-item {
+    color: inherit;
+    font-size: inherit;
+    margin-bottom: $sizing-SM;
+}
+
+// Type Modifiers
+[class^='vp-type'] {
+    &[class*='--blk'] {
+        font-weight: $font-weight-blk;
+    }
+    &[class*='--bld'] {
+        font-weight: $font-weight-bld;
+    }
+    &[class*='--med'] {
+        font-weight: $font-weight-med;
+    }
+
+    &[class*='--compressed'] {
+        line-height: $line-height-SM;
+    }
+    &[class*='--expanded'] {
+        line-height: $line-height-XL;
+    }
+
+    &[class*='--disabled'] {
+        color: $text-color-disabled;
+    }
+    &[class*='--inverted'] {
+        color: $color-white;
+    }
+    &[class*='--muted'] {
+        color: $text-color-muted;
+    }
+
+    &[class*='--left'] {
+        text-align: left;
+    }
+    &[class*='--center'] {
+        text-align: center;
+    }
+    &[class*='--right'] {
+        text-align: right;
+    }
+
+    &[class*='--caps'] {
+        text-transform: uppercase;
+    }
+    &[class*='--lowercase'] {
+        text-transform: lowercase;
+    }
+    &[class*='--truncate'] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    &[class*='--list'] {
+        margin: $sizing-LG 0 $sizing-XL;
+        padding-left: $sizing-3XL;
+    }
+}

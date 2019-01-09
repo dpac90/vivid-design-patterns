@@ -1,0 +1,61 @@
+// Tokens
+@import 'tokens';
+
+[class^='vp-tab-bar'] {
+    @include flex;
+    font-size: 0; // inline-block gap fix
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+.vp-tab,
+.vp-tab[data-state='active'] {
+    @include flex(0 0 auto);
+    @include transition(all $transition-1);
+    color: $text-color-muted;
+    cursor: pointer;
+    font-size: $font-size-SM;
+    font-weight: $font-weight-bld;
+    line-height: $sizing-4XL;
+    overflow: hidden;
+    padding: 0 $sizing-MD;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    @include size-min-tablet {
+        line-height: $sizing-5XL;
+    }
+    [class*='--inverted'] & {
+        color: $color-gray;
+    }
+    &:before {
+        @include position(absolute, null, null, 0, 0);
+        @include transition(all $transition-1);
+        @include transform(scale(0));
+        content: '';
+        background: $color-brand-red;
+        height: $sizing-XS;
+        opacity: 0;
+        transform-style: preserve-3d;
+        width: 100%;
+        z-index: 1;
+    }
+}
+.vp-tab:hover,
+.vp-tab[data-state='active'] {
+    color: $text-color-default;
+
+    [class*='--inverted'] & {
+        color: $color-white;
+    }
+}
+.vp-tab:hover:before,
+.vp-tab[data-state='active']:before {
+    @include transform(scale(1));
+}
+.vp-tab:hover:before {
+    opacity: 0.8;
+}
+.vp-tab[data-state='active']:before {
+    opacity: 1;
+}

@@ -1,0 +1,80 @@
+// Tokens
+@import 'tokens';
+$gradients: (
+    blue: $color-gradient-blue,
+    gold: $color-gradient-gold,
+    red: $color-gradient-red,
+    slate: $color-gradient-slate
+);
+
+// Gradients
+.vp-gradient {
+    @each $name, $attr in $gradients {
+        &-#{$name}--horz {
+            @include linear-gradient(to right, $attr);
+        }
+        &-#{$name}--vert {
+            @include linear-gradient(to bottom, $attr);
+        }
+        &-#{$name}--text {
+            background: -webkit-linear-gradient(left, $attr);
+            background: linear-gradient(to right, $attr);
+            color: nth($attr, 1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+}
+
+// Overlays
+$overlays: (
+    black--to-right: (
+        to right,
+        $color-black
+    ),
+    black--to-left: (
+        to left,
+        $color-black
+    ),
+    black--to-top: (
+        to top,
+        $color-black
+    ),
+    black--to-bottom: (
+        to bottom,
+        $color-black
+    )
+);
+.vp-overlay {
+    @each $name, $attr in $overlays {
+        $gradient: rgba(nth($attr, 2), 0), nth($attr, 2);
+        &-#{$name} {
+            @include linear-gradient(nth($attr, 1), $gradient);
+        }
+    }
+}
+
+.vp-bg {
+    &-black {
+        background-color: $color-black;
+    }
+    &-white {
+        background-color: $color-white;
+    }
+    &-blue {
+        background-color: $color-brand-blue;
+    }
+    &-gold {
+        background-color: $color-brand-gold;
+    }
+    &-slate {
+        background-color: $color-brand-slate;
+    }
+}
+
+@mixin vp-text-gradient($gradient: $color-gradient-red) {
+    color: nth($gradient, 1);
+    @include linear-gradient(to right, $gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
