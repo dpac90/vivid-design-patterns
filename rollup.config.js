@@ -6,7 +6,7 @@ const commonjs = require('rollup-plugin-commonjs');
 module.exports = {
     external: ['prop-types', 'react', 'react-dom'],
     plugins: [
-        resolve(),
+        resolve({ extensions: ['.jsx', '.js'] }),
         commonjs(),
         babel({
             exclude: 'node_modules/**'

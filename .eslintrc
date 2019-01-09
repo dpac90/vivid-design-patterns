@@ -14,7 +14,9 @@
   "rules": {
     "no-plusplus":["error", {"allowForLoopAfterthoughts": true}],
     "react/require-default-props": 0, // Off
-    "react/button-has-type": 0 // Limitation by eslint-plugin-react that doesnt take default props into account https://github.com/yannickcr/eslint-plugin-react/issues/1846
+    "react/button-has-type": 0, // Limitation by eslint-plugin-react that doesnt take default props into account https://github.com/yannickcr/eslint-plugin-react/issues/1846
+    "react/no-did-update-set-state": 0,
+    "react/destructuring-assignment": 0
   },
   "parser": "babel-eslint"
 }
