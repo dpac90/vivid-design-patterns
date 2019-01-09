@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import onEnterKey from '../../onEnterKey';
+import onEnterKey from '../../utils/onEnterEventListener';
 
 const Link = ({ children, className, href, onClick, ...attributes }) => {
     Link.propTypes = {
@@ -14,7 +14,7 @@ const Link = ({ children, className, href, onClick, ...attributes }) => {
     const props = {
         href,
         onClick,
-        onKeyPress: onEnterKey.call(null, onClick),
+        onKeyPress: onEnterKey.bind(null, onClick),
         className: classNames('vp-type-link', {
             [className]: !!className
         }),
