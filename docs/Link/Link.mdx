@@ -29,13 +29,13 @@ Using the scss files:
 ## Add custom onClick function
 `onClick=[Function]`
 <Playground>
-  <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" onClick={function(e) { e.preventDefault(); alert('Hello'); }}>Trigger alert</Link>
+  <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" tabindex="1" onClick={function(e) { e.preventDefault(); alert('Helloooo'); }}>Trigger alert</Link>
 </Playground>
 
 ## Add custom class names
 `className="custom"` `class="--inverted"` `class="--muted"`
 <Playground>
-  <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" className="custom">Click me</Link>
+  <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" tabindex="2" className="custom">Click me</Link>
   <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" className="--inverted">Click me</Link>
   <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" className="--muted">Click me</Link>
 </Playground>
