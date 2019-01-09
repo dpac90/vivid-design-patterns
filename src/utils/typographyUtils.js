@@ -15,18 +15,16 @@ function getTypeClassNames(baseClassName, { weight, height, state, alignment, ca
     });
 }
 
-function getTypographyPropTypes() {
-    return {
-        className: PropTypes.string,
-        children: PropTypes.node,
-        weight: PropTypes.oneOf(['black', 'bold', 'medium']),
-        height: PropTypes.oneOf(['compressed', 'expanded']),
-        state: PropTypes.oneOf(['disabled, inverted, muted']),
-        alignment: PropTypes.oneOf(['left', 'center', 'right']),
-        capitalization: PropTypes.oneOf(['uppercase', 'lowercase']),
-        truncate: PropTypes.bool,
-        list: PropTypes.bool
-    };
-}
+const TYPOGRAPHY_PROP_TYPES = {
+    className: PropTypes.string,
+    children: PropTypes.node,
+    weight: PropTypes.oneOf(['black', 'bold', 'medium']),
+    height: PropTypes.oneOf(['compressed', 'expanded']),
+    state: PropTypes.oneOf(['disabled, inverted, muted']),
+    alignment: PropTypes.oneOf(['left', 'center', 'right']),
+    capitalization: PropTypes.oneOf(['uppercase', 'lowercase']),
+    truncate: PropTypes.bool,
+    list: PropTypes.bool
+};
 
-export { getTypeClassNames, getTypographyPropTypes };
+export { getTypeClassNames, TYPOGRAPHY_PROP_TYPES };

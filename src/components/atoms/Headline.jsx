@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getTypeClassNames, getTypographyPropTypes } from '../../utils/typographyUtils';
+import { getTypeClassNames, TYPOGRAPHY_PROP_TYPES } from '../../utils/typographyUtils';
 const Headline = ({
     children,
     className = '',
-    importance,
+    importance = 1,
     weight,
     height,
     state,
@@ -57,7 +57,7 @@ const Headline = ({
 
 Headline.propTypes = {
     importance: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
-    ...getTypographyPropTypes()
+    ...TYPOGRAPHY_PROP_TYPES
 };
 
 export default Headline;

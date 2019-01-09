@@ -1,21 +1,37 @@
+import Button from '../../src/components/atoms/Button';
+
 ---
     name: Typography
 ---
 
 import { PropsTable, Playground } from 'docz'
 import Headline from '../../src/components/atoms/Headline';
+import Subtitle from '../../src/components/atoms/Subtitle';
+import BodyText from '../../src/components/atoms/BodyText';
+import Subhead from '../../src/components/atoms/Subhead';
+import TinyText from '../../src/components/atoms/TinyText';
+import SmallText from '../../src/components/atoms/SmallText';
+
 import "../../src/styles/_typography.scss";
+
+## Installation
+
+All Typography components can be found in the @vividseats/vivid-design-patterns/dist/atoms/ and are imported like so:
+
+    import Component from @vividseats/vivid-design-patterns/dist/atoms/Component
+
+The typography scss can be imported into other scss files:
+
+    @import @vividseats/vivid-design-patterns/src/styles/typography.scss
+
+## Modifier props
+All typography components can handle the following props
+<PropsTable of={Headline}/>
 
 ## Headlines
 Using the react components:
 
-    ``` import Headline from @vividseats/vivid-design-patterns/dist/atoms/Headline ```
-
-Using the scss files:
-
-    ``` @import @vividseats/vivid-design-patterns/src/styles/typography.scss ```
-
-
+    import Headline from @vividseats/vivid-design-patterns/dist/atoms/Headline
 
 `class="vp-type-headline1"`
 `class="vp-type-headline2"`
@@ -29,4 +45,41 @@ Using the scss files:
     <Headline importance={4}>Headline 4</Headline>
     <Headline importance={5}>Headline 5</Headline>
     <Headline importance={6}>Headline 6</Headline>
+</Playground>
+
+
+## Subtitle
+    import Subtitle from @vividseats/vivid-design-patterns/dist/atoms/Subtitle
+
+`class="vp-type-subtitle1"`
+`class="vp-type-subtitle2"`
+
+<Playground>
+    <Subtitle importance={1}>Subtitle 1</Subtitle>
+    <Subtitle importance={2}>Subtitle 2</Subtitle>
+</Playground>
+
+## Body Text
+
+    import BodyText from @vividseats/vivid-design-patterns/dist/atoms/BodyText
+
+`class="vp-type-body1"`
+`class="vp-type-body2"`
+
+<Playground>
+    <BodyText importance={1}>Body Text 1</BodyText>
+    <BodyText importance={2}>Body Text 2</BodyText>
+</Playground>
+
+## Other Typography
+    import Subhead from '../../src/components/atoms/Subhead';
+    import SmallText from '../../src/components/atoms/SmallText';
+    import TinyText from '../../src/components/atoms/TinyText';
+
+`class="vp-type-subhead"``class="vp-type-small"` `class="vp-type-tiny"`
+
+<Playground>
+    <Subhead>Subhead</Subhead>
+    <SmallText>Small Text</SmallText>
+    <TinyText>Tiny Text</TinyText>
 </Playground>
