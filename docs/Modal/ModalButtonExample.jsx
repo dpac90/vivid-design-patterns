@@ -2,7 +2,6 @@ import React from 'react';
 
 import Modal from '../../src/components/molecules/Modal';
 import Button from '../../src/components/atoms/Button';
-import Backdrop from '../../src/components/atoms/Backdrop';
 
 class ModalButtonExample extends React.Component {
     state = {
@@ -19,7 +18,7 @@ class ModalButtonExample extends React.Component {
         return (
             <React.Fragment>
                 <Button onClick={() => onClick(true)}>Click</Button>
-                <Modal opened={state.opened} Backdrop={<Backdrop />}>
+                <Modal dataState={!!state.opened ? 'opened' : 'closed'}>
                     <Modal.Header>Modal Header</Modal.Header>
                     <Modal.Body>
                         <p className="vp-type-body2 mb-lg">
@@ -31,10 +30,12 @@ class ModalButtonExample extends React.Component {
                         </p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={() => onClick(false)} muted={true}>
+                        <Button muted importance="text" onClick={() => onClick(false)}>
                             Dismiss
                         </Button>
-                        <Button onClick={() => onClick(false)}>Confirm</Button>
+                        <Button importance="text" onClick={() => onClick(false)}>
+                            Confirm
+                        </Button>
                     </Modal.Footer>
                 </Modal>
             </React.Fragment>

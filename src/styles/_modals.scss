@@ -8,13 +8,12 @@
     @include align-items(center);
     @include flex;
     @include justify-content(center);
-    // @include position(absolute, 0, null, null, 0);
     position: absolute;
     height: 100%;
     width: 100%;
     z-index: $z-index-modal;
 
-    &[class*='--closed'] {
+    &[data-state*='closed'] {
         display: none;
     }
 }
@@ -34,26 +33,24 @@
     opacity: 0;
     width: auto;
 
-    [class*='--opening'] &,
-    [class*='--closing'] & {
+    [data-state*='opening'] &,
+    [data-state*='closing'] & {
         @include transition(all $transition-2);
     }
-    [class*='--opened'] & {
+    [data-state*='opened'] & {
         @include transform(scale(1));
         opacity: 1;
     }
 }
 
 [class^='vp-modal--sheet'] [class^='vp-modal__container'] {
-    // @include position(absolute, null, null, -100vh, null);
     position: absolute;
     @include transform(scale(1));
     border-radius: $border-radius-LG $border-radius-LG 0 0;
     margin: 0;
     opacity: 1;
 }
-[class^='vp-modal--sheet--opened'] [class^='vp-modal__container'] {
-    // @include position(absolute, null, null, 0, null);
+[class^='vp-modal--sheet'] [data-state*='opened'] [class^='vp-modal__container'] {
     position: absolute;
 }
 

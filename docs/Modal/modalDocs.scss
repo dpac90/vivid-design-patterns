@@ -1,0 +1,8 @@
+// overrides for playground wrapper
+[class^='vp-backdrop'] {
+    position: absolute;
+}
+
+[class^='vp-modal']:not([class*='__']) {
+    position: relative;
+}
