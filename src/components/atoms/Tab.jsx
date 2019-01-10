@@ -30,7 +30,7 @@ const Tab = ({
         className: classNames('vp-tab', {
             [className]: !!className
         }),
-        'data-state': !!active ? 'active' : '',
+        'data-state': active ? 'active' : null,
         ...attributes
     };
 
