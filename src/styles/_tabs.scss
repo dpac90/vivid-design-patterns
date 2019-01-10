@@ -1,7 +1,8 @@
-// Tokens
 @import 'tokens';
+@import 'prefixes';
+@import 'mixins';
 
-[class^='vp-tab-bar'] {
+[class^='vp-tab-group'] {
     @include flex;
     font-size: 0; // inline-block gap fix
     overflow-x: scroll;
