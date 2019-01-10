@@ -34,10 +34,12 @@ Using the scss files:
 ## Tab Props
 <PropsTable of={Tab}/>
 
-## Add custom onClick function
+## Add custom event listener callback functions
 <Playground>
   <TabGroup>
-    <Tab href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" onClick={function(e) { e.preventDefault(); alert('Helloooo'); }}>Tab with onClick callback</Tab>
+    <Tab href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" onClick={function(e) { e.preventDefault(); alert('Called onClick'); }}>Tab with onClick callback</Tab>
+    <Tab href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" onMouseEnter={function(e) { alert('Called onMouseEnter'); }}>Tab with onMouseEnter callback</Tab>
+    <Tab href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" onMouseLeave={function(e) { alert('Called onMouseLeave'); }}>Tab with onMouseLeave callback</Tab>
   </TabGroup>
 </Playground>
 
