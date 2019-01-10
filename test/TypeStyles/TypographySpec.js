@@ -101,19 +101,19 @@ typographyPropTests.forEach(({ describes, component, defaultElement, defaultStyl
             });
         });
 
+        it(`renders ${defaultElement} tag with the list style`, () => {
+            const wrapper = shallow(<constructedComponent.component list />);
+            expect(wrapper.find(`${defaultElement}.${typographyBaseStyle}${defaultStyle}`).hasClass('--list')).toBe(true);
+        });
+
         it(`renders ${defaultElement} tag with custom attributes`, () => {
             const wrapper = shallow(<constructedComponent.component id="myFakeId" />);
             expect(wrapper.find('#myFakeId').hasClass(`vp-type-${defaultStyle}`)).toBe(true);
         });
 
-        it(`renders ${defaultElement} that is truncated`, () => {
+        it(`renders ${defaultElement} tag that is truncated`, () => {
             const wrapper = shallow(<constructedComponent.component truncate />);
             expect(wrapper.find(`${defaultElement}.${typographyBaseStyle}${defaultStyle}`).hasClass('--truncate')).toBe(true);
-        });
-
-        it(`renders ${defaultElement} with the list style`, () => {
-            const wrapper = shallow(<constructedComponent.component list />);
-            expect(wrapper.find(`${defaultElement}.${typographyBaseStyle}${defaultStyle}`).hasClass('--list')).toBe(true);
         });
     })
 );
