@@ -21,7 +21,7 @@ const TYPOGRAPHY_PROP_TYPES = {
     children: PropTypes.node,
     weight: PropTypes.oneOf(['black', 'bold', 'medium']),
     height: PropTypes.oneOf(['compressed', 'expanded']),
-    state: PropTypes.oneOf(['disabled, inverted, muted']),
+    state: PropTypes.oneOf(['disabled', 'inverted', 'muted']),
     alignment: PropTypes.oneOf(['left', 'center', 'right']),
     capitalization: PropTypes.oneOf(['uppercase', 'lowercase']),
     truncate: PropTypes.bool,

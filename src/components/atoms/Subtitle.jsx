@@ -26,7 +26,8 @@ const Subtitle = ({
         className
     });
     const attributes = {
-        className: classNames
+        className: classNames,
+        ...htmlAttributes
     };
 
     return <p {...attributes}>{children}</p>;
