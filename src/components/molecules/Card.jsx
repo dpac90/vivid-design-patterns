@@ -22,7 +22,6 @@ class Card extends React.Component {
 
     static defaultProps = {
         className: '',
-        type: 'standard',
         onClick: () => {}
     };
 
