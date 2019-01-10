@@ -5,8 +5,7 @@ export default {
     port: 8080,
     plugins: [
         css({
-            preprocessor: 'sass',
-            cssmodules: true
+            preprocessor: 'sass'
         })
     ],
     themeConfig: {
