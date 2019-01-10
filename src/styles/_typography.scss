@@ -1,32 +1,40 @@
 // Tokens
 @import 'tokens';
+@import '_prefixes';
+
 $fontFaces: (
+    $font-family-icons: (
+        $font-family-icons,
+        400,
+        normal,
+        Regular
+    ),
     RobotoRegular: (
-        'Roboto',
+        'roboto',
         400,
         normal,
         regular
     ),
     RobotoItalic: (
-        'Roboto',
+        'roboto',
         400,
         italic,
         italic
     ),
     RobotoMedium: (
-        'Roboto',
+        'roboto',
         500,
         normal,
         medium
     ),
     RobotoBold: (
-        'Roboto',
+        'roboto',
         700,
         normal,
         bold
     ),
     RobotoBlack: (
-        'Roboto',
+        'roboto',
         900,
         normal,
         black
@@ -115,7 +123,7 @@ $typeStyles: (
 
 // Build @font-face declarations
 @each $fontFace, $attr in $fontFaces {
-    $fontName: to_lower_case(#{nth($attr, 1)}-#{nth($attr, 4)});
+    $fontName: #{nth($attr, 1)}-#{nth($attr, 4)};
     @font-face {
         font-family: nth($attr, 1);
         font-weight: nth($attr, 2);
@@ -128,20 +136,11 @@ $typeStyles: (
             url('https://a.vsstatic.com/font/#{$fontName}.svg##{$fontName}') format('svg');
     }
 }
-@font-face {
-    font-family: 'Material Icons';
-    font-style: normal;
-    font-weight: 400;
-    src: url('https://a.vsstatic.com/font/MaterialIcons-Regular.eot');
-    src: url('https://a.vsstatic.com/font/MaterialIcons-Regular.eot?#iefix') format('embedded-opentype'),
-        url('https://a.vsstatic.com/font/MaterialIcons-Regular.woff2') format('woff2'),
-        url('https://a.vsstatic.com/font/MaterialIcons-Regular.woff') format('woff'),
-        url('https://a.vsstatic.com/font/MaterialIcons-Regular.ttf') format('truetype');
-}
+
 .material-icons {
     direction: ltr;
     display: inline-block;
-    font-family: 'Material Icons';
+    font-family: $font-family-icons;
     font-feature-settings: 'liga';
     font-size: $font-size-2XL; /* Preferred icon size */
     font-style: normal;
@@ -171,16 +170,18 @@ $typeStyles: (
 // Build Base Type Styles
 @each $style, $attr in $typeStyles {
     [class^='vp-type-#{$style}'] {
-        margin: 0;
         font-size: nth($attr, 1);
         font-weight: nth($attr, 2);
         line-height: nth($attr, 3);
+        margin-bottom: 0;
+        margin-top: 0;
         text-transform: nth($attr, 4);
     }
 }
 
 // Links
 a {
+    @include transition(all $transition-1);
     text-decoration: none;
     color: inherit;
 }
@@ -212,17 +213,10 @@ a {
 }
 
 // Lists
-[class^='vp-type-list']:not([class*='__']) {
+// ul and ol get --list appended to a type size
+.vp-type-list-item {
+    color: inherit;
     font-size: inherit;
-    margin: 1rem 0;
-    padding-left: $sizing-3XL;
-
-    &[class*='--inline'] .vp-type-list__item {
-        display: inline-block;
-    }
-}
-.vp-type-list__item {
-    line-height: $line-height-MD;
     margin-bottom: $sizing-SM;
 }
 
@@ -245,8 +239,11 @@ a {
         line-height: $line-height-XL;
     }
 
+    &[class*='--disabled'] {
+        color: $text-color-disabled;
+    }
     &[class*='--inverted'] {
-        color: $text-color-slate;
+        color: $color-white;
     }
     &[class*='--muted'] {
         color: $text-color-muted;
@@ -265,15 +262,16 @@ a {
     &[class*='--caps'] {
         text-transform: uppercase;
     }
+    &[class*='--lowercase'] {
+        text-transform: lowercase;
+    }
     &[class*='--truncate'] {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
-}
-
-@include size-only-mobile {
-    .vp-type-headline1 {
-        font-size: $font-size-4XL;
+    &[class*='--list'] {
+        margin: $sizing-LG 0 $sizing-XL;
+        padding-left: $sizing-3XL;
     }
 }

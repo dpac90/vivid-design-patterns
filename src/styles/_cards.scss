@@ -7,11 +7,14 @@ $card-hero-height: 8rem; // 128px
 
 // Mixins
 @mixin card-base {
+    @include flex;
+    @include flex-direction(column);
     background: $color-white;
     border-radius: $border-radius-SM;
     box-shadow: $elevation-1;
     margin: 0 0 $sizing-LG;
     overflow: hidden;
+    position: relative;
 }
 
 // Standard Card
@@ -22,7 +25,7 @@ $card-hero-height: 8rem; // 128px
         padding: $sizing-XL $sizing-LG $sizing-SM;
     }
     &__body {
-        padding: $sizing-MD $sizing-LG;
+        padding: $sizing-MD $sizing-LG $sizing-LG;
     }
 }
 
@@ -32,9 +35,14 @@ $card-hero-height: 8rem; // 128px
 
     .vp-card__header {
         @include border(bottom);
-        padding: ($sizing-LG + $sizing-XS) $sizing-LG ($sizing-LG + $sizing-XS) $sizing-LG;
+        font-size: $font-size-SM;
+        line-height: $sizing-XL;
+        padding: $sizing-LG;
         text-transform: uppercase;
-        line-height: $sizing-LG;
+
+        span {
+            font-weight: $font-weight-reg;
+        }
     }
 }
 
@@ -55,25 +63,46 @@ $card-hero-height: 8rem; // 128px
 
 [class^='vp-card'] {
     [class*='__footer'] {
+        @include flex;
+        @include justify-content(flex-end);
         padding: $sizing-SM $sizing-LG;
-        text-align: right;
 
         &[class*='--centered'] {
-            text-align: center;
+            justify-content: space-around;
         }
         [class*='vp-text-button'] {
             margin: $sizing-2XS 0;
         }
     }
 }
+.vp-card__header {
+    > * {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    i {
+        @include vp-text-gradient;
+    }
+}
+
 .vp-card__hero {
     @include background-cover;
     @include transition(all $transition-1);
     height: $card-hero-height;
-    position: relative;
     overflow: hidden;
+    position: relative;
 
     &__image {
-        @include vertical-align;
+        height: auto;
+        max-width: none;
+        min-height: 100%;
+        min-width: 100%;
+    }
+}
+
+[class^='vp-grid'] {
+    .vp-card,
+    .vp-card--list {
+        margin-bottom: 0;
     }
 }
