@@ -33,9 +33,9 @@ If you want to make changes to vivid-design-patterns and test them in a separate
 
 ```$xslt
 $ cd vivid-design-patterns
-$ npm link
+$ yarn link
 $ cd your-other-project
-$ npm link @vividseats/vivid-design-patterns
+$ yarn link @vividseats/vivid-design-patterns
 ``` 
 
 If you are using webpack in your other project, be sure to include this following to your webpack config,
