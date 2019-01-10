@@ -4,7 +4,7 @@ import CardBody from '../atoms/CardBody';
 import CardFooter from '../atoms/CardFooter';
 import CardHeader from '../atoms/CardHeader';
 import CardHero from '../atoms/CardHero';
-
+import classNames from 'classnames';
 class Card extends React.Component {
     static propTypes = {
         /** html attribute role must be provided if Card is of type anchor. Role prop should be of type string */
@@ -43,21 +43,12 @@ class Card extends React.Component {
 
     render() {
         const { className, type, children, onClick, role, ...htmlAttributes } = this.props;
-        let cardClassNames = className;
 
-        switch (type) {
-            case 'list': {
-                cardClassNames += 'vp-card--list';
-                break;
-            }
-            case 'anchor': {
-                cardClassNames += 'vp-card--anchor';
-                break;
-            }
-            default: {
-                cardClassNames += 'vp-card';
-            }
-        }
+        const cardClassNames = classNames({
+            [className]: className,
+            [`vp-card--${type}`]: type,
+            'vp-card': type !== 'anchor' && type !== 'list'
+        });
 
         return (
             <div className={cardClassNames} role={role} onClick={onClick} onKeyPress={this.onKeyPress} {...htmlAttributes}>
