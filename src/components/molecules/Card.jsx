@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import CardBody from '../atoms/CardBody';
 import CardFooter from '../atoms/CardFooter';
 import CardHeader from '../atoms/CardHeader';
 import CardHero from '../atoms/CardHero';
-import classNames from 'classnames';
+
 class Card extends React.Component {
     static propTypes = {
         /** html attribute role must be provided if Card is of type anchor. Role prop should be of type string */
