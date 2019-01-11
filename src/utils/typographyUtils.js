@@ -25,7 +25,7 @@ const TYPOGRAPHY_PROP_TYPES = {
     /** Line height. --compressed, --expanded */
     height: PropTypes.oneOf(['compressed', 'expanded']),
     /** --disabled, --inverted, --muted */
-    state: PropTypes.oneOf(['disabled, inverted, muted']),
+    state: PropTypes.oneOf(['disabled', 'inverted', 'muted']),
     /** Text alignment  --left, --center, --right */
     alignment: PropTypes.oneOf(['left', 'center', 'right']),
     /** ---uppercase, --lowercase **/
