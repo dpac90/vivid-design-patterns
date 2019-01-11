@@ -167,7 +167,7 @@ $typeStyles: (
 
 // Build Base Type Styles
 @each $style, $attr in $typeStyles {
-    [class^='vp-type-#{$style}'] {
+    [class*='vp-type-#{$style}'] {
         font-size: nth($attr, 1);
         font-weight: nth($attr, 2);
         line-height: nth($attr, 3);

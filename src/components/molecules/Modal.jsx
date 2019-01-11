@@ -121,10 +121,9 @@ class Modal extends React.Component {
 
         return (
             <React.Fragment>
-                <aside className={`${className} ${modalClassNames}`} data-state={!!dataState.length ? dataState : Modal.DATA_STATE.CLOSED}>
+                <aside className={`${modalClassNames} ${className}`} data-state={!!dataState.length ? dataState : Modal.DATA_STATE.CLOSED}>
                     <div className="vp-modal__container">
-                        {!!ModalHeader && ModalHeader}
-                        {!ModalHeader && !!title && <Modal.Header>{title}</Modal.Header>}
+                        {!!ModalHeader ? ModalHeader : <Modal.Header>{title}</Modal.Header>}
                         {!!ModalBody ? ModalBody : <Modal.Body>{bodyChildren}</Modal.Body>}
                         {!!ModalFooter ? ModalFooter : <Modal.Footer onDismiss={toggleModal} />}
                     </div>
