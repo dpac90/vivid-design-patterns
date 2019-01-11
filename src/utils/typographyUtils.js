@@ -7,14 +7,7 @@ import React from 'react';
 /* eslint react/jsx-filename-extension: 0 */
 /* eslint no-underscore-dangle: 0 */
 
-class __dummyPropTypesComponent extends React.Component {
-    render() {
-        console.warn(
-            'Warning: this is a dummy component used to generated proptypes for React Docgen and DOCZ. Do not use this component in production'
-        );
-        return React.createElement('div', null, `Hello`);
-    }
-}
+const __dummyPropTypesComponent = () => React.createElement('div', null, `Hello`);
 
 function getTypeClassNames(baseClassName, { weight, height, state, alignment, capitalization, truncate, list, className }) {
     return classNames(baseClassName, {
