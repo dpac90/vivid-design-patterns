@@ -2,6 +2,11 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+/* eslint no-console: 0 */
+/* eslint react/no-unused-prop-types: 0 */
+/* eslint react/jsx-filename-extension: 0 */
+/* eslint no-underscore-dangle: 0 */
+
 function getTypeClassNames(baseClassName, { weight, height, state, alignment, capitalization, truncate, list, className }) {
     return classNames(baseClassName, {
         [className]: className,
@@ -28,7 +33,7 @@ const TYPOGRAPHY_PROP_TYPES = {
     state: PropTypes.oneOf(['disabled', 'inverted', 'muted']),
     /** Text alignment  --left, --center, --right */
     alignment: PropTypes.oneOf(['left', 'center', 'right']),
-    /** ---uppercase, --lowercase **/
+    /** ---uppercase, --lowercase */
     capitalization: PropTypes.oneOf(['uppercase', 'lowercase']),
     /** Truncate text with ellipsis. --truncate */
     truncate: PropTypes.bool,
