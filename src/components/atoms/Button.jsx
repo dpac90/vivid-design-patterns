@@ -47,13 +47,13 @@ const Button = ({
 };
 
 Button.propTypes = {
+    children: PropTypes.node,
     /** html button types eg submit, reset, button` */
     type: PropTypes.string,
     /** block property makes button 100% */
     block: PropTypes.bool,
     /** muted prop only works when importance is of type 'text' */
     muted: PropTypes.bool,
-    children: PropTypes.node,
     /** renders to html class `--small`, `--large` */
     size: PropTypes.oneOf(['small', 'large']),
     /** renders to html class `--raised` */
