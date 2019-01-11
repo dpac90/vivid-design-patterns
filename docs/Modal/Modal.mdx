@@ -5,6 +5,7 @@
 import { PropsTable, Playground } from 'docz'
 
 import Modal from '../../src/components/molecules/Modal';
+import Backdrop from '../../src/components/atoms/Backdrop';
 import Button from '../../src/components/atoms/Button';
 import ModalButtonExample from './ModalButtonExample';
 
@@ -24,7 +25,7 @@ Using the scss files:
 
 `@import @vividseats/vivid-design-patterns/src/styles/_modals.scss;`
 
-## Basic example
+## Basic Example
 `
 React: className="vp-modal" dataState="opened"
 HTML: class="vp-modal" data-state="opened"
@@ -38,10 +39,13 @@ HTML: class="vp-modal" data-state="opened"
     </Modal>
 </Playground>
 
-## Props
+## Modal Props
 <PropsTable of={Modal}/>
 
-## Props example
+## Backdrop Props
+<PropsTable of={Backdrop}/>
+
+## Props Example
 `dataState="opened" title="Modal Title" type="sheet" onClose={() => window.alert('on close fired')`
 <Playground>
     <Modal dataState="opened" title="Modal Title" type="sheet" onClose={() => window.alert('on close fired')}>
@@ -49,7 +53,7 @@ HTML: class="vp-modal" data-state="opened"
     </Modal>
 </Playground>
 
-## Sub component example
+## Sub-Component Example
 ```
 <Modal>
     <Modal.Header />
@@ -69,7 +73,7 @@ HTML: class="vp-modal" data-state="opened"
     </Modal>
 </Playground>
 
-## Example with external button
+## Example with External Button
 ### Modal is rendered by a component that passes in a changing dataState prop
 `dataState={!!state.opened ? 'opened' : 'closed'}`
 <Playground>
