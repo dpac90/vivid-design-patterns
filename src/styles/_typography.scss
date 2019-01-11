@@ -1,3 +1,4 @@
+@import 'prefixes';
 // Tokens
 @import 'tokens';
 @import '_prefixes';
@@ -259,7 +260,7 @@ a {
         text-align: right;
     }
 
-    &[class*='--caps'] {
+    &[class*='--uppercase'] {
         text-transform: uppercase;
     }
     &[class*='--lowercase'] {
