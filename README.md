@@ -27,3 +27,23 @@ To run tests:
 
 
 Full documentation here: http://vivid-design-patterns-master.vividseats.test
+
+## Local development with other projects
+If you want to make changes to vivid-design-patterns and test them in a separate project without the need to publish the package, do the following:
+
+```$xslt
+$ cd vivid-design-patterns
+$ yarn link
+$ cd your-other-project
+$ yarn link @vividseats/vivid-design-patterns
+``` 
+
+If you are using webpack in your other project, be sure to include this following to your webpack config,
+
+```$xslt
+    {
+        resolve: {
+            symlinks: false
+        }
+    }
+```
