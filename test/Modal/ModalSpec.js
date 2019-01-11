@@ -18,10 +18,27 @@ describe('<Modal />', () => {
         expect(wrapper.exists('.vp-backdrop')).toBe(false);
     });
 
-    it('can be dismissed', done => {
+    it('can be a sheet modal', () => {
+        const wrapper = mount(<Modal type="sheet" />);
+        expect(wrapper.find('.vp-modal').hasClass('--sheet')).toBe(true);
+    });
+
+    it('can be dismissed by clicking the dismiss button', done => {
         const mockOnClose = jest.fn();
         const wrapper = mount(<Modal dataState="opened" onClose={mockOnClose} />);
         wrapper.find('.vp-button').simulate('click');
+
+        setTimeout(() => {
+            expect(mockOnClose).toHaveBeenCalledTimes(1);
+            expect(wrapper.state('dataState')).toEqual('closed');
+            done();
+        }, 750);
+    });
+
+    it('can be dismissed by clicking on the backdrop', done => {
+        const mockOnClose = jest.fn();
+        const wrapper = mount(<Modal dataState="opened" onClose={mockOnClose} />);
+        wrapper.find('.vp-backdrop').simulate('click');
 
         setTimeout(() => {
             expect(mockOnClose).toHaveBeenCalledTimes(1);
