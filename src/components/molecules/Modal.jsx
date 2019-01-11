@@ -84,15 +84,10 @@ class Modal extends React.Component {
     };
 
     getChild = (children, childName) => {
-        for (let i = 0; i < children.length; i++) {
-            const child = children[i];
+        children = Array.isArray(children) ? children : [children];
+        const matches = children.filter(child => !!child.type && child.type.displayName === childName);
 
-            if (!!child.type && child.type.displayName === childName) {
-                return child;
-            }
-        }
-
-        return null;
+        return !!matches.length ? matches[0] : null;
     };
 
     render() {
@@ -105,11 +100,11 @@ class Modal extends React.Component {
             [`--${type}`]: Modal.TYPES.includes(type)
         });
 
+        children = Array.isArray(children) ? children : [children];
         const ModalHeader = getChild(children, 'ModalHeader');
         const ModalBody = getChild(children, 'ModalBody');
         const ModalFooter = getChild(children, 'ModalFooter');
 
-        children = Array.isArray(children) ? children : [children];
         const bodyChildren = children.filter(child => {
             if (!child.type) {
                 return true;

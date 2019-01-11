@@ -2,14 +2,13 @@
 @import 'tokens';
 @import 'prefixes';
 @import 'mixins';
-@import 'typography';
 
 // Block
 [class^='vp-modal']:not([class*='__']) {
     @include align-items(center);
     @include flex;
     @include justify-content(center);
-    position: absolute;
+    @include position(absolute, 0, null, null, 0);
     height: 100%;
     width: 100%;
     z-index: $z-index-modal;
@@ -45,7 +44,7 @@
 }
 
 [class^='vp-modal--sheet'] [class^='vp-modal__container'] {
-    position: absolute;
+    @include position(absolute, null, null, -100vh, null);
     @include transform(scale(1));
     border-radius: $border-radius-LG $border-radius-LG 0 0;
     margin: 0;
