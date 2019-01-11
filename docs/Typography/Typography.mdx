@@ -1,5 +1,3 @@
-import Button from '../../src/components/atoms/Button';
-
 ---
     name: Typography
 ---
@@ -8,11 +6,11 @@ import { PropsTable, Playground } from 'docz'
 import Headline from '../../src/components/atoms/Headline';
 import Subtitle from '../../src/components/atoms/Subtitle';
 import BodyText from '../../src/components/atoms/BodyText';
+import { __dummyPropTypesComponent } from '../../src/utils/typographyUtils';
 import Subhead from '../../src/components/atoms/Subhead';
 import TinyText from '../../src/components/atoms/TinyText';
 import SmallText from '../../src/components/atoms/SmallText';
-
-import "../../src/styles/_typography.scss";
+import "./typeDocs.scss";
 
 ## Installation
 
@@ -25,8 +23,38 @@ The typography scss can be imported into other scss files:
     @import @vividseats/vivid-design-patterns/src/styles/typography.scss
 
 ## Modifier props
-All typography components can handle the following props
-<PropsTable of={Headline}/>
+All typography components can consume the following props
+<PropsTable of={__dummyPropTypesComponent}/>
+
+<Playground>
+    <div className="type-column">
+        <BodyText weight={"bold"}>Bold</BodyText>
+        <BodyText weight={"black"}>Black</BodyText>
+        <BodyText weight={"medium"}>Medium</BodyText>
+    </div>
+    <div className="type-column">
+        <BodyText height={"expanded"}>Expanded</BodyText>
+        <BodyText height={"compressed"}>Compressed</BodyText>
+    </div>
+    <div className="type-column inverted">
+        <BodyText state={"disabled"}>Disabled</BodyText>
+        <BodyText state={"inverted"}>Inverted</BodyText>
+        <BodyText state={"muted"}>muted</BodyText>
+    </div>
+    <div className="type-column">
+        <BodyText alignment={"left"}>Left</BodyText>
+        <BodyText alignment={"center"}>Center</BodyText>
+        <BodyText alignment={"right"}>Right</BodyText>
+    </div>
+    <div className="type-column">
+        <BodyText capitalization={"uppercase"}>Uppercase</BodyText>
+        <BodyText capitalization={"lowercase"}>Lowercase</BodyText>
+    </div>
+    <div className="type-column">
+        <BodyText truncate>Trucate text is too fucsia long</BodyText>
+        <BodyText list>List</BodyText>
+    </div>
+</Playground>
 
 ## Headlines
 Using the react components:
