@@ -19,6 +19,7 @@ const LinkGroup = ({ children, importance, className, ...htmlAttributes }) => {
 LinkGroup.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
+    /** renders to html class `--striped`, `--muted` */
     importance: PropTypes.oneOf(['striped', 'muted'])
 };
 
