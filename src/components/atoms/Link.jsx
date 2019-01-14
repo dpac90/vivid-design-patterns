@@ -13,6 +13,7 @@ const Link = ({ children, className, href, onClick, ...attributes }) => {
     const props = {
         href,
         onClick,
+        role: 'link',
         className: classNames('vp-type-link', {
             [className]: !!className
         }),
