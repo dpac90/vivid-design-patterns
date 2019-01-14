@@ -34,7 +34,11 @@ const Tab = ({
         ...attributes
     };
 
-    return <a {...props}>{children}</a>;
+    return (
+        <li>
+            <a {...props}>{children}</a>
+        </li>
+    );
 };
 
 export default Tab;

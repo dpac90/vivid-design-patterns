@@ -13,7 +13,11 @@ const TabGroup = ({ children, dark, className, ...attributes }) => {
         [`--inverted`]: !!dark
     });
 
-    return <nav {...{ className: tabGroupClassnames, ...attributes }}>{children}</nav>;
+    return (
+        <nav {...{ className: tabGroupClassnames, ...attributes }}>
+            <ul>{children}</ul>
+        </nav>
+    );
 };
 
 export default TabGroup;
