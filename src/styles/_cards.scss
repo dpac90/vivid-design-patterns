@@ -1,5 +1,9 @@
 // Tokens
 @import 'tokens';
+@import 'mixins';
+@import 'prefixes';
+@import '_colors.scss';
+
 $card-hero-height: 8rem; // 128px
 
 // Mixins
