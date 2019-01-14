@@ -1,5 +1,6 @@
 // Tokens
 @import 'tokens';
+@import 'mixins';
 
 .vp-search {
     width: 100%;
@@ -49,5 +50,3 @@
         color: $text-color-default;
     }
 }
-
-@import '../twitterTypeahead';
