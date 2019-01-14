@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LinkGroup = ({ children, importance, className, ...htmlAttributes }) => {
-    const baseLinkGroupClass = `vp-link-group${importance ? `--${importance}` : ''}`;
+const LinkGroup = ({ children, type, className, ...htmlAttributes }) => {
+    const baseLinkGroupClass = `vp-link-group${type ? `--${type}` : ''}`;
     const props = {
         className: className ? `${baseLinkGroupClass} ${className}` : baseLinkGroupClass,
         ...htmlAttributes
@@ -20,7 +20,7 @@ LinkGroup.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     /** renders to html class `--striped`, `--muted` */
-    importance: PropTypes.oneOf(['striped', 'muted'])
+    type: PropTypes.oneOf(['striped', 'muted'])
 };
 
 export default LinkGroup;
