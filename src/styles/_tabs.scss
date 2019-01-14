@@ -7,6 +7,13 @@
     font-size: 0; // inline-block gap fix
     overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
+
+    ul,
+    li {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
 }
 .vp-tab,
 .vp-tab[data-state='active'] {
