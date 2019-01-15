@@ -11,6 +11,7 @@ class Modal extends React.Component {
     static Header = ModalHeader;
     static Body = ModalBody;
     static Footer = ModalFooter;
+    static TYPES = ['sheet'];
 
     static DATA_STATE = {
         OPENED: 'opened',
@@ -18,14 +19,12 @@ class Modal extends React.Component {
         CLOSED: 'closed',
         CLOSING: 'closing'
     };
-    static TYPES = ['sheet'];
 
     static propTypes = {
         className: PropTypes.string,
         children: PropTypes.node,
         dataState: PropTypes.oneOf([Modal.DATA_STATE.OPENED, Modal.DATA_STATE.CLOSED]),
         disableBackdrop: PropTypes.bool,
-        htmlAttributes: PropTypes.object,
         onClose: PropTypes.func,
         onOpen: PropTypes.func,
         title: PropTypes.string,
@@ -92,18 +91,16 @@ class Modal extends React.Component {
 
     render() {
         const { props, state, toggleModal, getChild } = this;
-        const { className = '', disableBackdrop = false, title = '', type = 'default' } = props;
-        let { children = [] } = props;
+        const { className = '', disableBackdrop = false, title = '' } = props;
+        let { children = [], type = '' } = props;
         const { dataState = '' } = state;
 
-        const modalClassNames = classNames('vp-modal', {
-            [`--${type}`]: Modal.TYPES.includes(type)
-        });
-
         children = Array.isArray(children) ? children : [children];
-        const ModalHeader = getChild(children, 'ModalHeader');
-        const ModalBody = getChild(children, 'ModalBody');
-        const ModalFooter = getChild(children, 'ModalFooter');
+        type = !!type.length ? `--${type}` : type;
+
+        const ModalHeaderChild = getChild(children, 'ModalHeader');
+        const ModalBodyChild = getChild(children, 'ModalBody');
+        const ModalFooterChild = getChild(children, 'ModalFooter');
 
         const bodyChildren = children.filter(child => {
             if (!child.type) {
@@ -116,11 +113,11 @@ class Modal extends React.Component {
 
         return (
             <React.Fragment>
-                <aside className={`${modalClassNames} ${className}`} data-state={!!dataState.length ? dataState : Modal.DATA_STATE.CLOSED}>
+                <aside className={`vp-modal${type} ${className}`} data-state={dataState.length ? dataState : Modal.DATA_STATE.CLOSED}>
                     <div className="vp-modal__container">
-                        {!!ModalHeader ? ModalHeader : <Modal.Header>{title}</Modal.Header>}
-                        {!!ModalBody ? ModalBody : <Modal.Body>{bodyChildren}</Modal.Body>}
-                        {!!ModalFooter ? ModalFooter : <Modal.Footer onDismiss={toggleModal} />}
+                        {ModalHeaderChild || <Modal.Header>{title}</Modal.Header>}
+                        {ModalBodyChild || <Modal.Body>{bodyChildren}</Modal.Body>}
+                        {ModalFooterChild || <Modal.Footer onDismiss={toggleModal} />}
                     </div>
                 </aside>
                 {!disableBackdrop && <Backdrop dataState={dataState} onClick={toggleModal} />}

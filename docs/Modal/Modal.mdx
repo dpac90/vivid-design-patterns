@@ -29,7 +29,7 @@ Using the scss files:
 React: className="vp-modal" dataState="opened"
 HTML: class="vp-modal" data-state="opened"
 `
-<Playground>
+<Playground style={ { minHeight: '400px' } } >
     <Modal dataState="opened">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
@@ -46,7 +46,7 @@ HTML: class="vp-modal" data-state="opened"
 
 ## Props Example
 `dataState="opened" title="Modal Title" type="sheet" onClose={() => window.alert('on close fired')`
-<Playground>
+<Playground style={ { minHeight: '400px' } } >
     <Modal dataState="opened" title="Modal Title" type="sheet" onClose={() => window.alert('on close fired')}>
         This sheet modal is uses a prop for the modal title, passes in the body text, and uses the default modal footer and dismiss button.
     </Modal>
@@ -60,7 +60,7 @@ HTML: class="vp-modal" data-state="opened"
     <Modal.Footer />
 </Modal>
 ```
-<Playground>
+<Playground style={ { minHeight: '400px' } } >
     <Modal dataState="opened">
         <Modal.Header className="vp-type-headline4">Custom Modal H4 Header</Modal.Header>
         <Modal.Body>
@@ -75,6 +75,6 @@ HTML: class="vp-modal" data-state="opened"
 ## Example with External Button
 ### Modal is rendered by a component that passes in a changing dataState prop
 `dataState={!!state.opened ? 'opened' : 'closed'}`
-<Playground>
+<Playground style={ { minHeight: '400px' } } >
     <ModalButtonExample />
 </Playground>
