@@ -2,6 +2,8 @@
 @import 'tokens';
 @import 'prefixes';
 @import 'mixins';
+@import 'typography';
+@import 'backdrop';
 
 // Block
 [class^='vp-modal']:not([class*='__']) {
