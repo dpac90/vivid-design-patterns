@@ -28,6 +28,11 @@ To run tests:
 
 Full documentation here: http://vivid-design-patterns-master.vividseats.test
 
+## Building
+To build the javascript assets:
+
+`yarn run build:js`
+
 ## Local development with other projects
 If you want to make changes to vivid-design-patterns and test them in a separate project without the need to publish the package, do the following:
 
@@ -47,3 +52,5 @@ If you are using webpack in your other project, be sure to include this followin
         }
     }
 ```
+
+Each time you make a change to vivid-design patterns, rerun `yarn run build:js`

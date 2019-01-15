@@ -6,6 +6,8 @@ import { PropsTable, Playground } from 'docz'
 import Card from '../../src/components/molecules/Card';
 import Button from '../../src/components/atoms/Button';
 import './cardDocs.scss';
+import Headline from '../../src/components/atoms/Headline';
+import BodyText from '../../src/components/atoms/BodyText';
 
 ## Installation
 Using the react components:
@@ -22,8 +24,8 @@ Using the scss files:
 <Playground>
 <Card>
     <p className="vp-type-body1">
-    What evidence is there that cats are so smart, anyway? Huh? What do they do? Because they’re clean? I am sorry. My Uncle Pete showers four times a day and he can’t count to ten. So don’t give me hygiene
-</p>
+        What evidence is there that cats are so smart, anyway? Huh? What do they do? Because they’re clean? I am sorry. My Uncle Pete showers four times a day and he can’t count to ten. So don’t give me hygiene
+    </p>
 </Card>
 </Playground>
 
@@ -35,10 +37,10 @@ Using the scss files:
 <Playground>
     <Card>
         <Card.Header>
-            <h5 className="vp-type-headline6">Bandersnatch</h5>
+            <Headline importance={6}>Bandersnatch</Headline>
         </Card.Header>
         <Card.Body>
-        <p className="vp-type-body1">There's messages in every game. Like Pac-Man. Do you know what PAC stands for? P-A-C: "program and control." He's Program and Control Man the whole things a metaphor, he thinks he's got free will but really he's trapped in a maze, in a system, all he can do is consume, he's pursued by demons that are probably just in his own head, and even if he does manage to escape by slipping out one side of the maze, what happens? He comes right back in the other side.</p>
+        <BodyText>There's messages in every game. Like Pac-Man. Do you know what PAC stands for? P-A-C: "program and control." He's Program and Control Man the whole things a metaphor, he thinks he's got free will but really he's trapped in a maze, in a system, all he can do is consume, he's pursued by demons that are probably just in his own head, and even if he does manage to escape by slipping out one side of the maze, what happens? He comes right back in the other side.</BodyText>
         </Card.Body>
         <Card.Footer>
             <Button importance='text' muted>
@@ -97,7 +99,7 @@ Adds a border on the title to match borders within list items.
 <Playground>
     <Card type="list">
         <Card.Header>
-            <h5 className="vp-type-headline6">List Card</h5>
+            <Headline importance={6}>List Card</Headline>
         </Card.Header>
         <Card.Body>
             <ul>
@@ -116,7 +118,7 @@ Cards that are clickable with navigation and presents a hover effect.
 <Playground>
     <Card type="anchor" role="link">
         <Card.Header>
-            <h5 className="vp-type-headline6">Anchor Card</h5>
+            <Headline importance={6}>Anchor card</Headline>
         </Card.Header>
         <Card.Body>
             Anchor
