@@ -32,6 +32,7 @@ class Modal extends React.Component {
     };
 
     static defaultProps = {
+        dataState: Modal.DATA_STATE.CLOSED,
         onOpen: () => {},
         onClose: () => {}
     };
@@ -40,7 +41,7 @@ class Modal extends React.Component {
         super(props);
 
         this.state = {
-            dataState: this.props.dataState || Modal.DATA_STATE.CLOSED
+            dataState: this.props.dataState
         };
     }
 
@@ -64,13 +65,11 @@ class Modal extends React.Component {
         if (hasStateChange && state.dataState === OPENING) {
             handleOpen();
         } else if (hasPropChange && props.dataState === OPENED) {
-            this.setState({ dataState: OPENING });
-            handleOpen();
+            this.setState({ dataState: OPENING }, handleOpen);
         } else if (hasStateChange && state.dataState === CLOSING) {
             handleClose();
         } else if (hasPropChange && props.dataState === CLOSED) {
-            this.setState({ dataState: CLOSING });
-            handleClose();
+            this.setState({ dataState: CLOSING }, handleClose);
         }
     }
 
@@ -108,7 +107,7 @@ class Modal extends React.Component {
         const ModalBodyChild = getChild(children, ModalBody.displayName);
         const ModalFooterChild = getChild(children, ModalFooter.displayName);
 
-        const bodyChildren = React.Children.toArray(children).filter(child => {
+        const bodyChildren = children.filter(child => {
             if (!child.type) {
                 return true;
             }

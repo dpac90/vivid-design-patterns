@@ -5,6 +5,9 @@
 import { PropsTable, Playground } from 'docz'
 
 import Modal from '../../src/components/molecules/Modal';
+import ModalHeader from '../../src/components/atoms/ModalHeader';
+import ModalBody from '../../src/components/atoms/ModalBody';
+import ModalFooter from '../../src/components/atoms/ModalFooter';
 import Backdrop from '../../src/components/atoms/Backdrop';
 import Button from '../../src/components/atoms/Button';
 import ModalButtonExample from './ModalButtonExample';
@@ -41,7 +44,16 @@ HTML: class="vp-modal" data-state="opened"
 ## Modal Props
 <PropsTable of={Modal}/>
 
-## Backdrop Props
+### Modal Header Props
+<PropsTable of={ModalHeader}/>
+
+### Modal Body Props
+<PropsTable of={ModalBody}/>
+
+### Modal Footer Props
+<PropsTable of={ModalFooter}/>
+
+##s# Backdrop Props
 <PropsTable of={Backdrop}/>
 
 ## Props Example
@@ -62,7 +74,7 @@ HTML: class="vp-modal" data-state="opened"
 ```
 <Playground style={ { minHeight: '400px' } } >
     <Modal dataState="opened">
-        <Modal.Header className="vp-type-headline4">Custom Modal H4 Header</Modal.Header>
+        <Modal.Header importance={4}>Custom Modal H4 Header</Modal.Header>
         <Modal.Body>
             <p>This modal is using subcomponents for the modal header, body, and footer.</p>
         </Modal.Body>

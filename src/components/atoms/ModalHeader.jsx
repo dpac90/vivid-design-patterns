@@ -1,17 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Headline from './Headline';
 
-const ModalHeader = ({ className = '', children, ...htmlAttributes }) => (
-    <h6 className={`vp-modal__header ${className} ${!className.includes('vp-type') ? 'vp-type-headline6' : ''}`} {...htmlAttributes}>
-        {children}
-    </h6>
+const ModalHeader = ({ children, importance = 6, ...htmlAttributes }) => (
+    <div className="vp-modal__header" {...htmlAttributes}>
+        <Headline importance={importance}>{children}</Headline>
+    </div>
 );
 
 ModalHeader.displayName = 'ModalHeader';
 
 ModalHeader.propTypes = {
     className: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
+    importance: PropTypes.oneOf([1, 2, 3, 4, 5, 6])
 };
 
 export default ModalHeader;
