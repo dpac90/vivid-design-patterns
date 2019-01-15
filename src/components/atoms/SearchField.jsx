@@ -39,9 +39,7 @@ const SearchField = ({
                 placeholder="Search by team, artist, event or venue"
                 autoComplete="off"
             />
-            <i id="searchFieldClear" className="vp-search-field__icon-close material-icons">
-                &#xE5C9;
-            </i>
+            <i className="vp-search-field__icon-close material-icons">&#xE5C9;</i>
         </div>
     );
 };
@@ -51,7 +49,6 @@ SearchField.propTypes = {
     /** renders to html class `--disabled` */
     disabled: PropTypes.bool,
     className: PropTypes.string,
-    grouped: PropTypes.bool,
     onClick: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
