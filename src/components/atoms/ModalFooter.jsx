@@ -14,6 +14,8 @@ const ModalFooter = ({ className = '', children, onDismiss = () => {}, ...htmlAt
     </div>
 );
 
+ModalFooter.displayName = 'ModalFooter';
+
 ModalFooter.propTypes = {
     className: PropTypes.string,
     children: PropTypes.node,

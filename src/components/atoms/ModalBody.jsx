@@ -7,6 +7,8 @@ const ModalBody = ({ className = '', children, ...htmlAttributes }) => (
     </div>
 );
 
+ModalBody.displayName = 'ModalBody';
+
 ModalBody.propTypes = {
     className: PropTypes.string,
     children: PropTypes.node

@@ -7,6 +7,8 @@ const ModalHeader = ({ className = '', children, ...htmlAttributes }) => (
     </h6>
 );
 
+ModalHeader.displayName = 'ModalHeader';
+
 ModalHeader.propTypes = {
     className: PropTypes.string,
     children: PropTypes.node

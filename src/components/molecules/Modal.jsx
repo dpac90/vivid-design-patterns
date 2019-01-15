@@ -31,6 +31,11 @@ class Modal extends React.Component {
         type: PropTypes.oneOf(Modal.TYPES)
     };
 
+    static defaultProps = {
+        onOpen: () => {},
+        onClose: () => {}
+    };
+
     constructor(props) {
         super(props);
 
@@ -41,28 +46,31 @@ class Modal extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         const { props, state } = this;
+        const { OPENED, OPENING, CLOSED, CLOSING } = Modal.DATA_STATE;
+        const TRANSITION_TIME = 500;
 
-        if (
-            state.dataState !== prevState.dataState &&
-            state.dataState === Modal.DATA_STATE.OPENING &&
-            props.dataState === prevProps.dataState
-        ) {
-            // handle dataState open from toggleModal
-            setTimeout(() => {
-                this.setState({ dataState: Modal.DATA_STATE.OPENED });
-            }, 500);
-        } else if (
-            state.dataState !== prevState.dataState &&
-            state.dataState === Modal.DATA_STATE.CLOSING &&
-            props.dataState === prevProps.dataState
-        ) {
-            // handle dataState close from toggleModal
-            setTimeout(() => {
-                this.setState({ dataState: Modal.DATA_STATE.CLOSED });
-            }, 500);
-        } else if (props.dataState !== state.dataState && prevState.dataState === state.dataState) {
-            // handle new dataState prop from parent
-            this.setState({ dataState: props.dataState });
+        const hasStateChange = state.dataState !== prevState.dataState && props.dataState === prevProps.dataState;
+        const hasPropChange = props.dataState !== state.dataState && prevState.dataState === state.dataState;
+
+        // delay for transition
+        const handleOpen = () => {
+            setTimeout(() => this.setState({ dataState: OPENED }), TRANSITION_TIME);
+        };
+
+        const handleClose = () => {
+            setTimeout(() => this.setState({ dataState: CLOSED }), TRANSITION_TIME);
+        };
+
+        if (hasStateChange && state.dataState === OPENING) {
+            handleOpen();
+        } else if (hasPropChange && props.dataState === OPENED) {
+            this.setState({ dataState: OPENING });
+            handleOpen();
+        } else if (hasStateChange && state.dataState === CLOSING) {
+            handleClose();
+        } else if (hasPropChange && props.dataState === CLOSED) {
+            this.setState({ dataState: CLOSING });
+            handleClose();
         }
     }
 
@@ -71,44 +79,44 @@ class Modal extends React.Component {
 
         if (dataState === Modal.DATA_STATE.CLOSED) {
             this.setState({ dataState: Modal.DATA_STATE.OPENING }); // opening and closing dataStates used in _modals.scss
-
-            const { onOpen = () => {} } = this.props;
-            onOpen();
+            this.props.onOpen();
         } else if (dataState === Modal.DATA_STATE.OPENED) {
             this.setState({ dataState: Modal.DATA_STATE.CLOSING });
-
-            const { onClose = () => {} } = this.props;
-            onClose();
+            this.props.onClose();
         }
     };
 
-    getChild = (children, childName) => {
-        children = Array.isArray(children) ? children : [children];
+    getChild = (children = [], childName) => {
         const matches = children.filter(child => !!child.type && child.type.displayName === childName);
-
         return !!matches.length ? matches[0] : null;
     };
 
     render() {
         const { props, state, toggleModal, getChild } = this;
         const { className = '', disableBackdrop = false, title = '' } = props;
-        let { children = [], type = '' } = props;
+        let { children, type = '' } = props;
         const { dataState = '' } = state;
 
-        children = Array.isArray(children) ? children : [children];
+        if (dataState === Modal.DATA_STATE.CLOSED) {
+            return null;
+        }
+
+        children = React.Children.toArray(children);
         type = !!type.length ? `--${type}` : type;
 
-        const ModalHeaderChild = getChild(children, 'ModalHeader');
-        const ModalBodyChild = getChild(children, 'ModalBody');
-        const ModalFooterChild = getChild(children, 'ModalFooter');
+        const ModalHeaderChild = getChild(children, ModalHeader.displayName);
+        const ModalBodyChild = getChild(children, ModalBody.displayName);
+        const ModalFooterChild = getChild(children, ModalFooter.displayName);
 
-        const bodyChildren = children.filter(child => {
+        const bodyChildren = React.Children.toArray(children).filter(child => {
             if (!child.type) {
                 return true;
             }
 
             const { displayName } = child.type;
-            return !displayName || !['ModalHeader', 'ModalBody', 'ModalFooter'].includes(displayName);
+            const childDisplayNames = [ModalHeader.displayName, ModalBody.displayName, ModalFooter.displayName];
+
+            return !displayName || !childDisplayNames.includes(displayName);
         });
 
         return (
