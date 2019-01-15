@@ -6,12 +6,12 @@ import Tab from '../../src/components/atoms/Tab';
 describe('<Tab />', () => {
     const fakeHref = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 
-    it('renders an <a> tag', () => {
+    it('renders an <li> tag', () => {
         const wrapper = shallow(<Tab href={fakeHref} />);
-        expect(wrapper.find('a.vp-tab').exists()).toBe(true);
+        expect(wrapper.find('li.vp-tab').exists()).toBe(true);
     });
 
-    it('renders an <a> tag with custom attributes', () => {
+    it('renders an <li> tag with custom attributes', () => {
         const wrapper = shallow(<Tab href={fakeHref} id="myTab" />);
         expect(wrapper.find('#myTab').hasClass('vp-tab')).toBe(true);
     });
