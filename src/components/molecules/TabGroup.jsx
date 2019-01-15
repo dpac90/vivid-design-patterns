@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const TabGroup = ({ children, dark, className, ...attributes }) => {
+const TabGroup = ({ children, compressed, dark, className, ...attributes }) => {
     TabGroup.propTypes = {
         children: PropTypes.node,
         className: PropTypes.string
@@ -10,14 +10,11 @@ const TabGroup = ({ children, dark, className, ...attributes }) => {
 
     const tabGroupClassnames = classNames('vp-tab-group', {
         [className]: !!className,
-        [`--inverted`]: !!dark
+        [`--inverted`]: !!dark,
+        ['--compressed']: !!compressed
     });
 
-    return (
-        <nav {...{ className: tabGroupClassnames, ...attributes }}>
-            <ul>{children}</ul>
-        </nav>
-    );
+    return <ul {...{ className: tabGroupClassnames, ...attributes }}>{children}</ul>;
 };
 
 export default TabGroup;

@@ -2,20 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Tab = ({
-    children,
-    className,
-    href,
-    active,
-    onClick = () => {},
-    onMouseEnter = () => {},
-    onMouseLeave = () => {},
-    ...attributes
-}) => {
+const Tab = ({ children, className, active, onClick = () => {}, onMouseEnter = () => {}, onMouseLeave = () => {}, ...attributes }) => {
     Tab.propTypes = {
         children: PropTypes.node,
         className: PropTypes.string,
-        href: PropTypes.string,
         active: PropTypes.bool,
         onClick: PropTypes.func,
         onMouseEnter: PropTypes.func,
@@ -23,7 +13,6 @@ const Tab = ({
     };
 
     const props = {
-        href,
         onClick,
         onMouseEnter,
         onMouseLeave,
@@ -34,11 +23,7 @@ const Tab = ({
         ...attributes
     };
 
-    return (
-        <li>
-            <a {...props}>{children}</a>
-        </li>
-    );
+    return <li {...props}>{children}</li>;
 };
 
 export default Tab;

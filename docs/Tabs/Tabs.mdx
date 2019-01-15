@@ -37,9 +37,18 @@ Using the scss files:
 ## Add custom event listener callback functions
 <Playground>
   <TabGroup>
-    <Tab href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" onClick={function(e) { e.preventDefault(); alert('Called onClick'); }}>Tab with onClick callback</Tab>
-    <Tab href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" onMouseEnter={function(e) { alert('Called onMouseEnter'); }}>Tab with onMouseEnter callback</Tab>
-    <Tab href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" onMouseLeave={function(e) { alert('Called onMouseLeave'); }}>Tab with onMouseLeave callback</Tab>
+    <Tab onClick={function(e) { e.preventDefault(); alert('Called onClick'); }}>Tab with onClick callback</Tab>
+    <Tab onMouseEnter={function(e) { alert('Called onMouseEnter'); }}>Tab with onMouseEnter callback</Tab>
+    <Tab onMouseLeave={function(e) { alert('Called onMouseLeave'); }}>Tab with onMouseLeave callback</Tab>
+  </TabGroup>
+</Playground>
+
+## Compressed theme
+<Playground>
+  <TabGroup compressed>
+    <Tab active>First tab</Tab>
+    <Tab>Second tab</Tab>
+    <Tab>Third tab</Tab>
   </TabGroup>
 </Playground>
 
@@ -49,12 +58,5 @@ Using the scss files:
     <Tab>First tab</Tab>
     <Tab active>Second tab</Tab>
     <Tab>Third tab</Tab>
-  </TabGroup>
-</Playground>
-
-## Add additional attributes on the `<a>` tag
-<Playground>
-  <TabGroup>
-    <Tab href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Tab to open in new window</Tab>
   </TabGroup>
 </Playground>
