@@ -18,17 +18,13 @@
 }
 .vp-search-field__icon-search {
     left: $sizing-LG;
+    top: $sizing-SM;
     pointer-events: none;
 }
 .vp-search-field__icon-close {
     cursor: pointer;
-    display: none;
     font-size: $font-size-XL;
     right: $sizing-SM;
-
-    @include size-min-tablet {
-        display: none !important;
-    }
 }
 .vp-search-field__input {
     @include border;

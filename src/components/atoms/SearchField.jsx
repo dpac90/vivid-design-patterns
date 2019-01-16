@@ -2,58 +2,95 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const SearchField = ({
-    children,
-    className,
-    disabled,
-    onClick = () => {},
-    onFocus = () => {},
-    onMouseEnter = () => {},
-    onMouseLeave = () => {},
-    onBlur = () => {},
-    ...htmlAttributes
-}) => {
-    const baseSearchFieldClass = 'vp-search';
-    const searchFieldClassNames = classNames(baseSearchFieldClass, {
-        [`--disabled`]: disabled
-    });
+class SearchField extends React.Component {
+    componentWillMount() {
+        this.setState({
+            inputValue: this.props.value
+        });
+    }
 
-    const props = {
-        className: className ? `${searchFieldClassNames} ${className}` : searchFieldClassNames,
-        onMouseEnter,
-        onMouseLeave,
-        onClick,
-        onFocus,
-        onBlur,
-        ...htmlAttributes
+    resetInput = () => {
+        this.setState({ inputValue: '' });
     };
 
-    return (
-        <div className="vp-search-field">
-            <i className="vp-search-field__icon-search material-icons">&#xE8B6;</i>
-            <input
-                type="text"
-                id="searchTerm"
-                name="searchTerm"
-                className="vp-search-field__input"
-                placeholder="Search by team, artist, event or venue"
-                autoComplete="off"
-            />
-            <i className="vp-search-field__icon-close material-icons">&#xE5C9;</i>
-        </div>
-    );
-};
+    onChange = event => {
+        this.setState({
+            inputValue: event.target.value
+        });
+        this.props.onChange(event);
+    };
 
-SearchField.propTypes = {
-    children: PropTypes.node,
-    /** renders to html class `--disabled` */
-    disabled: PropTypes.bool,
-    className: PropTypes.string,
-    onClick: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onMouseEnter: PropTypes.func
-};
+    onSubmit = event => {
+        const isEnterPressed = event.which === 13 || event.keyCode === 13;
+        return isEnterPressed ? this.props.onSubmit(event) : null;
+    };
+
+    static propTypes = {
+        id: PropTypes.string,
+        name: PropTypes.string,
+        value: PropTypes.string,
+        autoComplete: PropTypes.string,
+        placeholder: PropTypes.string,
+        className: PropTypes.string,
+        onClick: PropTypes.func,
+        onFocus: PropTypes.func,
+        onBlur: PropTypes.func,
+        onChange: PropTypes.func,
+        onMouseLeave: PropTypes.func,
+        onMouseEnter: PropTypes.func,
+        onSubmit: PropTypes.func
+    };
+
+    static defaultProps = {
+        id: 'searchField',
+        name: 'searchField',
+        value: '',
+        autoComplete: 'off',
+        placeholder: undefined,
+        className: undefined,
+        onClick: () => {},
+        onFocus: () => {},
+        onBlur: () => {},
+        onChange: () => {},
+        onMouseLeave: () => {},
+        onMouseEnter: () => {},
+        onSubmit: () => {}
+    };
+
+    render() {
+        const { className, onClick, onFocus, onMouseEnter, onMouseLeave, onBlur, placeholder, name, autoComplete, id } = this.props;
+        const { inputValue } = this.state;
+        const classNames = className ? `vp-search-field ${className}` : 'vp-search-field';
+        const props = {
+            onMouseEnter,
+            onMouseLeave,
+            onClick,
+            onFocus,
+            onBlur,
+            placeholder,
+            name,
+            id,
+            autoComplete
+        };
+        return (
+            <div className={classNames}>
+                <i className="vp-search-field__icon-search material-icons">&#xE8B6;</i>
+                <input
+                    type="text"
+                    className="vp-search-field__input"
+                    onChange={this.onChange}
+                    onKeyPress={this.onSubmit}
+                    value={inputValue}
+                    {...props}
+                />
+                {!!inputValue && (
+                    <i className="vp-search-field__icon-close material-icons" onClick={this.resetInput}>
+                        &#xE5C9;
+                    </i>
+                )}
+            </div>
+        );
+    }
+}
 
 export default SearchField;

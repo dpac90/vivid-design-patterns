@@ -20,10 +20,26 @@ Using the scss files:
 ## Props
 <PropsTable of={SearchField}/>
 
-
-### Sizing
-`class="vp-button--small"`
-`class="vp-button--large"`
+## Basic Usage
 <Playground>
     <SearchField></SearchField>
 </Playground>
+
+### Submit
+`onSubmit={() => {alert('hi')}}` keypress=Enter
+<Playground>
+    <SearchField onSubmit={() => {alert('hi')}}></SearchField>
+</Playground>
+
+### Placeholder
+`placeholder="Search by team, artist, event or venue"`
+<Playground>
+    <SearchField placeholder="Search by team, artist, event or venue"></SearchField>
+</Playground>
+
+### Value
+`value="Chicago White Sox"`
+<Playground>
+    <SearchField value="Chicago White Sox"></SearchField>
+</Playground>
+
