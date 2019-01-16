@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Modal from '../../src/components/molecules/Modal';
+import Button from '../../src/components/atoms/Button';
 
 describe('<Modal />', () => {
     it('renders an <aside> element', () => {
@@ -50,5 +51,51 @@ describe('<Modal />', () => {
             expect(wrapper.state('dataState')).toEqual('closed');
             done();
         }, 750);
+    });
+
+    it('supports header, body, and footer subcomponents', () => {
+        const wrapper = mount(
+            <Modal dataState="opened">
+                <Modal.Header className="modalHeaderClass">Modal Header</Modal.Header>
+                <Modal.Body className="modalBodyClass">Modal Body</Modal.Body>
+                <Modal.Footer className="modalFooterClass">
+                    <Button className="modalButtonClass" importance="tertiary">
+                        Click
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        );
+
+        expect(wrapper.exists('.vp-modal__header.modalHeaderClass'));
+        expect(wrapper.exists('.vp-modal__body.modalBodyClass'));
+        expect(wrapper.exists('.vp-modal__footer.modalFooterClass button.modalFooterClass'));
+    });
+
+    it('adds child elements to the modal body if they are not subcomponents', () => {
+        const someClass = 'someClass';
+        const content = 'Modal body content';
+
+        const wrapper = mount(
+            <Modal dataState="opened">
+                <p className={someClass}>{content}</p>
+            </Modal>
+        );
+        expect(
+            wrapper
+                .find(`.vp-modal__body .${someClass}`)
+                .render()
+                .text()
+        ).toEqual(content);
+    });
+
+    it('renders a modal header with title if title prop is passed', () => {
+        const title = 'Modal Title';
+        const wrapper = mount(<Modal dataState="opened" title={title} />);
+        expect(
+            wrapper
+                .find('.vp-modal__header')
+                .render()
+                .text()
+        ).toEqual(title);
     });
 });
