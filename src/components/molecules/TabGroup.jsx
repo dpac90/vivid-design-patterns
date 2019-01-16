@@ -5,7 +5,9 @@ import classNames from 'classnames';
 const TabGroup = ({ children, compressed, dark, className, ...attributes }) => {
     TabGroup.propTypes = {
         children: PropTypes.node,
-        className: PropTypes.string
+        className: PropTypes.string,
+        dark: PropTypes.bool,
+        compressed: PropTypes.bool
     };
 
     const tabGroupClassnames = classNames('vp-tab-group', {
