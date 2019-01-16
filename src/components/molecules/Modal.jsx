@@ -77,11 +77,9 @@ class Modal extends React.Component {
         const { dataState } = this.state;
 
         if (dataState === Modal.DATA_STATE.CLOSED) {
-            this.setState({ dataState: Modal.DATA_STATE.OPENING }); // opening and closing dataStates used in _modals.scss
-            this.props.onOpen();
+            this.setState({ dataState: Modal.DATA_STATE.OPENING }, this.props.onOpen); // opening and closing dataStates for scss transitions
         } else if (dataState === Modal.DATA_STATE.OPENED) {
-            this.setState({ dataState: Modal.DATA_STATE.CLOSING });
-            this.props.onClose();
+            this.setState({ dataState: Modal.DATA_STATE.CLOSING }, this.props.onClose);
         }
     };
 
