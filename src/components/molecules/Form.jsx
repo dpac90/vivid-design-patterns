@@ -56,7 +56,9 @@ class Form extends React.Component {
         let highestErrorComponent;
         let highestErrorPosition = Infinity;
         this.inputs.forEach((component, index) => {
-            const componentDomNode = ReactDOM.findDOMNode(component); //TODO: update form component library to also have refs in form elements so we dont have to use ReactDom.findDomNode
+            // TODO: update form component library to also have refs in form elements so we dont have to use ReactDom.findDomNode
+            /* eslint react/no-find-dom-node: 0 */
+            const componentDomNode = ReactDOM.findDOMNode(component);
             const error = this.validateInput(component);
             if (componentDomNode && !!error) {
                 const position = componentDomNode.getBoundingClientRect().top;

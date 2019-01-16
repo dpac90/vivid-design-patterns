@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'classnames'; // The value in input state is used by Form.jsx
 
-class Input extends React.Component {
+/* eslint react/no-unused-state: 0 */ class Input extends React.Component {
     static defaultProps = {
         onChange: () => {},
         onBlur: () => {},
@@ -11,6 +11,7 @@ class Input extends React.Component {
     };
 
     static propTypes = {
+        id: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
         onChange: PropTypes.func,
         onBlur: PropTypes.func,
@@ -28,7 +29,7 @@ class Input extends React.Component {
     };
 
     onChange = e => {
-        const value = e.target.value;
+        const { value } = e.target;
         let error = '';
         if (this.state.dirty) {
             error = this.props.validationMethod(value);
@@ -50,13 +51,13 @@ class Input extends React.Component {
     };
 
     onBlur = e => {
-        const value = e.target.value;
+        const { value } = e.target;
         const error = this.props.validationMethod(value);
         this.setState({ filled: !!value, dirty: true, error }, this.props.onBlur);
     };
 
     render() {
-        const { className, defaultValue, label, outlined, validationMethod, onFocus, onBlur, onChange, ...htmlAttributes } = this.props;
+        const { id, className, defaultValue, label, outlined, validationMethod, onFocus, onBlur, onChange, ...htmlAttributes } = this.props;
         const { filled, dirty } = this.state;
         const error = this.state.error || this.props.error;
         const inputClassName = classNames('vp-textfield__input', {
@@ -64,7 +65,7 @@ class Input extends React.Component {
         });
 
         const inputContainerClassName = classNames('vp-textfield', {
-            ['--outlined']: outlined
+            '--outlined': outlined
         });
 
         const dataState = classNames({
@@ -76,6 +77,7 @@ class Input extends React.Component {
         return (
             <div className={inputContainerClassName} data-state={dataState}>
                 <input
+                    id={id}
                     onChange={this.onChange}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
@@ -83,7 +85,9 @@ class Input extends React.Component {
                     defaultValue={defaultValue}
                     {...htmlAttributes}
                 />
-                <label className="vp-floating-label">{label}</label>
+                <label className="vp-floating-label" htmlFor={id}>
+                    {label}
+                </label>
                 {!!error && <span className="vp-helper-text--validation">{error}</span>}
             </div>
         );
