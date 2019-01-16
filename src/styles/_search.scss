@@ -2,23 +2,20 @@
 @import 'tokens';
 @import 'mixins';
 
-.vp-search {
-    width: 100%;
-}
 .vp-search-field {
     position: relative;
     margin: $sizing-SM $sizing-LG;
-}
-[class*='vp-search-field__icon'] {
-    color: $color-gray-medium;
-    line-height: $sizing-3XL;
-    position: absolute;
-    top: 0;
-    z-index: 2;
+
+    [class*='vp-search-field__icon'] {
+        color: $color-gray-medium;
+        line-height: $sizing-3XL;
+        position: absolute;
+        top: 0;
+        z-index: 2;
+    }
 }
 .vp-search-field__icon-search {
     left: $sizing-LG;
-    top: $sizing-SM;
     pointer-events: none;
 }
 .vp-search-field__icon-close {
@@ -31,6 +28,7 @@
     background: $color-off-white;
     border-radius: $border-radius-XL;
     box-shadow: none;
+    box-sizing: border-box;
     color: $text-color-muted;
     display: block;
     font-size: $font-size-MD;
@@ -38,7 +36,7 @@
     outline: none;
     padding: 0 $sizing-2XL 0 $sizing-3XL;
     position: relative;
-    width: 336px;
+    width: 100%;
     z-index: 1;
 
     &:active,
