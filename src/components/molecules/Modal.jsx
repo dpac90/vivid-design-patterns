@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import ModalHeader from '../atoms/ModalHeader';
 import ModalBody from '../atoms/ModalBody';
