@@ -53,4 +53,14 @@ If you are using webpack in your other project, be sure to include this followin
     }
 ```
 
-Each time you make a change to vivid-design patterns, rerun `yarn run build:js`
+Alternatively, you can change the reference in the `package.json` of `your-other-project` to the github repo
+
+```
+{
+  "@vividseats/vivid-design-patterns": "git+ssh://git@github.com:VividSeats/vivid-design-patterns.git#<BRANCH_NAME>",
+}
+```
+
+Each time you make a change to vivid-design patterns, rerun `yarn run build:js` to see the changes reflected in `your-other-project`
+
+
