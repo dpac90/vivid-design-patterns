@@ -5,13 +5,15 @@ import classNames from 'classnames';
 const TabGroup = ({ children, compressed, dark, className, ...attributes }) => {
     TabGroup.propTypes = {
         children: PropTypes.node,
-        className: PropTypes.string
+        className: PropTypes.string,
+        dark: PropTypes.bool,
+        compressed: PropTypes.bool
     };
 
     const tabGroupClassnames = classNames('vp-tab-group', {
         [className]: !!className,
-        '--inverted': !!dark,
-        '--compressed': !!compressed
+        '--inverted': dark,
+        '--compressed': compressed
     });
 
     return <ul {...{ className: tabGroupClassnames, ...attributes }}>{children}</ul>;
