@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames'; // The value in input state is used by Form.jsx
+import classNames from 'classnames';
 
+// The 'value' in state is used by Form.jsx
 /* eslint react/no-unused-state: 0 */
 
 class Input extends React.Component {
