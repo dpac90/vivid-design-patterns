@@ -42,7 +42,7 @@ describe('<SearchField />', () => {
         const mockOnClick = jest.fn();
         const wrapper = mount(<SearchField value="Blues Brothers" onChange={mockOnClick} />);
         const searchQuery = wrapper.find('input.vp-search-field__input');
-        searchQuery.simulate('change', { key: 'Enter' });
+        searchQuery.simulate('change', { key: 'A' });
         expect(searchQuery.exists()).toBe(true);
         expect(mockOnClick).toHaveBeenCalledTimes(1);
     });
