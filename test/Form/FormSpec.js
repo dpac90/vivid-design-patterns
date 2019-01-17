@@ -13,7 +13,7 @@ describe('<Form />', () => {
             <Form.ContextConsumer>
                 {({ setForm }) => (
                     <React.Fragment>
-                        <Input ref={setForm} validationMethod={mockValidationMethod} label={'Input Length > 10'} />
+                        <Input id="input" ref={setForm} validationMethod={mockValidationMethod} label={'Input Length > 10'} />
                         <Button type="submit">Submit</Button>
                     </React.Fragment>
                 )}
