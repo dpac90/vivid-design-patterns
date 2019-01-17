@@ -21,7 +21,7 @@ class SearchField extends React.Component {
     };
 
     onKeyPress = event => {
-        const isEnterPressed = event.which === 13 || event.keyCode === 13;
+        const isEnterPressed = event.which === 13 || event.keyCode === 13 || event.key === 'Enter';
         if (isEnterPressed) {
             this.props.onSubmit(event.target.value);
         }
@@ -32,6 +32,7 @@ class SearchField extends React.Component {
         id: PropTypes.string,
         name: PropTypes.string,
         value: PropTypes.string,
+        type: PropTypes.string,
         autoComplete: PropTypes.string,
         placeholder: PropTypes.string,
         className: PropTypes.string,
@@ -51,8 +52,8 @@ class SearchField extends React.Component {
         value: '',
         type: 'text',
         autoComplete: 'off',
-        placeholder: undefined,
-        className: undefined,
+        placeholder: '',
+        className: '',
         onClick: () => {},
         onFocus: () => {},
         onBlur: () => {},
@@ -66,7 +67,6 @@ class SearchField extends React.Component {
     render() {
         const { className, onClick, onFocus, onMouseEnter, onMouseLeave, onBlur, placeholder, name, autoComplete, id, type } = this.props;
         const { inputValue } = this.state;
-        const classNames = className ? `vp-search-field ${className}` : 'vp-search-field';
         const props = {
             onMouseEnter,
             onMouseLeave,
@@ -77,19 +77,15 @@ class SearchField extends React.Component {
             name,
             id,
             type,
-            autoComplete
+            autoComplete,
+            value: inputValue,
+            onChange: this.onChange,
+            onKeyPress: this.onKeyPress
         };
         return (
-            <div className={classNames}>
+            <div className="vp-search-field">
                 <i className="vp-search-field__icon-search material-icons">&#xE8B6;</i>
-                <input
-                    type="text"
-                    className="vp-search-field__input"
-                    onChange={this.onChange}
-                    value={inputValue}
-                    onKeyPress={this.onKeyPress}
-                    {...props}
-                />
+                <input className={`vp-search-field__input ${className}`} {...props} />
                 {!!inputValue && (
                     <i className="vp-search-field__icon-close material-icons" onClick={this.resetInput}>
                         &#xE5C9;
