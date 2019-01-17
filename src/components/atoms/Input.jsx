@@ -14,6 +14,9 @@ class Input extends React.Component {
     };
 
     static propTypes = {
+        className: PropTypes.string,
+        outlined: PropTypes.bool,
+        children: PropTypes.node,
         id: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
         onChange: PropTypes.func,
