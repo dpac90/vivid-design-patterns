@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 
 const FormContext = React.createContext({});
 
+FormContext.propTypes = {
+    children: PropTypes.node
+};
+
 function FormContextConsumer(props) {
     return (
         <FormContext.Consumer {...props}>
