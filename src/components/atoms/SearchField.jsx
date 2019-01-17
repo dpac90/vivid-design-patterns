@@ -82,7 +82,14 @@ class SearchField extends React.Component {
         return (
             <div className={classNames}>
                 <i className="vp-search-field__icon-search material-icons">&#xE8B6;</i>
-                <input type="text" className="vp-search-field__input" onChange={this.onChange} value={inputValue} {...props} />
+                <input
+                    type="text"
+                    className="vp-search-field__input"
+                    onChange={this.onChange}
+                    value={inputValue}
+                    onKeyPress={this.onKeyPress}
+                    {...props}
+                />
                 {!!inputValue && (
                     <i className="vp-search-field__icon-close material-icons" onClick={this.resetInput}>
                         &#xE5C9;
