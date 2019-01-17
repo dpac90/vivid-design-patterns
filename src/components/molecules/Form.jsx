@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const FormContext = React.createContext({});
 
-FormContext.propTypes = {
+FormContextConsumer.propTypes = {
     children: PropTypes.node
 };
 
