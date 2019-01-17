@@ -20,7 +20,7 @@ class SearchField extends React.Component {
         );
     };
 
-    static onKeyPress = event => {
+    onKeyPress = event => {
         const isEnterPressed = event.which === 13 || event.keyCode === 13;
         if (isEnterPressed) {
             this.props.onSubmit(event.target.value);
