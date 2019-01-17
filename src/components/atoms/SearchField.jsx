@@ -2,26 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class SearchField extends React.Component {
-    componentWillMount() {
-        this.setState({
-            inputValue: this.props.value
-        });
+    constructor(props) {
+        super(props);
+        this.state = { inputValue: props.value };
     }
 
     resetInput = () => {
-        this.setState({ inputValue: '' });
+        this.setState({ inputValue: '' }, this.props.onChange(''));
     };
 
     onChange = event => {
-        this.setState({
-            inputValue: event.target.value
-        });
-        this.props.onChange(event);
+        this.setState(
+            {
+                inputValue: event.target.value
+            },
+            this.props.onChange(event.target.value)
+        );
     };
 
-    onSubmit = event => {
+    static onKeyPress = event => {
         const isEnterPressed = event.which === 13 || event.keyCode === 13;
-        return isEnterPressed ? this.props.onSubmit(event) : null;
+        if (isEnterPressed) {
+            this.props.onSubmit(event.target.value);
+        }
+        this.props.onKeyPress(event.target.value);
     };
 
     static propTypes = {
@@ -37,6 +41,7 @@ class SearchField extends React.Component {
         onChange: PropTypes.func,
         onMouseLeave: PropTypes.func,
         onMouseEnter: PropTypes.func,
+        onKeyPress: PropTypes.func,
         onSubmit: PropTypes.func
     };
 
@@ -44,6 +49,7 @@ class SearchField extends React.Component {
         id: 'searchField',
         name: 'searchField',
         value: '',
+        type: 'text',
         autoComplete: 'off',
         placeholder: undefined,
         className: undefined,
@@ -53,11 +59,12 @@ class SearchField extends React.Component {
         onChange: () => {},
         onMouseLeave: () => {},
         onMouseEnter: () => {},
+        onKeyPress: () => {},
         onSubmit: () => {}
     };
 
     render() {
-        const { className, onClick, onFocus, onMouseEnter, onMouseLeave, onBlur, placeholder, name, autoComplete, id } = this.props;
+        const { className, onClick, onFocus, onMouseEnter, onMouseLeave, onBlur, placeholder, name, autoComplete, id, type } = this.props;
         const { inputValue } = this.state;
         const classNames = className ? `vp-search-field ${className}` : 'vp-search-field';
         const props = {
@@ -69,19 +76,13 @@ class SearchField extends React.Component {
             placeholder,
             name,
             id,
+            type,
             autoComplete
         };
         return (
             <div className={classNames}>
                 <i className="vp-search-field__icon-search material-icons">&#xE8B6;</i>
-                <input
-                    type="text"
-                    className="vp-search-field__input"
-                    onChange={this.onChange}
-                    onKeyPress={this.onSubmit}
-                    value={inputValue}
-                    {...props}
-                />
+                <input type="text" className="vp-search-field__input" onChange={this.onChange} value={inputValue} {...props} />
                 {!!inputValue && (
                     <i className="vp-search-field__icon-close material-icons" onClick={this.resetInput}>
                         &#xE5C9;
