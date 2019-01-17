@@ -2,31 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class SearchField extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { inputValue: props.value };
-    }
-
-    resetInput = () => {
-        this.setState({ inputValue: '' }, this.props.onChange(''));
-    };
-
-    onChange = event => {
-        this.setState(
-            {
-                inputValue: event.target.value
-            },
-            this.props.onChange(event.target.value)
-        );
-    };
-
-    onKeyPress = event => {
-        const isEnterPressed = event.which === 13 || event.keyCode === 13 || event.key === 'Enter';
-        if (isEnterPressed) {
-            this.props.onSubmit(event.target.value);
-        }
-        this.props.onKeyPress(event.target.value);
-    };
+    state = { inputValue: this.props.value };
 
     static propTypes = {
         id: PropTypes.string,
@@ -62,6 +38,29 @@ class SearchField extends React.Component {
         onMouseEnter: () => {},
         onKeyPress: () => {},
         onSubmit: () => {}
+    };
+
+    resetInput = () => {
+        this.setState({ inputValue: '' }, this.props.onChange(''));
+    };
+
+    onChange = event => {
+        const { value } = event.target;
+        this.setState(
+            {
+                inputValue: value
+            },
+            this.props.onChange(value)
+        );
+    };
+
+    onKeyPress = event => {
+        const { value } = event.target;
+        const isEnterPressed = event.which === 13 || event.keyCode === 13 || event.key === 'Enter';
+        if (isEnterPressed) {
+            this.props.onSubmit(value);
+        }
+        this.props.onKeyPress(value);
     };
 
     render() {
