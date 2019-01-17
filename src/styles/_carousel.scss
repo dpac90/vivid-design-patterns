@@ -113,7 +113,7 @@ $carousel-height: 280px;
     }
 }
 .vp-carousel__controls {
-    @include position(absolute, 0, 0, 0, 0);
+    @include position(absolute, 0 0 0 0);
     margin: auto;
     max-width: $grid-max-width;
     padding-left: $grid-container-padding;
