@@ -26,7 +26,8 @@ class Form extends React.Component {
         /** Custom callback when validation fails on the form. Takes in the dom component with the highest error as a parameter */
         onValidationFailure: PropTypes.func,
         /** Whether or not to automatically scroll to the top form error. Not supported on all devices */
-        scrollToTopError: PropTypes.bool
+        scrollToTopError: PropTypes.bool,
+        children: PropTypes.node
     };
 
     static defaultProps = {
