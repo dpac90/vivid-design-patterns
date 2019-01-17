@@ -4,6 +4,7 @@
 @import 'mixins';
 @import 'typography';
 @import 'backdrop';
+@import 'button';
 
 // Block
 [class^='vp-modal']:not([class*='__']) {
