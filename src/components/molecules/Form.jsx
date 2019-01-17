@@ -5,10 +5,6 @@ import PropTypes from 'prop-types';
 
 const FormContext = React.createContext({});
 
-FormContextConsumer.propTypes = {
-    children: PropTypes.node
-};
-
 function FormContextConsumer(props) {
     return (
         <FormContext.Consumer {...props}>
@@ -23,6 +19,10 @@ function FormContextConsumer(props) {
         </FormContext.Consumer>
     );
 }
+
+FormContextConsumer.propTypes = {
+    children: PropTypes.node
+};
 
 class Form extends React.Component {
     static propTypes = {
