@@ -1,6 +1,5 @@
 // Inspired by the formsy library
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 const FormContext = React.createContext({});
@@ -20,16 +19,14 @@ function FormContextConsumer(props) {
 }
 
 FormContextConsumer.propTypes = {
-    children: PropTypes.node
+    children: PropTypes.func
 };
 
 class Form extends React.Component {
     static propTypes = {
         onSubmit: PropTypes.func,
-        /** Custom callback when validation fails on the form. Takes in the dom component with the highest error as a parameter */
+        /** Custom callback when validation fails on the form. Takes in an array of inputs with errors as the parameter */
         onValidationFailure: PropTypes.func,
-        /** Whether or not to automatically scroll to the top form error. Not supported on all devices */
-        scrollToTopError: PropTypes.bool,
         children: PropTypes.node
     };
 
@@ -46,42 +43,30 @@ class Form extends React.Component {
         this.inputs.push(ref);
     };
 
-    afterValidation = highestErrorComponent => {
+    afterValidation = componentsWithErrors => {
         const isFormValid = this.inputs.every(input => !input.state.error);
         const { onSubmit, onValidationFailure } = this.props;
         if (isFormValid) {
             onSubmit();
         } else {
-            onValidationFailure(highestErrorComponent);
+            onValidationFailure(componentsWithErrors);
         }
     };
 
     validate = () => {
-        let highestErrorComponent;
-        let highestErrorPosition = Infinity;
+        const componentsWithErrors = [];
         this.inputs.forEach((component, index) => {
-            // TODO: update form component library to also have refs in form elements so we dont have to use ReactDom.findDomNode
-            /* eslint react/no-find-dom-node: 0 */
-            const componentDomNode = ReactDOM.findDOMNode(component);
             const error = this.validateInput(component);
-            if (componentDomNode && !!error) {
-                const position = componentDomNode.getBoundingClientRect().top;
-                if (position < highestErrorPosition) {
-                    highestErrorComponent = componentDomNode;
-                    highestErrorPosition = position;
-                }
+            if (!!error) {
+                componentsWithErrors.push(component);
             }
             component.setState(
                 {
                     error
                 },
-                index === this.inputs.length - 1 ? () => this.afterValidation(highestErrorComponent) : null
+                index === this.inputs.length - 1 ? () => this.afterValidation(componentsWithErrors) : null
             );
         });
-
-        if (this.props.scrollToTopError && highestErrorComponent && highestErrorComponent.scrollIntoView) {
-            highestErrorComponent.scrollIntoView();
-        }
     };
 
     validateInput = component => {

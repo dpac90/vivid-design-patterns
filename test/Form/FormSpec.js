@@ -33,11 +33,19 @@ describe('<Form />', () => {
         expect(mockValidationMethod).toHaveBeenCalled();
     });
 
-    it('wont call onSubmit if there are errors. Calls onValidationFailure instead', () => {
+    it('calls onSubmit if it has no errors and wont call onValidationFailure', () => {
+        mockValidationMethod.mockReturnValueOnce('');
+        const wrapper = mount(form);
+        wrapper.find('form').simulate('submit');
+        expect(mockOnSubmit).toHaveBeenCalled();
+        expect(mockOnValidationFailure).not.toHaveBeenCalled();
+    });
+
+    it('calls onValidationFailure when it has errors and wont call onSubmit.', () => {
         mockValidationMethod.mockReturnValueOnce('Error');
         const wrapper = mount(form);
         wrapper.find('form').simulate('submit');
         expect(mockOnSubmit).not.toHaveBeenCalled();
-        expect(mockOnValidationFailure).toHaveBeenCalled();
+        expect(mockOnValidationFailure).toHaveBeenCalledWith(expect.arrayContaining([expect.any(Input)]));
     });
 });

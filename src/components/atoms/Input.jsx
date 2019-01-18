@@ -10,7 +10,8 @@ class Input extends React.Component {
         onChange: () => {},
         onBlur: () => {},
         onFocus: () => {},
-        validationMethod: () => {}
+        validationMethod: () => {},
+        defaultValue: ''
     };
 
     static propTypes = {
@@ -30,16 +31,14 @@ class Input extends React.Component {
 
     state = {
         filled: !!this.props.defaultValue,
-        value: this.props.defaultValue || '',
+        value: this.props.defaultValue,
         error: ''
     };
 
     onChange = e => {
         const { value } = e.target;
-        let error = '';
-        if (this.state.dirty) {
-            error = this.props.validationMethod(value);
-        }
+        const { dirty } = this.state;
+        const error = dirty ? this.props.validationMethod(value) : '';
         this.setState(
             {
                 value,
