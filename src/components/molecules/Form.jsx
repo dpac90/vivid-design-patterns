@@ -10,8 +10,7 @@ function FormContextConsumer(props) {
         <FormContext.Consumer {...props}>
             {context => {
                 if (!context) {
-                    console.error('Form.Context Consumer must be rendered as a child of the Form sub tree');
-                    return null;
+                    throw new Error('Form.Context Consumer must be rendered as a child of the Form sub tree');
                 }
 
                 return props.children(context);
