@@ -35,7 +35,7 @@ $overlayGradient: rgba($color-black, 0), $color-black;
     z-index: 1;
 }
 .vp-page-hero__image {
-    @include position(absolute, 0, 0, 0, 0);
+    @include position(absolute, 0 0 0 0);
     @include transition(opacity $transition-4);
     background-position: top center;
     background-repeat: no-repeat;
@@ -48,7 +48,7 @@ $overlayGradient: rgba($color-black, 0), $color-black;
     }
     &:before {
         @include linear-gradient(to left, $overlayGradient);
-        @include position(absolute, 0, null, 0, 0);
+        @include position(absolute, 0 null 0 0);
         content: '';
         width: 64%;
         z-index: 2;
@@ -57,7 +57,7 @@ $overlayGradient: rgba($color-black, 0), $color-black;
 @include size-min-tablet {
     [class^='vp-page-hero'][class*='--faded'] .vp-page-hero__image:after {
         @include linear-gradient(to right, $overlayGradient);
-        @include position(absolute, 0, 0, 0, null);
+        @include position(absolute, 0 0 0 null);
         content: '';
         width: 32%;
         z-index: 2;
@@ -86,7 +86,7 @@ $overlayGradient: rgba($color-black, 0), $color-black;
         height: 4.5rem;
     }
     @include size-only-mobile {
-        @include position(absolute, null, 0, -#{$sizing-3XL}, null);
+        @include position(absolute, null 0 -#{$sizing-3XL} null);
 
         img {
             width: $sizing-5XL;

@@ -38,7 +38,7 @@
     text-transform: uppercase;
 
     &:after {
-        @include position(absolute, null, null, 0, 0);
+        @include position(absolute, null null 0 0);
         @include transition(all $transition-1);
         @include transform(scale(0));
         content: '';

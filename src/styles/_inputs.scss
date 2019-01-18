@@ -72,18 +72,18 @@
     }
     &[data-validate] {
         &[data-state*='error']:after {
-            @include position(absolute, 0, $sizing-SM, 0, null);
+            @include position(absolute, 0 $sizing-SM 0 null);
             @include pseudo-icon('error', $text-color-error, $sizing-4XL, $margin: initial);
         }
         &[data-state*='success']:after {
-            @include position(absolute, 0, $sizing-SM, 0, null);
+            @include position(absolute, 0 $sizing-SM 0 null);
             @include pseudo-icon('check_circle', $text-color-success, $sizing-4XL, $margin: initial);
         }
     }
 }
 [class^='vp-select']:not([class*='__']) {
     &:after {
-        @include position(absolute, 0, $sizing-SM, 0, null);
+        @include position(absolute, 0 $sizing-SM 0 null);
         @include pseudo-icon('arrow_drop_down');
     }
     &[data-state*='error']:after {
@@ -93,7 +93,7 @@
 
 // Elements
 .vp-floating-label {
-    @include position(absolute, $sizing-SM, null, null, $sizing-XS);
+    @include position(absolute, $sizing-SM null null $sizing-XS);
     @include transition(all $transition-1);
     background-color: transparent;
     color: $text-color-muted;
@@ -171,7 +171,7 @@ textarea[class^='vp-textfield__input'] {
     resize: vertical;
 }
 [class^='vp-textfield__trailing-icon'] {
-    @include position(absolute, 0, $sizing-SM, 0, null);
+    @include position(absolute, 0 $sizing-SM 0 null);
     color: $color-gray;
     cursor: pointer;
     height: $sizing-4XL;
@@ -305,5 +305,5 @@ select::-ms-expand {
     display: none;
 }
 .vp-textfield--nested-button [type='submit'] {
-    @include position(absolute, $sizing-SM, $sizing-SM, null, null);
+    @include position(absolute, $sizing-SM $sizing-SM null null);
 }

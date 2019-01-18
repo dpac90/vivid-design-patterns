@@ -4,7 +4,7 @@
 @import 'mixins';
 
 [class^='vp-backdrop'] {
-    @include position(fixed, 0, null, null, 0);
+    @include position(fixed, 0 null null 0);
     @include transition(all $transition-2);
     background-color: rgba($color-black, 0.75);
     height: 100%;

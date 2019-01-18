@@ -6,7 +6,7 @@
     [class^='vp-fab'] {
         @include flex;
         @include justify-content(center);
-        @include position(fixed, null, null, $sizing-XL, null);
+        @include position(fixed, null null $sizing-XL null);
         @include transition(bottom $transition-2);
         background-color: $color-white;
         box-shadow: $elevation-3;

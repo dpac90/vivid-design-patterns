@@ -4,13 +4,14 @@
 @import 'mixins';
 @import 'typography';
 @import 'backdrop';
+@import 'button';
 
 // Block
 [class^='vp-modal']:not([class*='__']) {
     @include align-items(center);
     @include flex;
     @include justify-content(center);
-    @include position(absolute, 0, null, null, 0);
+    @include position(absolute, 0 null null 0);
     height: 100%;
     width: 100%;
     z-index: $z-index-modal;
@@ -46,14 +47,14 @@
 }
 
 [class^='vp-modal'][class*='--sheet'] [class^='vp-modal__container'] {
-    @include position(absolute, null, null, -100vh, null);
+    @include position(absolute, null null -100vh null);
     @include transform(scale(1));
     border-radius: $border-radius-LG $border-radius-LG 0 0;
     margin: 0;
     opacity: 1;
 }
 [class^='vp-modal'][class*='--sheet'][data-state*='opened'] [class^='vp-modal__container'] {
-    @include position(absolute, null, null, 0, null);
+    @include position(absolute, null null 0 null);
 }
 
 .vp-modal__body {
