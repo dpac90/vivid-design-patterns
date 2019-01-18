@@ -62,7 +62,7 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 body.ios-fix {
-    @include position(fixed null 0 null 0);
+    @include position(fixed, null 0 null 0);
 }
 [class^='vp-wrapper'] {
     @include flex;

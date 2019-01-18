@@ -1,4 +1,17 @@
 @import 'tokens';
+
+@function unpackShorthand($shorthand) {
+    @if length($shorthand) == 1 {
+        @return nth($shorthand, 1) nth($shorthand, 1) nth($shorthand, 1) nth($shorthand, 1);
+    } @else if length($shorthand) == 2 {
+        @return nth($shorthand, 1) nth($shorthand, 2) nth($shorthand, 1) nth($shorthand, 2);
+    } @else if length($shorthand) == 3 {
+        @return nth($shorthand, 1) nth($shorthand, 2) nth($shorthand, 3) nth($shorthand, 2);
+    } @else {
+        @return $shorthand;
+    }
+}
+
 @mixin background-cover() {
     background-position: center center;
     background-repeat: no-repeat;
@@ -11,19 +24,19 @@
         border-#{$side}: $width $style $color;
     }
 }
-@mixin position($pos: relative, $t: null, $r: null, $b: null, $l: null) {
-    position: $pos;
-    @if ($t != null) {
-        top: $t;
-    }
-    @if ($r != null) {
-        right: $r;
-    }
-    @if ($b != null) {
-        bottom: $b;
-    }
-    @if ($l != null) {
-        left: $l;
+@mixin position($position: relative, $trbl: null null null null) {
+    $trbl: unpackShorthand($trbl);
+    $attributes: (
+        top: nth($trbl, 1),
+        right: nth($trbl, 2),
+        bottom: nth($trbl, 3),
+        left: nth($trbl, 4)
+    );
+    position: $position;
+    @each $attribute, $value in $attributes {
+        @if $value != null {
+            #{$attribute}: $value;
+        }
     }
 }
 @mixin pseudo-icon($icon, $color: $color-gray, $height: $sizing-XL, $size: $sizing-XL, $margin: auto, $pointerEvents: none) {

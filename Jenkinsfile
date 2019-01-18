@@ -30,7 +30,7 @@ pipeline {
         steps {
             container('node') {
                 sh 'yarn run test'
-                sh 'yarn run lint'
+                sh 'yarn run lint:ci'
             }
         }
     }

@@ -17,12 +17,12 @@ describe('<LinkGroup />', () => {
     });
 
     it("renders a <ul> with the '--striped' class", () => {
-        const wrapper = shallow(<LinkGroup importance="striped" />);
+        const wrapper = shallow(<LinkGroup type="striped" />);
         expect(wrapper.find('ul.vp-link-group--striped').exists()).toBe(true);
     });
 
     it("renders a <ul> with the '--muted' class", () => {
-        const wrapper = shallow(<LinkGroup importance="muted" />);
+        const wrapper = shallow(<LinkGroup type="muted" />);
         expect(wrapper.find('ul.vp-link-group--muted').exists()).toBe(true);
     });
 
