@@ -32,8 +32,7 @@ class Form extends React.Component {
 
     static defaultProps = {
         onSubmit: () => {},
-        onValidationFailure: () => {},
-        scrollToTopError: true
+        onValidationFailure: () => {}
     };
 
     static ContextConsumer = FormContextConsumer;
