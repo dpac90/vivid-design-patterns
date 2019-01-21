@@ -3,16 +3,9 @@ export default (callback, event) => {
         return;
     }
 
-    const { key, keyCode, keyIdentifier } = event;
-    console.log(key);
-    console.log(keyCode);
-    console.log(keyIdentifier);
+    const { key, keyCode, which } = event;
 
-    if (key === 'ENTER') {
-        callback();
-    } else if (keyIdentifier === 13) {
-        callback();
-    } else if (keyCode === 13) {
+    if (key === 'ENTER' || which === 13 || keyCode === 13) {
         callback();
     }
 };
