@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import onEnterPress from '../../utils/onEnterPress';
 
 class SearchField extends React.Component {
     state = { inputValue: this.props.value };
@@ -86,7 +87,10 @@ class SearchField extends React.Component {
                 <i className="vp-search-field__icon-search material-icons">&#xE8B6;</i>
                 <input className={`vp-search-field__input ${className}`} {...props} />
                 {!!inputValue && (
-                    <i className="vp-search-field__icon-close material-icons" onClick={this.resetInput} onKeyPress={() => {}}>
+                    <i
+                        className="vp-search-field__icon-close material-icons"
+                        onClick={this.resetInput}
+                        onKeyPress={onEnterPress.bind(this.resetInput, this)}>
                         &#xE5C9;
                     </i>
                 )}
