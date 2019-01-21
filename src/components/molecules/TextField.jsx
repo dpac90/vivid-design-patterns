@@ -66,14 +66,14 @@ class TextField extends React.Component {
         );
     };
 
-    onFocus = () => {
-        this.setState({ active: true }, this.props.onFocus);
+    onFocus = e => {
+        this.setState({ active: true }, () => this.props.onFocus(e.target.value));
     };
 
     onBlur = e => {
         const { value } = e.target;
         const error = this.props.validationMethod(value);
-        this.setState({ active: !!value, dirty: true, error }, this.props.onBlur);
+        this.setState({ active: !!value, dirty: true, error }, () => this.props.onBlur(value));
     };
 
     render() {
