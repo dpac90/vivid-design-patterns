@@ -1,7 +1,6 @@
 import TextField from '../../src/components/molecules/TextField';
 import Form from '../../src/components/molecules/Form';
-
-import { Playground, PropsTable } from 'docz';
+import { Playground, PropsTable, Link } from 'docz';
 
 # Text Fields
 ## Installation
@@ -36,7 +35,7 @@ Icons can be passed in to be displayed on the right side of the input vai the `t
 
 
 ## Errors and Validation
-Server side errors can be passed in via the `error` prop. For form validation on the client side, pass in a validationMethod function that returns the error message. For this to work, this must be used within the Forms component.
+Server side errors can be passed in via the `error` prop. For form validation on the client side, pass in a validationMethod function that returns the error message. For more information, see the [Forms](/docs-forms-forms) component.
 <Playground>
     <Form onSubmit={() => alert('submit form')}>
         <TextField id='errorAndValidation'

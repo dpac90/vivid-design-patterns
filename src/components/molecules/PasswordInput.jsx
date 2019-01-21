@@ -25,7 +25,7 @@ class PasswordInput extends React.Component {
                     onKeyPress={onEnterPress.bind(this, this.togglePasswordVisibility)}
                     onClick={this.togglePasswordVisibility}>
                     <i className="material-icons">{passwordToggleIcon}</i>
-                    <span>{passwordToggleText}</span>
+                    <span className="show-password-text">{passwordToggleText}</span>
                 </span>
             </React.Fragment>
         );

@@ -38,7 +38,7 @@ class TextField extends React.Component {
         active: !!this.props.defaultValue,
         value: this.props.defaultValue,
         error: this.props.error,
-        showPassword: false
+        dirty: false
     };
 
     componentDidUpdate(prevProps) {
