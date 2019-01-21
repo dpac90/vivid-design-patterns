@@ -2,6 +2,8 @@
 
 Vivid Design Patterns are a collection of styles, design tokens and re-usable react components that provide logic and uniformity for Vivid apps.
 
+Full documentation here: http://vivid-design-patterns-master.vividseats.test
+
 ## How to Install
 `yarn add @vividseats/vivid-design-patterns`
 
@@ -24,9 +26,6 @@ For more information on creating documentation with Docz, visit: https://github.
 To run tests:
 
 `yarn test`
-
-
-Full documentation here: http://vivid-design-patterns-master.vividseats.test
 
 ## Building
 To build the javascript assets:
@@ -53,4 +52,14 @@ If you are using webpack in your other project, be sure to include this followin
     }
 ```
 
-Each time you make a change to vivid-design patterns, rerun `yarn run build:js`
+Alternatively, you can change the reference in the `package.json` of `your-other-project` to the github repo
+
+```
+{
+  "@vividseats/vivid-design-patterns": "git+ssh://git@github.com:VividSeats/vivid-design-patterns.git#<BRANCH_NAME>",
+}
+```
+
+Each time you make a change to vivid-design patterns, rerun `yarn run build:js` to see the changes reflected in `your-other-project`
+
+

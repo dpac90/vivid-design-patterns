@@ -7,7 +7,7 @@
         padding: $titlePadding 0;
 
         &:after {
-            @include position(absolute, $indicatorPos, 0, null, null);
+            @include position(absolute, $indicatorPos 0 null null);
             @include pseudo-icon('keyboard_arrow_up');
             @include transition(all $transition-1);
             display: $indicatorDisplay;

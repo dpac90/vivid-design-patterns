@@ -7,7 +7,7 @@
     position: relative;
 
     &.truncate:after {
-        @include position(absolute, 0, $sizing-LG, 0, null);
+        @include position(absolute, 0 $sizing-LG 0 null);
         background: $color-white;
         content: '...';
         font-size: $font-size-MD;
