@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Form from '../../src/components/molecules/Form';
-import TextField from '../../src/components/atoms/Input';
+import TextField from '../../src/components/molecules/TextField';
 import Button from '../../src/components/atoms/Button';
 
 describe('<Form />', () => {
