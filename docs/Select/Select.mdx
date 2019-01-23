@@ -3,14 +3,14 @@
 ---
 
 import { PropsTable, Playground } from 'docz'
-import Select from '../../src/components/atoms/Select';
+import Select from '../../src/components/molecules/Select';
 import "../../src/styles/_inputs.scss";
 
 # Button
 ## Installation
 Using the react components:
 
-    import Select from '@vividseats/vivid-design-patterns/dist/atoms/Select';
+    import Select from '@vividseats/vivid-design-patterns/dist/molecules/Select';
 
 Using the scss files:
 
@@ -21,8 +21,7 @@ Using the scss files:
 
 ## Basic Usage
 <Playground>
-  <Select>
-    <Select.Option value="0">Select an option</Select.Option>
+  <Select label="Choose your option:" id="selectOne">
     <Select.Option value="1">Option 1</Select.Option>
     <Select.Option value="2">Option 2</Select.Option>
     <Select.Option value="3">Option 3</Select.Option>
@@ -59,7 +58,16 @@ Using the scss files:
 ### Controlled Value
 `value="2"`
 <Playground>
-  <Select value="2">
+  <Select value="2" label="Choose an option:">
+    <Select.Option value="1">Option 1</Select.Option>
+    <Select.Option value="2">Option 2</Select.Option>
+    <Select.Option value="3">Option 3</Select.Option>
+  </Select>
+</Playground>
+
+### Error State
+<Playground>
+  <Select error="There was an error" label="Choose an option:">
     <Select.Option value="1">Option 1</Select.Option>
     <Select.Option value="2">Option 2</Select.Option>
     <Select.Option value="3">Option 3</Select.Option>
