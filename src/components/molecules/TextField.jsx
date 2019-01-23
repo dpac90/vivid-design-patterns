@@ -17,6 +17,8 @@ class TextField extends React.Component {
     };
 
     static propTypes = {
+        /** If the noValidate prop is present, the field will not turn green or red to indicate its validation status. Do not pass this in if you are passing in a validationMethod Prop */
+        noValidate: PropTypes.bool,
         type: PropTypes.string,
         className: PropTypes.string,
         outlined: PropTypes.bool,
@@ -29,6 +31,7 @@ class TextField extends React.Component {
         name: PropTypes.string,
         defaultValue: PropTypes.string,
         error: PropTypes.string,
+        /** Validation method that should return a string for the error to displayed. Do not pass in validationMethod if you pass in noValidate prop */
         validationMethod: PropTypes.func,
         trailingIcon: PropTypes.node,
         helperText: PropTypes.string
@@ -82,6 +85,7 @@ class TextField extends React.Component {
             outlined,
             helperText,
             trailingIcon,
+            noValidate,
             validationMethod,
             onFocus,
             onBlur,
@@ -99,7 +103,7 @@ class TextField extends React.Component {
         const dataState = classNames({
             error,
             filled: active,
-            success: !error && dirty
+            success: !error && dirty && !noValidate
         });
 
         const inputProps = {

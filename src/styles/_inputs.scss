@@ -176,6 +176,11 @@ textarea[class^='vp-textfield__input'] {
         font-weight: $font-weight-med;
         color: $text-color-muted;
     }
+
+    [data-state*='success'] &,
+    [data-state*='success'] & {
+        right: 2.1rem;
+    }
 }
 
 // Feedback States
