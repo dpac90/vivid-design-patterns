@@ -178,8 +178,8 @@ textarea[class^='vp-textfield__input'] {
     }
 
     [data-state*='success'] &,
-    [data-state*='success'] & {
-        right: 2.1rem;
+    [data-state*='error'] & {
+        right: $sizing-2XL;
     }
 }
 
