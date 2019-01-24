@@ -1,8 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import Select from '../../src/components/molecules/Select';
 import Form from '../../src/components/molecules/Form';
-import Input from '../../src/components/atoms/Input';
 import Button from '../../src/components/atoms/Button';
 
 describe('<Select />', () => {
@@ -20,6 +19,35 @@ describe('<Select />', () => {
         const wrapper = mount(selectComponent);
         expect(wrapper.find('select').hasClass('vp-select__control')).toBe(true);
         expect(wrapper.find('option').length).toBeGreaterThanOrEqual(3);
+    });
+
+    it('renders an disabled placeholder option when no label is present', () => {
+        const wrapper = mount(selectComponent);
+        expect(
+            wrapper
+                .find('option')
+                .first()
+                .prop('disabled')
+        ).toBeFalsy();
+    });
+
+    it('does not render a disabled placeholder option when a label is present', () => {
+        const selectComponentWithLabel = (
+            <Select onChange={mockOnChange} validationMethod={mockValidationMethod} label={'Label'}>
+                <Select.Option value="1">1</Select.Option>
+                <Select.Option value="2">2</Select.Option>
+                <Select.Option value="3">3</Select.Option>
+            </Select>
+        );
+
+        const wrapper = mount(selectComponentWithLabel);
+        expect(wrapper.find('label').length).toBe(1);
+        expect(
+            wrapper
+                .find('option')
+                .first()
+                .prop('disabled')
+        ).toBeTruthy();
     });
 
     it('calls onchange when you select an option', () => {
