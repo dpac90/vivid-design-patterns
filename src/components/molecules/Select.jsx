@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import NativeSelect from '../atoms/NativeSelect';
+import SelectOption from '../atoms/SelectOption';
+import Label from '../atoms/Label';
+import ErrorMessage from '../atoms/ErrorMessage';
 
 class Select extends React.Component {
     state = {
@@ -33,30 +37,18 @@ class Select extends React.Component {
         disabled: false
     };
 
-    static Option({ children, ...attributes }) {
-        return <option {...attributes}>{children}</option>;
-    }
-
-    isControlled(propName) {
-        return this.props[propName] !== undefined;
-    }
-
-    getValueFromState() {
-        return this.isControlled('value') ? this.props.value : this.state.value;
-    }
+    static Option = SelectOption;
 
     onBlur = e => {
-        this.props.onBlur(e);
-
         const error = this.props.validationMethod(e.target.value);
-
+        this.props.onBlur(e);
         this.setState({ error });
     };
 
     onChange = e => {
         e.target.blur();
         e.preventDefault();
-        const value = e.target.value;
+        const { value } = e.target;
         const error = this.props.validationMethod(value);
 
         if (this.isControlled('value')) {
@@ -77,9 +69,11 @@ class Select extends React.Component {
         this.props.onBlur(e);
     };
 
+    isControlled(propName) {
+        return this.props[propName] !== undefined;
+    }
+
     render() {
-        const { props, onChange, onBlur, state } = this;
-        // validationMethod, onBlur, and onChange shouldn't be added to the DOM attributes, ignore
         const {
             id,
             outlined,
@@ -88,23 +82,21 @@ class Select extends React.Component {
             medium,
             disabled,
             label,
-            validationMethod,
-            onBlur: ignoredBlur,
-            onChange: ignoredChange,
+            validationMethod, // not used, kept from dom attributes
+            onChange, // not used, kept from dom attributes
+            children,
             ...attributes
-        } = props;
-        const { error, filled } = state;
-        const value = this.getValueFromState();
+        } = this.props;
+        const { error, filled } = this.state;
         const selectProps = {
             id,
-            onChange,
-            onBlur,
-            value,
-            disabled: disabled ? 'disabled' : null,
-            className: classnames('vp-select__control', {
-                '--small': small,
-                '--medium': medium
-            })
+            label,
+            disabled,
+            small,
+            medium,
+            value: this.isControlled('value') ? this.props.value : this.state.value,
+            onChange: this.onChange,
+            onBlur: this.onBlur
         };
 
         const containerProps = {
@@ -112,27 +104,15 @@ class Select extends React.Component {
                 '--outlined': outlined,
                 [className]: !!className
             }),
-            'data-state': classnames({
-                filled,
-                error
-            }),
+            'data-state': classnames({ filled, error }),
             ...attributes
         };
 
-        const emptyOption = !value && !!label ? <Select.Option disabled="disabled" selected="selected" /> : null;
-
         return (
             <div {...containerProps}>
-                <select {...selectProps} aria-label="select">
-                    {emptyOption}
-                    {props.children}
-                </select>
-                {!!label && (
-                    <label className="vp-floating-label" htmlFor={id}>
-                        {label}
-                    </label>
-                )}
-                {!!error && <span className="vp-helper-text--validation">{error}</span>}
+                <NativeSelect {...selectProps}>{children}</NativeSelect>
+                <Label label={label} id={id} />
+                <ErrorMessage error={error} />
             </div>
         );
     }
