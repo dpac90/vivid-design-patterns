@@ -4,7 +4,6 @@
 
 import { PropsTable, Playground } from 'docz'
 import Select from '../../src/components/molecules/Select';
-import SelectOption from '../../src/components/atoms/SelectOption';
 import "../../src/styles/_inputs.scss";
 
 # Select
@@ -12,7 +11,6 @@ import "../../src/styles/_inputs.scss";
 Using the react components:
 
     import Select from '@vividseats/vivid-design-patterns/dist/molecules/Select';
-    import SelectOption from '@vividseats/vivid-design-patterns/dist/atoms/SelectOption';
 
 Using the scss files:
 
@@ -24,16 +22,16 @@ Using the scss files:
 ## Basic Usage
 <Playground>
   <Select label="Choose your option:" id="selectOne">
-    <SelectOption value="1">Option 1</SelectOption>
-    <SelectOption value="2">Option 2</SelectOption>
-    <SelectOption value="3">Option 3</SelectOption>
+    <Select.Option value="1">Option 1</Select.Option>
+    <Select.Option value="2">Option 2</Select.Option>
+    <Select.Option value="3">Option 3</Select.Option>
   </Select>
 </Playground>
 
 ### Disabled
 <Playground>
   <Select value="3" disabled>
-    <SelectOption value="3">Option 3</SelectOption>
+    <Select.Option value="3">Option 3</Select.Option>
   </Select>
 </Playground>
 
@@ -41,19 +39,19 @@ Using the scss files:
 `class="--small"` `class="--large"`
 <Playground>
   <Select outlined>
-    <SelectOption value="1">Option 1</SelectOption>
-    <SelectOption value="2">Option 2</SelectOption>
-    <SelectOption value="3">Option 3</SelectOption>
+    <Select.Option value="1">Option 1</Select.Option>
+    <Select.Option value="2">Option 2</Select.Option>
+    <Select.Option value="3">Option 3</Select.Option>
   </Select>
   <Select outlined small>
-    <SelectOption value="1">Option 1</SelectOption>
-    <SelectOption value="2">Option 2</SelectOption>
-    <SelectOption value="3">Option 3</SelectOption>
+    <Select.Option value="1">Option 1</Select.Option>
+    <Select.Option value="2">Option 2</Select.Option>
+    <Select.Option value="3">Option 3</Select.Option>
   </Select>
   <Select outlined medium>
-    <SelectOption value="1">Option 1</SelectOption>
-    <SelectOption value="2">Option 2</SelectOption>
-    <SelectOption value="3">Option 3</SelectOption>
+    <Select.Option value="1">Option 1</Select.Option>
+    <Select.Option value="2">Option 2</Select.Option>
+    <Select.Option value="3">Option 3</Select.Option>
   </Select>
 </Playground>
 
@@ -61,18 +59,18 @@ Using the scss files:
 `value="2"`
 <Playground>
   <Select value="2" label="Choose an option:">
-    <SelectOption value="1">Option 1</SelectOption>
-    <SelectOption value="2">Option 2</SelectOption>
-    <SelectOption value="3">Option 3</SelectOption>
+    <Select.Option value="1">Option 1</Select.Option>
+    <Select.Option value="2">Option 2</Select.Option>
+    <Select.Option value="3">Option 3</Select.Option>
   </Select>
 </Playground>
 
 ### Error State
 <Playground>
   <Select error="There was an error" label="Choose an option:">
-    <SelectOption value="1">Option 1</SelectOption>
-    <SelectOption value="2">Option 2</SelectOption>
-    <SelectOption value="3">Option 3</SelectOption>
+    <Select.Option value="1">Option 1</Select.Option>
+    <Select.Option value="2">Option 2</Select.Option>
+    <Select.Option value="3">Option 3</Select.Option>
   </Select>
 </Playground>
 
@@ -80,8 +78,8 @@ Using the scss files:
 `onChange={() => {alert('hi')}}`
 <Playground>
   <Select onChange={() => {alert('hi')}}>
-    <SelectOption value="1">Option 1</SelectOption>
-    <SelectOption value="2">Option 2</SelectOption>
-    <SelectOption value="3">Option 3</SelectOption>
+    <Select.Option value="1">Option 1</Select.Option>
+    <Select.Option value="2">Option 2</Select.Option>
+    <Select.Option value="3">Option 3</Select.Option>
   </Select>
 </Playground>

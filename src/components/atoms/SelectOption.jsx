@@ -1,3 +1,5 @@
 import React from 'react';
 
-export default ({ children, ...attributes }) => <option {...attributes}>{children}</option>;
+export default function SelectOption({ children, ...attributes }) {
+    return <option {...attributes}>{children}</option>;
+}

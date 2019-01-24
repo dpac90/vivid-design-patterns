@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import SelectDropdown from '../atoms/SelectDropdown';
+import NativeSelect from '../atoms/NativeSelect';
+import SelectOption from '../atoms/SelectOption';
 import Label from '../atoms/Label';
 import ErrorMessage from '../atoms/ErrorMessage';
 
@@ -35,6 +36,8 @@ class Select extends React.Component {
         medium: false,
         disabled: false
     };
+
+    static Option = SelectOption;
 
     onBlur = e => {
         const error = this.props.validationMethod(e.target.value);
@@ -107,7 +110,7 @@ class Select extends React.Component {
 
         return (
             <div {...containerProps}>
-                <SelectDropdown {...selectProps}>{children}</SelectDropdown>
+                <NativeSelect {...selectProps}>{children}</NativeSelect>
                 <Label label={label} id={id} />
                 <ErrorMessage error={error} />
             </div>
