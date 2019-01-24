@@ -156,6 +156,10 @@
     [class*='--outlined'] & {
         @include outlined-input-base;
     }
+
+    &::-ms-clear {
+        display: none;
+    }
 }
 textarea[class^='vp-textfield__input'] {
     height: auto;
