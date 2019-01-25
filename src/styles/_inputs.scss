@@ -126,6 +126,7 @@
 
 [class^='vp-select__control'] {
     @include input-base;
+    padding: 0 $sizing-2XL 0 $sizing-XS;
     cursor: pointer;
 
     &:required:invalid {
@@ -138,6 +139,7 @@
 
     [class*='--outlined'] & {
         @include outlined-input-base;
+        padding: 0 $sizing-2XL 0 $sizing-MD;
     }
     &[class*='--medium'] {
         height: $sizing-3XL;

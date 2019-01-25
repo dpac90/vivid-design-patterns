@@ -32,7 +32,7 @@ function NativeSelect({ onChange, onBlur, id, value, label, disabled, small, med
 }
 
 NativeSelect.propTypes = {
-    children: PropTypes.element.isRequired,
+    children: PropTypes.node.isRequired,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
     id: PropTypes.string,

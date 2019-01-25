@@ -10,7 +10,7 @@ class Select extends React.Component {
     static propTypes = {
         id: PropTypes.string,
         className: PropTypes.string,
-        children: PropTypes.element,
+        children: PropTypes.node,
         value: PropTypes.string,
         error: PropTypes.string,
         label: PropTypes.string,
