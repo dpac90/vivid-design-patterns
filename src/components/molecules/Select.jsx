@@ -8,6 +8,9 @@ import ErrorMessage from '../atoms/ErrorMessage';
 
 class Select extends React.Component {
     static propTypes = {
+        id: PropTypes.string,
+        className: PropTypes.string,
+        children: PropTypes.element,
         value: PropTypes.string,
         error: PropTypes.string,
         label: PropTypes.string,
