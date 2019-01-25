@@ -7,12 +7,6 @@ import Label from '../atoms/Label';
 import ErrorMessage from '../atoms/ErrorMessage';
 
 class Select extends React.Component {
-    state = {
-        value: this.props.value || '',
-        error: this.props.error || '',
-        filled: !!this.props.value
-    };
-
     static propTypes = {
         value: PropTypes.string,
         error: PropTypes.string,
@@ -38,6 +32,12 @@ class Select extends React.Component {
     };
 
     static Option = SelectOption;
+
+    state = {
+        value: this.props.value || '',
+        error: this.props.error || '',
+        filled: !!this.props.value
+    };
 
     onBlur = e => {
         const error = this.props.validationMethod(e.target.value);

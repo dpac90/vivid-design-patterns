@@ -1,6 +1,6 @@
 import React from 'react';
-import SelectOption from './SelectOption';
 import classnames from 'classnames';
+import SelectOption from './SelectOption';
 
 function getEmptyOption(value, label) {
     if (!!value || !label) return null;

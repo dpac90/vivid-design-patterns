@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default ({ label, id }) => {
+function Label({ label, id }) {
     if (!label) return null;
 
     return (
@@ -8,4 +9,11 @@ export default ({ label, id }) => {
             {label}
         </label>
     );
+}
+
+Label.propTypes = {
+    label: PropTypes.string,
+    id: PropTypes.string
 };
+
+export default Label;
