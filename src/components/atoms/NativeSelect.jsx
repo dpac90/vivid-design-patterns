@@ -3,17 +3,23 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import SelectOption from './SelectOption';
 
-function getEmptyOption(value, label) {
-    if (!!value || !label) return null;
+const nullString = 'null';
 
-    return <SelectOption disabled="disabled" />;
+function getEmptyOption(value, label) {
+    if (!label) return null;
+
+    return (
+        <SelectOption disabled="disabled" value={nullString}>
+            {label}
+        </SelectOption>
+    );
 }
 
 function NativeSelect({ onChange, onBlur, id, value, label, disabled, small, medium, children }) {
     const emptyOption = getEmptyOption(value, label);
     const selectAttributes = {
         id,
-        value,
+        value: value || nullString,
         onChange,
         onBlur,
         disabled,

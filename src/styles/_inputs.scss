@@ -80,6 +80,10 @@
             @include pseudo-icon('check_circle', $text-color-success, $sizing-4XL, $margin: initial);
         }
     }
+
+    &:not([data-state*='filled']) select {
+        color: rgba(0, 0, 0, 0);
+    }
 }
 [class^='vp-select']:not([class*='__']) {
     &:after {
