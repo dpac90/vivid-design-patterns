@@ -19,10 +19,10 @@ function NativeSelect({ onChange, onBlur, id, value, label, disabled, small, med
     const emptyOption = getEmptyOption(value, label);
     const selectAttributes = {
         id,
-        value: value || nullString,
         onChange,
         onBlur,
         disabled,
+        value: value || nullString,
         className: classnames('vp-select__control', {
             '--small': small,
             '--medium': medium

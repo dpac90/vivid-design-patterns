@@ -39,7 +39,7 @@ class Select extends React.Component {
     state = {
         value: this.props.value || '',
         error: this.props.error || '',
-        filled: !!this.props.value
+        filled: !!this.props.value || !this.props.label
     };
 
     onBlur = e => {
