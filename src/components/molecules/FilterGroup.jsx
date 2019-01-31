@@ -23,14 +23,15 @@ class FilterGroup extends React.Component {
         className: ''
     };
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate = prevProps => {
         const { expanded } = this.state;
         const { limit } = this.props;
         const previousLengthOfChildren = prevProps.children.length;
-        if (!!expanded && React.Children.count !== previousLengthOfChildren) {
-            this.setState({ filterLimit: React.Children.count > limit ? React.Children.count : limit });
+        const newLengthOfChildren = this.props.children.length;
+        if (!!expanded && newLengthOfChildren !== previousLengthOfChildren) {
+            this.setState({ filterLimit: newLengthOfChildren > limit ? newLengthOfChildren : limit });
         }
-    }
+    };
 
     toggleFilterGroupExpansion = e => {
         const { expanded } = this.state;
