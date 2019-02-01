@@ -1,0 +1,84 @@
+@import 'prefixes';
+@import 'tokens';
+@import 'typography';
+
+.toggle {
+    height: 36px;
+    width: 55px;
+    display: inline;
+    h4 {
+        display: inline;
+        line-height: 36px;
+        font-size: 1em;
+        font-weight: 600;
+    }
+    .toggle-switch {
+        display: inline-block;
+        width: 55px;
+        height: 36px;
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        input {
+            display: none;
+            &:checked + .toggle-button {
+                background-color: $color-brand-red;
+                &:before {
+                    content: '\E5CA';
+                    @include transform(translate(19px, 0));
+                }
+            }
+            &:focus + .toggle-button {
+                box-shadow: 0 0 1px $color-gray-dark; // was $gray-blue
+            }
+        }
+        .toggle-button {
+            width: inherit;
+            height: inherit;
+            font-family: $font-family-icons;
+            position: absolute;
+            background-color: $color-gray; // was $gray-light
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+            &:before {
+                /* styles for material icons */
+                font-family: $font-family-icons;
+                font-weight: normal;
+                font-style: normal;
+                font-size: 24px;
+                /* Preferred icon size */
+                display: inline-block;
+                vertical-align: middle;
+                text-transform: none;
+                letter-spacing: normal;
+                word-wrap: normal;
+                white-space: nowrap;
+                direction: ltr;
+                /* Support for all WebKit browsers. */
+                -webkit-font-smoothing: antialiased;
+                /* Support for Safari and Chrome. */
+                text-rendering: optimizeLegibility;
+                /* Support for Firefox. */
+                -moz-osx-font-smoothing: grayscale;
+                /* Support for IE. */
+                font-feature-settings: 'liga';
+                /* end styles for material icons */
+                position: absolute;
+                color: $color-gray-medium; // was $gray-medium
+                content: '\E14C';
+                text-align: center;
+                line-height: 32px;
+                height: 32px;
+                width: 32px;
+                left: 2px;
+                bottom: 2px;
+                background-color: white;
+                @include transition(0.4s);
+            }
+            &.round {
+                border-radius: 34px;
+                &:before {
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+}
