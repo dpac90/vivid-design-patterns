@@ -28,3 +28,17 @@ Importing the scss:
 
 
 ## Usages
+### Default state
+<Playground>
+    <Toggle defaultOn={true} />
+</Playground>
+
+### Controlled
+<Playground>
+    <Toggle on={true} />
+</Playground>
+
+### `onToggle` callback
+<Playground>
+    <Toggle onToggle={ () => { alert('Hello.') } } />
+</Playground>

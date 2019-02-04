@@ -7,18 +7,20 @@ class Toggle extends Component {
         className: PropTypes.string,
         ariaLabel: PropTypes.string,
         on: PropTypes.bool,
-        onToggle: PropTypes.func.isRequired
+        onToggle: PropTypes.func.isRequired,
+        defaultOn: PropTypes.bool
     };
 
     static defaultProps = {
         title: '',
         className: '',
         ariaLabel: 'toggle',
-        onToggle: () => {}
+        onToggle: () => {},
+        defaultOn: false
     };
 
     state = {
-        on: this.props.on
+        on: this.props.on || this.props.defaultOn
     };
 
     onToggle = e => {
@@ -28,9 +30,9 @@ class Toggle extends Component {
             this.setState({ on }, () => {
                 this.props.onToggle(this.state.on);
             });
+        } else {
+            this.props.onToggle(on);
         }
-
-        this.props.onToggle(on);
     };
 
     isControlled = propName => {
@@ -38,7 +40,7 @@ class Toggle extends Component {
     };
 
     render() {
-        const { title, className, ariaLabel, on, onToggle, ...htmlProps } = this.props;
+        const { title, className, ariaLabel, on, onToggle, defaultOn, ...htmlProps } = this.props;
         const checked = this.isControlled('on') ? this.props.on : this.state.on;
 
         return (
@@ -46,7 +48,7 @@ class Toggle extends Component {
                 {!!title && <h4 className="toggle-title">{title}</h4>}
                 <span>
                     <label className="toggle-switch" aria-label={ariaLabel}>
-                        <input type="checkbox" onChange={this.onToggle} checked={on} />
+                        <input type="checkbox" onChange={this.onToggle} checked={checked} />
                         <span className="toggle-button round" />
                     </label>
                 </span>
