@@ -7,7 +7,7 @@ class Toggle extends Component {
         className: PropTypes.string,
         ariaLabel: PropTypes.string,
         on: PropTypes.bool,
-        onToggle: PropTypes.func.isRequired,
+        onToggle: PropTypes.func,
         defaultOn: PropTypes.bool
     };
 
@@ -35,9 +35,7 @@ class Toggle extends Component {
         }
     };
 
-    isControlled = propName => {
-        return this.props[propName] !== undefined;
-    };
+    isControlled = propName => this.props[propName] !== undefined;
 
     render() {
         const { title, className, ariaLabel, on, onToggle, defaultOn, ...htmlProps } = this.props;
