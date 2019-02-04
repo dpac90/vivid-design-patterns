@@ -44,12 +44,10 @@ class Toggle extends Component {
         return (
             <div className={`toggle ${className}`} {...htmlProps}>
                 {!!title && <h4 className="toggle-title">{title}</h4>}
-                <span>
-                    <label className="toggle-switch" aria-label={ariaLabel}>
-                        <input type="checkbox" onChange={this.onToggle} checked={checked} />
-                        <span className="toggle-button round" />
-                    </label>
-                </span>
+                <label className="toggle-switch" aria-label={ariaLabel}>
+                    <input type="checkbox" onChange={this.onToggle} checked={checked} />
+                    <span className="toggle-button round" />
+                </label>
             </div>
         );
     }
