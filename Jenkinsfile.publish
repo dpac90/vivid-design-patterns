@@ -36,7 +36,6 @@ pipeline {
             git checkout master
             git merge stage
             git push origin/master --follow-tags
-            sendSlackNotification(buildStatus: currentBuild.currentResult, channel: '#eng-test-regression');
         }
     }
 }
