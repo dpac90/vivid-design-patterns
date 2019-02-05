@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Headline from './Headline';
 
 class Toggle extends Component {
     static propTypes = {
@@ -43,17 +42,11 @@ class Toggle extends Component {
         const checked = this.isControlled('on') ? this.props.on : this.state.on;
 
         return (
-            <div className={`toggle ${className}`}>
-                {!!title && (
-                    <Headline importance={4} className="toggle-title">
-                        {title}
-                    </Headline>
-                )}
-                <label className="toggle-switch" aria-label={ariaLabel}>
-                    <input type="checkbox" onChange={this.onToggle} checked={checked} {...htmlProps} />
-                    <span className="toggle-button round" />
-                </label>
-            </div>
+            <label className={`vp-toggle ${className}`} {...htmlProps}>
+                {!!title && <span className="vp-toggle__label">{title}</span>}
+                <input className="vp-toggle__control" type="checkbox" onChange={this.onToggle} checked={checked} hidden />
+                <span className="vp-toggle__thumb" />
+            </label>
         );
     }
 }
