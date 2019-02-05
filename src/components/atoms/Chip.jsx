@@ -23,9 +23,9 @@ class Chip extends Component {
     };
 
     onKeyPress = e => {
-        e.preventDefault(e);
+        e.preventDefault();
         if (e.keyCode === 13) {
-            this.onClose();
+            this.onClose(e);
         }
     };
 
