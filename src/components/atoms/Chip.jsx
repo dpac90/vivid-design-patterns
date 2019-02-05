@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import onEnterPress from '../utils/onEnterPress';
 
 class Chip extends Component {
     static propTypes = {
@@ -23,10 +24,7 @@ class Chip extends Component {
     };
 
     onKeyPress = e => {
-        e.preventDefault();
-        if (e.keyCode === 13) {
-            this.onClose(e);
-        }
+        onEnterPress(this.onClose, e);
     };
 
     render() {
