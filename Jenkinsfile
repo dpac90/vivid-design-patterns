@@ -31,15 +31,15 @@ pipeline {
             }
         }
     }
-
-    post {
-        success {
-            //git push origin/stage
-            git checkout master
-            echo "hello"
-            //git merge stage
-            //git push origin/master --follow-tags
-        }
-    }
+   }
+   
+   post {
+       success {
+           //git push origin/stage
+           git checkout master
+           echo "hello"
+           //git merge stage
+           //git push origin/master --follow-tags
+       }
    }
 }
