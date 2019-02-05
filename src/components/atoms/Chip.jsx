@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import onEnterPress from '../utils/onEnterPress';
+import onEnterPress from '../../utils/onEnterPress';
 
 class Chip extends Component {
     static propTypes = {
