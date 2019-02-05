@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Toggle from '../../src/components/atoms/Toggle';
-import Headline from '../../src/components/atoms/Headline';
 
 describe('<Toggle />', () => {
     const toggleTitle = 'Toggle';
@@ -13,9 +12,9 @@ describe('<Toggle />', () => {
         expect(wrapper.find('label').exists()).toBe(true);
     });
 
-    it('renders a Headline when provided', () => {
+    it('renders a label when provided', () => {
         const wrapper = mount(ToggleComponent);
-        expect(wrapper.find(Headline).text()).toBe(toggleTitle);
+        expect(wrapper.find('.vp-toggle__label').text()).toBe(toggleTitle);
     });
 
     describe('When <Toggle/> is used as an uncontrolled component', () => {
