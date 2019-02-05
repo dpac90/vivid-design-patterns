@@ -1,6 +1,7 @@
 // Tokens
 @import 'tokens';
 @import 'mixins';
+@import 'prefixes';
 
 .vp-chip {
     @include linear-gradient(to right, $color-gradient-blue);
