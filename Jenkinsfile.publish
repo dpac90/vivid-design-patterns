@@ -25,17 +25,19 @@ pipeline {
     stage('Publish') {
         steps {
             container('node') {
-                sh 'yarn publish'
+                //sh 'yarn publish'
+                sh 'echo "yarn publish"'
             }
         }
     }
 
     post {
         success {
-            git push origin/stage
+            //git push origin/stage
             git checkout master
-            git merge stage
-            git push origin/master --follow-tags
+            echo "hello"
+            //git merge stage
+            //git push origin/master --follow-tags
         }
     }
 }

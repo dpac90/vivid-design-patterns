@@ -3,72 +3,42 @@ def GIT_CREDENTIALS='github-username-and-token-as-password'
 pipeline {
   agent {
     kubernetes {
-      label 'vivid-design-patterns-2018-12-27-3'
+      label 'vivid-design-patterns'
       idleMinutes 10
       yamlFile 'jenkins/kubernetes/build-pod.yaml'
     }
   }
 
-  environment {
-    //
-    // Don't remove BRANCH_LOWER. it is used in deploy-config.yaml file
-    //
-    BRANCH_LOWER = sh returnStdout: true, script: "echo ${ buildContext.branchName(env) } | awk '{print tolower(\$0)}' | tr -d '\n'"
+  parameters {
+    choice(choices: ['major', 'minor', 'patch'], description: 'What kind of update is this?', name: 'SEM_VER_TYPE')
   }
 
   stages {
-    stage('Build Site') {
+    stage('Version) {
       steps {
         container('node') {
-          sh 'yarn install'
-          sh 'yarn run build:docs'
+            // sh 'yarn version --${params.SEM_VER_TYPE}'
+            sh 'echo "yarn version"'
         }
       }
     }
 
-    stage('Test') {
+    stage('Publish') {
         steps {
             container('node') {
-                sh 'yarn run test'
-                sh 'yarn run lint:ci'
+                //sh 'yarn publish'
+                sh 'echo "yarn publish"'
             }
         }
     }
 
-    stage('Produce Image') {
-      steps {
-        container('docker') {
-          sh 'docker build -t vividseats/vivid-design-patterns:$BRANCH_LOWER .'
+    post {
+        success {
+            //git push origin/stage
+            git checkout master
+            echo "hello"
+            //git merge stage
+            //git push origin/master --follow-tags
         }
-      }
     }
-
-    stage('Push Image') {
-      steps {
-        container('docker') {
-          sh 'docker push vividseats/vivid-design-patterns:$BRANCH_LOWER'
-        }
-      }
-    }
-
-    stage('Deploy Feature') {
-      options {
-        timeout(time: 10, unit: 'MINUTES')
-      }
-      steps {
-        container('skipper') {
-          dir('jenkins') {
-            sh "skipper deploy -n vivid-design-patterns ${ buildContext.branchName(env) } --render-values-file"
-            sh "skipper deploy -n vivid-design-patterns ${ buildContext.branchName(env) }"
-          }
-        }
-      }
-    }
-  }
-
-  post {
-    always {
-        junit 'reports/**/*.xml'
-    }
-  }
 }
