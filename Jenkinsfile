@@ -41,4 +41,5 @@ pipeline {
             //git push origin/master --follow-tags
         }
     }
+   }
 }
