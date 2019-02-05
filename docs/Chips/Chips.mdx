@@ -24,5 +24,27 @@ Using the scss files:
 </Playground>
 
 ## Chip Props
-### Chip
 <PropsTable of={Chip}/>
+
+## Additional usages:
+### With callback function
+`onClose={someFunction}`
+<Playground>
+    <Chip label="I have a custom callback" onClose={ (val) => { alert(`hello. my label is: "${val}"`); }} />
+</Playground>
+
+### With custom value
+`value="different_value_than_label"`
+<Playground>
+    <Chip label="I have a custom value" value="different_value_than_label" onClose={ (val) => { alert(`hello. my value is: "${val}"`); }} />
+</Playground>
+
+
+### With other chips
+`value="different_value_than_label"`
+<Playground>
+    <Chip label="I am label one" value="value_1" onClose={ (val) => { alert(`hello. my value is: "${val}"`); }} />
+    <Chip label="I am label two" value="value_2" onClose={ (val) => { alert(`hello. my value is: "${val}"`); }} />
+    <Chip label="I am label three" value="value_3" onClose={ (val) => { alert(`hello. my value is: "${val}"`); }} />
+    <Chip label="I am label four" value="value_4" onClose={ (val) => { alert(`hello. my value is: "${val}"`); }} />
+</Playground>
