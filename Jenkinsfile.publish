@@ -14,7 +14,7 @@ pipeline {
   }
 
   stages {
-    stage('Version) {
+    stage('Version') {
       steps {
         container('node') {
             sh 'yarn version --${params.SEM_VER_TYPE}'
