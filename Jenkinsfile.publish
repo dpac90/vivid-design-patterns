@@ -11,7 +11,7 @@ pipeline {
   }
 
   parameters {
-    choice(choices: ['major', 'minor', 'patch'], description: 'What kind of update is this?', name: 'SEM_VER_TYPE')
+    choice(choices: ['major', 'minor', 'patch'], description: 'What kind of change are you publishing? Major changes are breaking changes. Minor changes are new features, eg. new components, and patches are bug fixes on components. For more information, visit: https://semver.org/', name: 'SEM_VER_TYPE')
   }
 
   stages {
