@@ -20,16 +20,10 @@ pipeline {
             sh "yarn install"
         }
     }
-    
-    stage('Version') {
-      steps {
-        sh "npm version ${params.SEM_VER_TYPE}"
-      }
-    }
 
     stage('Publish') {
         steps {
-            sh "yarn publish"
+            sh "yarn publish --new-version ${params.SEM_VER_TYPE}"
         }
     }
 
