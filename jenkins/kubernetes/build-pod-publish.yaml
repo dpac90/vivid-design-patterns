@@ -6,3 +6,9 @@ spec:
     image: node:8.11.1
     command: ["tail", "-f", "/dev/null"]
     imagePullPolicy: Always
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
+      limits:
+        memory: "1Gi"
