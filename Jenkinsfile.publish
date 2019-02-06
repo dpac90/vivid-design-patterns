@@ -5,7 +5,7 @@ pipeline {
     kubernetes {
       label 'vivid-design-patterns-publish'
       idleMinutes 1
-      yamlFile 'jenkins/kubernetes/build-pod-publish.yaml',
+      yamlFile 'jenkins/kubernetes/build-pod-publish.yaml'
       defaultContainer 'node'
     }
   }
