@@ -15,6 +15,12 @@ pipeline {
   }
 
   stages {
+    stage('Install dependencies') {
+        steps {
+            sh "yarn install"
+        }
+    }
+    
     stage('Version') {
       steps {
         sh "npm version ${params.SEM_VER_TYPE}"
