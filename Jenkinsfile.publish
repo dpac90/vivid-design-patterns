@@ -3,9 +3,10 @@ def GIT_CREDENTIALS='github-username-and-token-as-password'
 pipeline {
   agent {
     kubernetes {
-      label 'vivid-design-patterns'
-      idleMinutes 10
-      yamlFile 'jenkins/kubernetes/build-pod.yaml'
+      label 'vivid-design-patterns-publish'
+      idleMinutes 1
+      yamlFile 'jenkins/kubernetes/build-pod-publish.yaml',
+      defaultContainer 'node'
     }
   }
 
@@ -16,19 +17,15 @@ pipeline {
   stages {
     stage('Version') {
       steps {
-        container('node') {
-            // sh 'yarn version --${params.SEM_VER_TYPE}'
-            sh 'echo "yarn version"'
-        }
+        // sh 'yarn version --${params.SEM_VER_TYPE}'
+        sh 'echo "yarn version"'
       }
     }
 
     stage('Publish') {
         steps {
-            container('node') {
-                //sh 'yarn publish'
-                sh 'echo "yarn publish"'
-            }
+            //sh 'yarn publish'
+            sh 'echo "yarn publish"'
         }
     }
 
