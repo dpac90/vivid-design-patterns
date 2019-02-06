@@ -17,7 +17,7 @@ pipeline {
   stages {
     stage('Version') {
       steps {
-        sh "yarn version --${params.SEM_VER_TYPE}"
+        sh "npm version --${params.SEM_VER_TYPE}"
       }
     }
 
