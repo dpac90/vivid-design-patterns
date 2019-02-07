@@ -29,6 +29,7 @@ pipeline {
 
     stage('Merge and Tag') {
         steps {
+            sh "git remote -vv"
             sh "git fetch"
             sh "git push origin stage"
             sh "git checkout fake-master"
