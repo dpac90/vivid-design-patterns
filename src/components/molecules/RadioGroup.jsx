@@ -1,26 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import RadioOption from '../atoms/RadioOption';
-import Label from '../atoms/Label';
-import ErrorMessage from '../atoms/ErrorMessage';
 
 class RadioGroup extends React.Component {
     state = {
         value: this.props.value || '',
         error: this.props.error || ''
-    };
-
-    static propTypes = {
-        onChange: PropTypes.func,
-        children: PropTypes.node.isRequired,
-        className: PropTypes.string
-    };
-
-    static defaultProps = {
-        onChange: () => {},
-        validationMethod: () => {},
-        className: ''
     };
 
     onChange = e => {
@@ -46,12 +30,12 @@ class RadioGroup extends React.Component {
     }
 
     render() {
-        const { children, className } = this.props;
-        const { value } = this.state;
+        const { children, className, onChange, validationMethod, ...htmlAttributes } = this.props;
+        const { value, error } = this.state;
         const { props } = this;
-        const classNames = className ? `vp-radio-group ${className}` : 'vp-radio-group';
+        const classNames = className ? `vp-control-group ${className}` : 'vp-control-group';
         return (
-            <div className={classNames}>
+            <div className={classNames} {...htmlAttributes} data-state={error ? 'error' : null}>
                 {React.Children.map(children, child =>
                     React.cloneElement(child, {
                         isChecked: value === child.props.value,
@@ -59,9 +43,23 @@ class RadioGroup extends React.Component {
                         onChange: event => this.onChange(event)
                     })
                 )}
+                {!!error && <span className="vp-helper-text--validation">{error}</span>}
             </div>
         );
     }
 }
+
+RadioGroup.propTypes = {
+    id: PropTypes.string.isRequired,
+    className: PropTypes.string,
+    onChange: PropTypes.func,
+    validationMethod: PropTypes.func
+};
+
+RadioGroup.defaultProps = {
+    className: '',
+    onChange: () => {},
+    validationMethod: () => {}
+};
 
 export default RadioGroup;
