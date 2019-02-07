@@ -1,0 +1,32 @@
+---
+    name: RadioGroup
+---
+
+import { PropsTable, Playground } from 'docz'
+import RadioGroup from '../../src/components/molecules/RadioGroup';
+import RadioOption from '../../src/components/atoms/RadioOption';
+
+
+# Badge
+## Installation
+Using the react components:
+
+    import RadioGroup from '@vividseats/vivid-design-patterns/dist/molecules/RadioGroup';
+
+## Props
+<PropsTable of={RadioGroup}/>
+
+## Basic Usage
+<Playground>
+
+      <RadioGroup
+        name="payment_options"
+        value={'cc'}
+        onChange={()=>{console.log('changed')}}
+      >
+        <RadioOption value="cc">Credit Card</RadioOption>
+        <RadioOption value="pp">PayPal</RadioOption>
+        <RadioOption value="pp_c">PayPal Credit</RadioOption>
+      </RadioGroup>
+
+</Playground>
