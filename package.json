@@ -1,7 +1,7 @@
 {
   "name": "@vividseats/vivid-design-patterns",
   "Author": "Vivid Seats",
-  "version": "0.0.0-changelog-1549580851",
+  "version": "0.0.0-changelog-1549581119",
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
@@ -79,7 +79,7 @@
     "build:docs": "./node_modules/.bin/docz build",
     "build:js": "./node_modules/.bin/gulp bundle_js",
     "prepublishOnly": "yarn run format && yarn run test && yarn run lint && yarn run build:js",
-    "version": "yarn run changelog && git add CHANGELOG.md",
+    "postversion": "yarn run changelog && git add CHANGELOG.md && git commit -m 'Post publish change-log generation commit'",
     "publish:branch": "yarn publish --tag $(git rev-parse --symbolic-full-name --abbrev-ref HEAD) --new-version 0.0.0-$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)-$(date +%s) --no-git-tag-version",
     "format": "./node_modules/.bin/prettier --write **/*/*.{js,jsx}",
     "lint": "./node_modules/.bin/eslint --ext .js,.jsx ./src",
