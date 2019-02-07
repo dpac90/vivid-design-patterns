@@ -23,7 +23,7 @@ pipeline {
 
     stage('Publish') {
         steps {
-            sh "yarn publish --new-version 0.0.0-fake-deploy4${params.SEM_VER_TYPE} --tag fake-deploy"
+            sh "yarn publish --new-version 0.0.0-fake-deploy5${params.SEM_VER_TYPE} --tag fake-deploy"
         }
     }
 
