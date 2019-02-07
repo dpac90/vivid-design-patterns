@@ -26,6 +26,8 @@ readStream
             writeStream.write(`### ${message} ${newLine}`);
             writeStream.write(`##### ${author} at ${date}`);
         } else if (message.includes('changelog')) {
+            writeStream.write(newLine);
+
             const changelogRegex = new RegExp('changelog', 'ig');
             const messageWithoutChangelog = message.replace(changelogRegex, '');
 

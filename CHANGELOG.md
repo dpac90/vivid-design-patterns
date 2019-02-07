@@ -3,11 +3,16 @@
 
 
 ### v1.13.2 
-##### Jeff Borders at February 7th 2019, 5:17:56pm  - [291ba1d](https://github.com/VividSeats/vivid-design-patterns/commit/291ba1d): WEB-5826 still finding the right  order
+##### Jeff Borders at February 7th 2019, 5:17:56pm
+  - [291ba1d](https://github.com/VividSeats/vivid-design-patterns/commit/291ba1d): WEB-5826 still finding the right  order
+
   - [a77bfc4](https://github.com/VividSeats/vivid-design-patterns/commit/a77bfc4): Merge branch '' of github.com:VividSeats/vivid-design-patterns into 
+
   - [dd21655](https://github.com/VividSeats/vivid-design-patterns/commit/dd21655): WEB-5826 postpublish 
+
   - [17c43b3](https://github.com/VividSeats/vivid-design-patterns/commit/17c43b3): WEB-5826 postpublish 
 
 
 ### v1.13.1 
-##### Jeff Borders at February 7th 2019, 4:53:40pm  - [f9a4b30](https://github.com/VividSeats/vivid-design-patterns/commit/f9a4b30): Web 5826: auto generating  (#41)
+##### Jeff Borders at February 7th 2019, 4:53:40pm
+  - [f9a4b30](https://github.com/VividSeats/vivid-design-patterns/commit/f9a4b30): Web 5826: auto generating  (#41)
