@@ -17,6 +17,7 @@ pipeline {
   stages {
     stage('Install dependencies') {
         steps {
+            sh "git checkout -b stage"
             //sh "yarn install"
             sh "echo 'hello' >> hello.text"
         }
@@ -36,8 +37,8 @@ pipeline {
             sh "git remote -vv"
             sh "git branch -vv"
             sh "git status"
-            sh "git push origin stage"
-            sh "git checkout fake-master"
+            sh "git push -u origin stage"
+            sh "git checkout -b fake-master"
             sh "git pull origin/fake-master"
             sh "git merge stage"
             sh "git push origin fake-master --follow-tags"
