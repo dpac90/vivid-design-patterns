@@ -61,11 +61,11 @@ pipeline {
      }
    }
 
-  post {
-    always {
-        script {
-            sendSlackNotification(buildStatus: currentBuild.currentResult, channel: "#eng-team-web")
-        }
-    }
-  }
+  //post {
+  //  always {
+  //      script {
+  //          sendSlackNotification(buildStatus: currentBuild.currentResult, channel: "#eng-team-web")
+  //      }
+  //  }
+  //}
 }
