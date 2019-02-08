@@ -33,17 +33,31 @@ pipeline {
     }
 
     stage('Merge and Tag') {
-        steps {
-            sh "git remote -vv"
-            sh "git branch -vv"
-            sh "git status"
-            sh "git push -u origin stage"
-            sh "git checkout -b fake-master"
-            sh "git pull origin/fake-master"
-            sh "git merge stage"
-            sh "git push origin fake-master --follow-tags"
-        }
-    }
+      steps {
+        withCredentials([
+          usernamePassword(
+            credentialsId: GIT_CREDENTIALS,
+            passwordVariable: 'GITHUB_TOKEN',
+            usernameVariable: 'GITHUB_USERNAME')]) {
+
+              sh """
+                git config --replace-all user.email ${env.GITHUB_USERNAME}@hypothes.is
+                git config --replace-all user.name ${env.GITHUB_USERNAME}
+                git config credential.helper store
+                echo https://${env.GITHUB_USERNAME}:${env.GITHUB_TOKEN}@github.com >> \$HOME/.git-credentials
+              """
+
+              sh "git remote -vv"
+              sh "git branch -vv"
+              sh "git status"
+              sh "git push -u origin stage"
+              #sh "git checkout -b fake-master"
+              #sh "git pull origin/fake-master"
+              #sh "git merge stage"
+              #sh "git push origin fake-master --follow-tags"
+         }
+       }
+     }
    }
 
   post {
