@@ -15,13 +15,13 @@ pipeline {
   }
 
   stages {
-    stage('Prepare git repo') {
-        steps {
-            sh "git branch -D stage || true"
-            sh "git checkout -b stage"
-            sh "echo checkout"
-        }
-    }
+    //stage('Prepare git repo') {
+    //    steps {
+    //        sh "git branch -D stage || true"
+    //        sh "git checkout -b stage"
+    //        sh "echo checkout"
+    //    }
+    //}
 
     stage('Install dependencies') {
         steps {
