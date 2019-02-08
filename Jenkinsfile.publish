@@ -20,7 +20,7 @@ pipeline {
             sh "git branch -D stage || true"
             sh "git checkout -b stage"
             //sh "yarn install"
-            sh "echo 'hello' >> hello.text"
+            sh "echo $(date) >> hello.text"
         }
     }
 
