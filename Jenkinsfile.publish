@@ -23,7 +23,8 @@ pipeline {
 
     stage('Publish') {
         steps {
-            sh "yarn publish --new-version 0.0.0-fake-deploy6${params.SEM_VER_TYPE} --tag fake-deploy"
+            sendSlackNotification(buildStatus: "Publishing ${params.SEM_VER_TYPE} update", channel: "#eng-team-web")
+            sh "yarn publish --new-version 0.0.0-fake-deploy7${params.SEM_VER_TYPE} --tag fake-deploy"
         }
     }
 
@@ -38,4 +39,12 @@ pipeline {
         }
     }
    }
+
+  post {
+    always {
+        script {
+            sendSlackNotification(buildStatus: currentBuild.currentResult, channel: "#eng-team-web")
+        }
+    }
+  }
 }
