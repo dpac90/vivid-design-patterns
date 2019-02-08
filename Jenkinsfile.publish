@@ -51,10 +51,10 @@ pipeline {
               sh "git branch -vv"
               sh "git status"
               sh "git push -u origin stage"
-              #sh "git checkout -b fake-master"
-              #sh "git pull origin/fake-master"
-              #sh "git merge stage"
-              #sh "git push origin fake-master --follow-tags"
+              //sh "git checkout -b fake-master"
+              //sh "git pull origin/fake-master"
+              //sh "git merge stage"
+              //sh "git push origin fake-master --follow-tags"
          }
        }
      }
