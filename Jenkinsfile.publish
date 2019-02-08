@@ -17,6 +17,7 @@ pipeline {
   stages {
     stage('Install dependencies') {
         steps {
+            sh "git status"
             sh "git checkout -b stage"
             //sh "yarn install"
             sh "echo 'hello' >> hello.text"
