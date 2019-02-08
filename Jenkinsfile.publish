@@ -15,10 +15,15 @@ pipeline {
   }
 
   stages {
-    stage('Install dependencies') {
+    stage('Prepare git repo') {
         steps {
             sh "git branch -D stage || true"
             sh "git checkout -b stage"
+        }
+    }
+
+    stage('Install dependencies') {
+        steps {
             //sh "yarn install"
             sh "echo $(date) >> hello.text"
         }
@@ -28,12 +33,10 @@ pipeline {
         steps {
             //sendSlackNotification(buildStatus: "Publishing ${params.SEM_VER_TYPE} update", channel: "#eng-team-web")
             //sh "yarn publish --new-version 0.0.0-fake-deploy7${params.SEM_VER_TYPE} --tag fake-deploy"
-            sh "git add --all"
-            sh "git commit -m 'add file'"
         }
     }
 
-    stage('Merge and Tag') {
+    stage('Push version change to github') {
       steps {
         withCredentials([
           usernamePassword(
@@ -48,14 +51,10 @@ pipeline {
                 echo https://${env.GITHUB_USERNAME}:${env.GITHUB_TOKEN}@github.com >> \$HOME/.git-credentials
               """
 
-              sh "git remote -vv"
-              sh "git branch -vv"
-              sh "git status"
+              sh "git add --all"
+              sh "git commit -m 'add file'"
+
               sh "git push -u origin stage"
-              //sh "git checkout -b fake-master"
-              //sh "git pull origin/fake-master"
-              //sh "git merge stage"
-              //sh "git push origin fake-master --follow-tags"
          }
        }
      }
