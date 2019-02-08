@@ -23,19 +23,18 @@ pipeline {
 
     stage('Publish') {
         steps {
-            sh "yarn publish --new-version 0.0.0-fake-deploy5${params.SEM_VER_TYPE} --tag fake-deploy"
+            sh "yarn publish --new-version 0.0.0-fake-deploy6${params.SEM_VER_TYPE} --tag fake-deploy"
         }
     }
 
     stage('Merge and Tag') {
         steps {
             sh "git remote -vv"
-            sh "git fetch"
-            sh "git push origin stage"
+            sh "git push https://github.com/VividSeats/vivid-design-patterns.git stage"
             sh "git checkout fake-master"
-            sh "git pull origin/fake-master"
+            sh "git pull https://github.com/VividSeats/vivid-design-patterns.git/fake-master"
             sh "git merge stage"
-            sh "git push origin fake-master --follow-tags"
+            sh "git push https://github.com/VividSeats/vivid-design-patterns.git fake-master --follow-tags"
         }
     }
    }
