@@ -24,6 +24,8 @@ pipeline {
 
     stage('Publish') {
         steps {
+            sh "git config --replace-all user.email ${env.GITHUB_USERNAME}@vividseats.com"
+            sh "git config --replace-all user.name ${env.GITHUB_USERNAME}"
             sh "yarn publish --new-version 0.0.0-fake-deploy8${params.SEM_VER_TYPE} --tag fake-deploy"
         }
     }
@@ -37,8 +39,6 @@ pipeline {
             usernameVariable: 'GITHUB_USERNAME')]) {
 
               sh """
-                git config --replace-all user.email ${env.GITHUB_USERNAME}@vividseats.com
-                git config --replace-all user.name ${env.GITHUB_USERNAME}
                 git config credential.helper store
                 echo https://${env.GITHUB_USERNAME}:${env.GITHUB_TOKEN}@github.com >> \$HOME/.git-credentials
               """
