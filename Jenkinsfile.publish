@@ -27,7 +27,7 @@ pipeline {
             //sendSlackNotification(buildStatus: "Publishing ${params.SEM_VER_TYPE} update", channel: "#eng-team-web")
             //sh "yarn publish --new-version 0.0.0-fake-deploy7${params.SEM_VER_TYPE} --tag fake-deploy"
             sh "git add --all"
-            sh "git commit -m "add file"
+            sh "git commit -m 'add file'"
         }
     }
 
