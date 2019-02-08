@@ -19,7 +19,7 @@ pipeline {
         steps {
             //sh "git branch -D stage || true"
             //sh "git checkout -b stage"
-            sh "checkout"
+            sh "echo checkout"
         }
     }
 
