@@ -25,7 +25,7 @@ pipeline {
     stage('Install dependencies') {
         steps {
             //sh "yarn install"
-            sh "echo $(date) >> hello.text"
+            sh 'echo $(date) >> hello.text'
         }
     }
 
