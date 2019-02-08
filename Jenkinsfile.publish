@@ -15,6 +15,25 @@ pipeline {
   }
 
   stages {
+    stage('Prepare git environment') {
+        steps {
+            withCredentials([
+                      usernamePassword(
+                      credentialsId: GIT_CREDENTIALS,
+                      passwordVariable: 'GITHUB_TOKEN',
+                      usernameVariable: 'GITHUB_USERNAME')]) {
+
+                          sh """
+                            git config --replace-all user.email ${env.GITHUB_USERNAME}@vividseats.com
+                            git config --replace-all user.name ${env.GITHUB_USERNAME}
+                            git config credential.helper store
+                            echo https://${env.GITHUB_USERNAME}:${env.GITHUB_TOKEN}@github.com >> \$HOME/.git-credentials
+                          """
+
+                     }
+        }
+    }
+
     stage('Install dependencies') {
         steps {
             //sendSlackNotification(buildStatus: "Publishing ${params.SEM_VER_TYPE} update to Vivid Design Patterns", channel: "#eng-team-web")
@@ -24,27 +43,13 @@ pipeline {
 
     stage('Publish') {
         steps {
-            sh "git config --replace-all user.email ${env.GITHUB_USERNAME}@vividseats.com"
-            sh "git config --replace-all user.name ${env.GITHUB_USERNAME}"
-            sh "yarn publish --new-version 0.0.0-fake-deploy8${params.SEM_VER_TYPE} --tag fake-deploy"
+            sh "yarn publish --new-version 0.0.0-fake-deploy9${params.SEM_VER_TYPE} --tag fake-deploy"
         }
     }
 
     stage('Push version change to github') {
       steps {
-        withCredentials([
-          usernamePassword(
-            credentialsId: GIT_CREDENTIALS,
-            passwordVariable: 'GITHUB_TOKEN',
-            usernameVariable: 'GITHUB_USERNAME')]) {
-
-              sh """
-                git config credential.helper store
-                echo https://${env.GITHUB_USERNAME}:${env.GITHUB_TOKEN}@github.com >> \$HOME/.git-credentials
-              """
-
-              sh "git push origin HEAD:stage --follow-tag"
-         }
+        sh "git push origin HEAD:stage --follow-tag"
        }
      }
    }
