@@ -4,7 +4,7 @@ pipeline {
   agent {
     kubernetes {
       label 'vivid-design-patterns-publish'
-      idleMinutes 30
+      idleMinutes 2
       yamlFile 'jenkins/kubernetes/build-pod-publish.yaml'
       defaultContainer 'node'
     }
@@ -17,16 +17,14 @@ pipeline {
   stages {
     stage('Install dependencies') {
         steps {
-            //sh "yarn install"
-            sh 'echo $(date) >> hello.text'
+            //sendSlackNotification(buildStatus: "Publishing ${params.SEM_VER_TYPE} update to Vivid Design Patterns", channel: "#eng-team-web")
+            sh "yarn install"
         }
     }
 
     stage('Publish') {
         steps {
-            //sendSlackNotification(buildStatus: "Publishing ${params.SEM_VER_TYPE} update", channel: "#eng-team-web")
-            //sh "yarn publish --new-version 0.0.0-fake-deploy7${params.SEM_VER_TYPE} --tag fake-deploy"
-            sh "echo publishing to npm"
+            sh "yarn publish --new-version 0.0.0-fake-deploy8${params.SEM_VER_TYPE} --tag fake-deploy"
         }
     }
 
@@ -39,26 +37,23 @@ pipeline {
             usernameVariable: 'GITHUB_USERNAME')]) {
 
               sh """
-                git config --replace-all user.email ${env.GITHUB_USERNAME}@hypothes.is
+                git config --replace-all user.email ${env.GITHUB_USERNAME}@vividseats.com
                 git config --replace-all user.name ${env.GITHUB_USERNAME}
                 git config credential.helper store
                 echo https://${env.GITHUB_USERNAME}:${env.GITHUB_TOKEN}@github.com >> \$HOME/.git-credentials
               """
 
-              sh "git add --all"
-              sh "git commit -m 'add file'"
-
-              sh "git push origin HEAD:stage"
+              sh "git push origin HEAD:stage --follow-tag"
          }
        }
      }
    }
 
-  //post {
-  //  always {
-  //      script {
-  //          sendSlackNotification(buildStatus: currentBuild.currentResult, channel: "#eng-team-web")
-  //      }
-  //  }
-  //}
+  post {
+    always {
+        script {
+            // sendSlackNotification(buildStatus: currentBuild.currentResult, channel: "#eng-team-web")
+        }
+    }
+  }
 }
