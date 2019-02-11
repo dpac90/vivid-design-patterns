@@ -44,7 +44,7 @@ pipeline {
     stage('Publish') {
         steps {
             // sh "yarn publish --new-version ${params.SEM_VER_TYPE}"
-            sh "yarn publish --new-version 0.0.1-troubleshooting --tag 0.0.0-troubleshooting"
+            sh "yarn publish --new-version 0.0.2-troubleshooting --tag 0.0.0-troubleshooting"
         }
     }
 
