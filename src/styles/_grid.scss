@@ -79,6 +79,7 @@
 @include grid-modifier(vdp-row, align-top, align-items, flex-start);
 @include grid-modifier(vdp-row, align-center, align-items, center);
 @include grid-modifier(vdp-row, align-bottom, align-items, flex-end);
+@include grid-modifier(vdp-row, column, flex-direction, column);
 
 // Responsive Row Modifiers
 @include size-only-mobile {
@@ -104,7 +105,7 @@
 }
 .vdp-col,
 [class^='vdp-col--']:not([class*='--sm-']) {
-    @include flex-basis(0);
+    @include flex-basis(auto);
 }
 
 $gridBreakpoints: sm null, md $breakpoint-tablet, lg $breakpoint-desktop, xl $breakpoint-desktop-XL;
