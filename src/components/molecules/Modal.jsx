@@ -104,6 +104,7 @@ class Modal extends React.Component {
         const ModalHeaderChild = getChild(children, ModalHeader.displayName);
         const ModalBodyChild = getChild(children, ModalBody.displayName);
         const ModalFooterChild = getChild(children, ModalFooter.displayName);
+        const BackdropChild = getChild(children, Backdrop.displayName);
 
         const bodyChildren = children.filter(child => {
             if (!child.type) {
@@ -111,7 +112,7 @@ class Modal extends React.Component {
             }
 
             const { displayName } = child.type;
-            const childDisplayNames = [ModalHeader.displayName, ModalBody.displayName, ModalFooter.displayName];
+            const childDisplayNames = [ModalHeader.displayName, ModalBody.displayName, ModalFooter.displayName, Backdrop.displayName];
 
             return !displayName || !childDisplayNames.includes(displayName);
         });
@@ -123,12 +124,12 @@ class Modal extends React.Component {
                     data-state={dataState.length ? dataState : Modal.DATA_STATE.CLOSED}
                     {...htmlAtrributes}>
                     <div className="vdp-modal__container">
-                        {ModalHeaderChild || <Modal.Header>{title}</Modal.Header>}
+                        {ModalHeaderChild || <Modal.Header title={title} />}
                         {ModalBodyChild || <Modal.Body>{bodyChildren}</Modal.Body>}
                         {ModalFooterChild || <Modal.Footer onDismiss={toggleModal} />}
                     </div>
+                    {BackdropChild || (!disableBackdrop && <Modal.Backdrop dataState={dataState} onClick={toggleModal} />)}
                 </aside>
-                {!disableBackdrop && <Modal.Backdrop dataState={dataState} onClick={toggleModal} />}
             </React.Fragment>
         );
     }
