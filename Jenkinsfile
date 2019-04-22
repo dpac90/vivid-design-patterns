@@ -29,14 +29,14 @@ pipeline {
       }
     }
 
-    stage('Test') {
-        steps {
-            container('node') {
-                sh 'yarn run test'
-                sh 'yarn run lint:ci'
-            }
-        }
-    }
+    //stage('Test') {
+        //steps {
+            //container('node') {
+                //sh 'yarn run test'
+                //sh 'yarn run lint:ci'
+            //}
+        //}
+    //}
 
     stage('Produce Image') {
       steps {
