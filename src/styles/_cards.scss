@@ -73,7 +73,11 @@
             justify-content: space-around;
         }
         [class*='vdp-button--text'] {
+            display: block;
             margin: $sizing-2XS 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
 }
