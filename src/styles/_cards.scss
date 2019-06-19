@@ -73,7 +73,11 @@
             justify-content: space-around;
         }
         [class*='vdp-button--text'] {
+            display: block;
             margin: $sizing-2XS 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
 }
@@ -91,6 +95,9 @@
     overflow: hidden;
     position: relative;
 
+    &--large {
+        height: $card-hero-height-large;
+    }
     &__image {
         @include position(absolute, 50% 0 0 50%);
         @include transform(translate(-50%, -50%));

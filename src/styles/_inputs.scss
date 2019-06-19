@@ -69,15 +69,9 @@ select::-ms-expand {
     &[class*='--outlined'] {
         border-radius: $border-radius-SM;
     }
-    &[data-validate] {
-        &[data-state*='error']:after {
-            @include position(absolute, 0 $sizing-SM 0 null);
-            @include pseudo-icon('error', $text-color-error, $sizing-4XL, $margin: initial);
-        }
-        &[data-state*='success']:after {
-            @include position(absolute, 0 $sizing-SM 0 null);
-            @include pseudo-icon('check_circle', $text-color-success, $sizing-4XL, $margin: initial);
-        }
+    &[data-state*='error']:after {
+        @include position(absolute, 0 $sizing-SM 0 null);
+        @include pseudo-icon('error', $text-color-error, $sizing-4XL, $margin: initial);
     }
 }
 [class^='vdp-select']:not([class*='__']) {
@@ -108,15 +102,12 @@ select::-ms-expand {
     [data-state*='error'] & {
         color: $text-color-error !important;
     }
-    [data-state*='success'] & {
-        color: $text-color-success !important;
-    }
     [data-state*='filled'] & {
         @include active-label;
     }
 }
 
-[class^='vdp-select__control'] {
+[class*='vdp-select__control'] {
     @include input-base;
     cursor: pointer;
 
@@ -149,7 +140,7 @@ select::-ms-expand {
     }
 }
 
-[class^='vdp-textfield__input'] {
+.vdp-textfield__input {
     @include input-base;
 
     [class*='--outlined'] & {
@@ -162,8 +153,8 @@ textarea[class^='vdp-textfield__input'] {
     padding: $sizing-MD !important;
     resize: vertical;
 }
-[class^='vdp-textfield__trailing-icon'] {
-    @include position(absolute, 0 $sizing-SM 0 null);
+.vdp-textfield__trailing-icon {
+    @include position(absolute, 0 $sizing-MD 0 null);
     color: $color-gray;
     cursor: pointer;
     height: $sizing-4XL;
@@ -175,16 +166,18 @@ textarea[class^='vdp-textfield__input'] {
         font-weight: $font-weight-med;
         color: $text-color-muted;
     }
-
-    [data-state*='success'] &,
     [data-state*='error'] & {
         right: $sizing-3XL;
+    }
+    &:hover,
+    &:hover span {
+        color: $color-gray-dark;
     }
 }
 
 // Feedback States
-[class^='vdp-select__control'],
-[class^='vdp-textfield__input'] {
+.vdp-select__control,
+.vdp-textfield__input {
     &:disabled {
         border-color: $color-gray;
         border-style: dashed;
@@ -194,10 +187,10 @@ textarea[class^='vdp-textfield__input'] {
     [data-state*='error'] & {
         border-color: $color-state-error !important;
         color: $color-state-error !important;
-    }
-    [data-state*='success'] & {
-        border-color: $color-state-success !important;
-        color: $color-state-success !important;
+
+        ~ .vdp-helper-text {
+            @include active-helper-text;
+        }
     }
     &:focus {
         border-color: $color-brand-blue;
@@ -207,17 +200,17 @@ textarea[class^='vdp-textfield__input'] {
             @include active-label;
             color: $color-brand-blue;
         }
-        ~ .vdp-helper-text:not([class*='--validation']) {
+        ~ .vdp-helper-text {
             @include active-helper-text;
         }
     }
-    &:-webkit-autofill {
+    &:-webkit-autofill,
+    &:-internal-autofill-selected {
+        -webkit-box-shadow: 0 0 0 100px white inset;
+        -webkit-text-fill-color: $text-color-default;
+
         + .vdp-floating-label {
             @include active-label;
-
-            &:after {
-                background-color: rgb(250, 255, 189) !important;
-            }
         }
     }
 }
@@ -281,4 +274,21 @@ textarea[class^='vdp-textfield__input'] {
 }
 .vdp-textfield--nested-button [type='submit'] {
     @include position(absolute, $sizing-SM $sizing-SM null null);
+}
+
+// Hosted Fields
+[class^='vdp-textfield'][class*='--hosted'] {
+    height: $sizing-4XL;
+
+    label {
+        @include active-label;
+    }
+    input {
+        @include border;
+    }
+    .braintree-hosted-fields-focused {
+        + .vdp-helper-text:not([class*='--validation']) {
+            @include active-helper-text;
+        }
+    }
 }

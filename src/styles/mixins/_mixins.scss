@@ -21,7 +21,11 @@
     @if $side == null {
         border: $width $style $color;
     } @else {
-        border-#{$side}: $width $style $color;
+        @if $side == none {
+            border: none !important;
+        } @else {
+            border-#{$side}: $width $style $color;
+        }
     }
 }
 @mixin clip-path($points) {

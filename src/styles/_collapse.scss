@@ -2,10 +2,10 @@
 @import 'mixins/mixins';
 @import 'mixins/prefixes';
 
-@mixin collapse-base($titlePadding: $sizing-MD, $indicatorPos: $sizing-SM, $indicatorDisplay: none) {
+@mixin collapse-base($titlePadding: $sizing-MD, $indicatorPos: $sizing-SM, $indicatorDisplay: inline-block) {
     &[data-state='closed'] {
         .vdp-collapse__content {
-            max-height: 0;
+            //max-height: 0;
         }
     }
     &[data-state='opened'] {
@@ -13,7 +13,7 @@
             transform: rotate(180deg);
         }
         .vdp-collapse__content {
-            max-height: 99rem;
+            //max-height: 99rem;
         }
     }
     .vdp-collapse__title {
@@ -38,9 +38,7 @@
     position: relative;
 }
 .vdp-collapse__content {
-    @include transition(max-height $transition-3);
-    height: auto;
-    overflow: hidden;
+    display: none;
 }
 @include size-only-mobile {
     .vdp-collapse-wrap {

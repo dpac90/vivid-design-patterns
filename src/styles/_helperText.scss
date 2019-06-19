@@ -9,7 +9,7 @@
     visibility: visible;
 }
 
-[class^='vdp-helper-text'] {
+[class^='vdp-helper-text']:not(:empty) {
     @include transition(all $transition-1);
     color: $text-color-muted;
     display: block;
@@ -25,14 +25,14 @@
         padding-left: $sizing-MD;
         padding-right: $sizing-MD;
     }
-    &[class*='--validation'] {
-        [data-state*='error'] & {
-            @include active-helper-text;
-            color: $text-color-error;
-        }
-        [data-state*='success'] & {
-            @include active-helper-text;
-            color: $text-color-success;
-        }
+    [data-state*='error'] & {
+        @include active-helper-text;
+        color: $text-color-error;
+    }
+    [data-state*='success'] & {
+        color: $text-color-success;
+    }
+    [data-state*='success']:focus & {
+        @include active-helper-text;
     }
 }

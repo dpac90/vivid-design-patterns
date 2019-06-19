@@ -108,7 +108,7 @@ $typeStyles: (
     ),
     subhead: (
         $font-size-SM,
-        $font-weight-blk,
+        $font-weight-bld,
         $line-height-MD,
         uppercase
     ),
@@ -205,8 +205,12 @@ a {
     &[class*='--inverted']:hover {
         color: $color-off-white;
     }
-    &[class*='--muted']:hover {
-        color: $color-gray-dark;
+    &[class*='--muted'] {
+        text-decoration: underline;
+
+        &:hover {
+            color: $color-gray-dark;
+        }
     }
     &[class*='--hover'] {
         color: $text-color-default;
@@ -248,6 +252,9 @@ a {
     }
     &[class*='--disabled'] {
         color: $text-color-disabled;
+    }
+    &[class*='--error'] {
+        color: $text-color-error;
     }
     &[class*='--inverted'] {
         color: $color-white;

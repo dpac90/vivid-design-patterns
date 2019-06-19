@@ -30,10 +30,16 @@
     border: none;
     color: $color-white;
 
-    &[class*='--disabled'] {
-        background: $color_gray_light;
+    &[class*='--disabled'],
+    &:disabled {
+        background: $color-gray-light;
         background-image: none;
         color: $text-color-muted;
+        cursor: not-allowed !important;
+
+        &:hover {
+            box-shadow: none;
+        }
     }
     &[class*='--secondary'] {
         @include linear-gradient(to bottom, $color-gradient-blue);
@@ -78,6 +84,11 @@
     &:hover {
         box-shadow: $elevation-2;
     }
+
+    // Third Party
+    &[class*='--facebook'] {
+        @include linear-gradient(to bottom, ($color-third-party-facebook, lighten($color-third-party-facebook, 5%)));
+    }
 }
 
 // Button Group
@@ -98,7 +109,7 @@
     &:last-child {
         border-radius: 0 $border-radius-SM $border-radius-SM 0;
     }
-    &[class*='--selected'] {
+    &[data-state='selected'] {
         border: 1px solid transparent;
         color: $color-white;
         cursor: default;
@@ -113,7 +124,7 @@
     &:hover {
         box-shadow: none;
     }
-    &:not([class*='--selected']):hover {
+    &:not([data-state='selected']):hover {
         background: $color-gray-highlight;
     }
 }

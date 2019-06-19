@@ -1,0 +1,45 @@
+@import 'tokens';
+@import 'mixins/mixins';
+@import 'mixins/prefixes';
+
+.vdp-stepper {
+    @include border(bottom);
+    @include flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .vdp-stepper__step {
+        @include flex-grow(1);
+        @include transition(all $transition-1);
+        color: $text-color-muted;
+        font-size: $font-size-MD;
+        padding: $sizing-LG $sizing-MD $sizing-MD;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+
+        span {
+            display: block;
+            font-weight: $font-weight-blk;
+        }
+        &:before {
+            @include position(absolute, 0 null null 0);
+            content: '';
+            background: $color-gray-light;
+            height: 5px;
+            width: 100%;
+            z-index: 1;
+        }
+        &[data-state='active'] {
+            color: $text-color-default;
+
+            &:before {
+                @include linear-gradient(to bottom, $color-gradient-red);
+            }
+        }
+        &[data-state='complete']:before {
+            background-color: $color-gray-medium;
+        }
+    }
+}
