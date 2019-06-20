@@ -24,6 +24,7 @@ FormContextConsumer.propTypes = {
 
 class Form extends React.Component {
     static propTypes = {
+        /** Callback is passed plain JavaScript object with key/value pairs of `name` props and input value at time of submission. */
         onSubmit: PropTypes.func,
         /** Custom callback when validation fails on the form. Takes in an array of inputs with errors as the parameter */
         onValidationFailure: PropTypes.func,
