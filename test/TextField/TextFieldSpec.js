@@ -9,6 +9,7 @@ describe('<TexField />', () => {
     const changeValue = 'a';
     const changeEvent = { target: { value: changeValue } };
     const textFieldComponent = <TextField id={id} label={labelText} validationMethod={mockValidationMethod} />;
+    const controlledTextFieldComponent = <TextField id={id} value="" label={labelText} validationMethod={mockValidationMethod} />;
 
     it('renders an <input> and <label>', () => {
         const wrapper = mount(textFieldComponent);
@@ -25,6 +26,12 @@ describe('<TexField />', () => {
         const wrapper = mount(textFieldComponent);
         expect(wrapper.find('.vdp-textfield').prop('data-state')).toBeFalsy();
         wrapper.find('input').simulate('focus');
+        expect(wrapper.find('.vdp-textfield').prop('data-state')).toBe('filled');
+    });
+
+    it('changes dirty state when value prop changes', () => {
+        const wrapper = mount(controlledTextFieldComponent);
+        wrapper.setProps({ value: 'string' });
         expect(wrapper.find('.vdp-textfield').prop('data-state')).toBe('filled');
     });
 
