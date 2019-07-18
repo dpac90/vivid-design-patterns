@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import BodyText from '../atoms/BodyText';
 import Button from '../atoms/Button';
@@ -17,6 +18,13 @@ const EventRow = ({
     thumbnail = null,
     isTimeTbd = false,
     hasButton = true,
+    minListPrice = 0,
+    imageUrl,
+    schemaDescription,
+    ticketCount = 0,
+    performerName,
+    performerType,
+    performerUrl,
     ...htmlAttributes
 }) => {
     const { getColClassName, BASE_CLASSNAME, COL_CLASSNAMES, BUTTON_TEXT } = EventRow;
@@ -77,7 +85,31 @@ const EventRow = ({
                     <Button>{!!dateRange ? BUTTON_TEXT.DATE_RANGE : BUTTON_TEXT.DATE}</Button>
                 </div>
             )}
-            <link itemProp="url" href={href} />
+            <link className="schema-url" itemProp="url" href={href} />
+            {!!imageUrl && <meta itemProp="image" content={imageUrl} />}
+            {!!schemaDescription && <meta itemProp="description" content={schemaDescription} />}
+            <div itemProp="offers" itemScope itemType="http://schema.org/AggregateOffer">
+                <link itemProp="url" href={href} />
+                <meta itemProp="priceCurrency" content="USD" />
+                {ticketCount > 0 ? (
+                    <link itemProp="availability" href="http://schema.org/InStock" />
+                ) : (
+                    <link itemProp="availability" href="http://schema.org/SoldOut" />
+                )}
+                {!isTimeTbd && (
+                    <React.Fragment>
+                        <meta itemProp="validFrom" content={`${moment().format('YYYY-MM-DD')}`} />
+                        <meta itemProp="validThrough" content={`${moment(date).format('YYYY-MM-DD')}`} />
+                    </React.Fragment>
+                )}
+                {!!minListPrice && <meta itemProp="price" content={minListPrice} />}
+            </div>
+            {!!performerType && (
+                <div itemProp="performer" itemScope itemType={`http://schema.org/${performerType}`}>
+                    <meta itemProp="name" content={performerName} />
+                    <meta itemProp="sameAs" content={performerUrl} />
+                </div>
+            )}
         </Link>
     );
 };
@@ -114,6 +146,13 @@ EventRow.propTypes = {
         alt: PropTypes.string
     }),
     isTimeTbd: PropTypes.bool,
+    imageUrl: PropTypes.string,
+    minListPrice: PropTypes.number,
+    schemaDescription: PropTypes.string,
+    ticketCount: PropTypes.number,
+    performerName: PropTypes.string,
+    performerType: PropTypes.string,
+    performerUrl: PropTypes.string,
     hasButton: PropTypes.bool
 };
 
