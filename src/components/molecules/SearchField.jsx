@@ -51,7 +51,7 @@ class SearchField extends React.Component {
             {
                 inputValue: value
             },
-            this.props.onChange(value)
+            () => this.props.onChange(value)
         );
     };
 
@@ -65,7 +65,24 @@ class SearchField extends React.Component {
     };
 
     render() {
-        const { className, onClick, onFocus, onMouseEnter, onMouseLeave, onBlur, placeholder, name, autoComplete, id, type } = this.props;
+        const {
+            className,
+            onClick,
+            onFocus,
+            onMouseEnter,
+            onMouseLeave,
+            onBlur,
+            placeholder,
+            name,
+            autoComplete,
+            id,
+            type,
+            onChange,
+            onKeyPress,
+            onSubmit,
+            value,
+            ...htmlAttributes
+        } = this.props;
         const { inputValue } = this.state;
         const props = {
             onMouseEnter,
@@ -80,7 +97,8 @@ class SearchField extends React.Component {
             autoComplete,
             value: inputValue,
             onChange: this.onChange,
-            onKeyPress: this.onKeyPress
+            onKeyPress: this.onKeyPress,
+            ...htmlAttributes
         };
         return (
             <div className="vdp-search-field">

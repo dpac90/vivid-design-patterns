@@ -1,0 +1,71 @@
+import TypeAhead from '../../src/components/molecules/TypeAhead';
+import StatefulComponent from '../StatefulComponent';
+import { PropsTable, Playground } from 'docz'
+
+---
+    name: Type Ahead
+---
+
+
+## Installation
+
+
+## Basic Usage
+```
+    The example below shows typeahead searching a database of football teams that include `'Wisconsin Badgers', 'Illinois Fighting Illini', 'Iowa Hawkeyes', "Notre Dame Fighting Irish", 'Northwestern Wildcats', 'Clemson Tigers'`.
+```
+<Playground>
+    <StatefulComponent initialState={{suggestions: []}}>
+    {
+        ({state, setState}) => {
+            const teams = ['Wisconsin Badgers', 'Illinois Fighting Illini', 'Iowa Hawkeyes', "Notre Dame Fighting Irish", 'Northwestern Wildcats', 'Clemson Tigers'];
+            const getSuggestion = (input) => {
+                const suggestedTeams = teams.filter(team =>  {
+                    return !!input && team.includes(input)
+                });
+                setState({
+                     suggestions: suggestedTeams
+                 })
+            }
+
+            const onSelect = (selected) => alert(selected)
+
+            return <TypeAhead placeholder="Search by team, artist, event or venue" onChange={e => getSuggestion(e)} onSelect={onSelect} suggestions={state.suggestions}/>
+        }
+    }
+    </StatefulComponent>
+</Playground>
+
+
+## Hierarchal Data
+<Playground>
+    <StatefulComponent initialState={{suggestions: []}}>
+    {
+        ({state, setState}) => {
+            const teams = ['Wisconsin Badgers', 'Illinois Fighting Illini', 'Iowa Hawkeyes', "Notre Dame Fighting Irish", 'Northwestern Wildcats', 'Clemson Tigers'];
+            const stadiums = ['Notre Dame Stadium', ' Memorial Stadium (Illinois)', 'Camp Randall Stadium', 'Kinnick Stadium', 'Ryan Field', 'Memorial Stadium (Clemson)'];
+            const events = ['Notre Dame vs Clemson', 'Wisconsin Badgers vs Iowa Hawkeyes', 'Illinois vs Northwestern'];
+            const getSuggestion = (input) => {
+                const suggestedTeams = teams.filter(team =>  {
+                    return !!input && team.includes(input)
+                });
+
+                const suggestedStadiums = stadiums.filter(stadium => {
+                    return !!input && stadium.includes(input)
+                });
+
+                const suggestedEvents = events.filter(event => {
+                    return !!input && event.includes(input);
+                });
+
+                setState({
+                    suggestions: [{title: 'Stadiums', items: suggestedStadiums}, {title: 'Events',items: suggestedEvents}, {title: 'Teams', items: suggestedTeams }]
+                })
+
+            };
+            const onSelect = (selected) => alert(selected);
+            return <TypeAhead showHierarchicalDropdown placeholder="Search by team, artist, event or venue" onChange={e => getSuggestion(e)} onSelect={onSelect} suggestions={state.suggestions}/>
+        }
+    }
+    </StatefulComponent>
+</Playground>
