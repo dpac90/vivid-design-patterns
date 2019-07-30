@@ -1,6 +1,10 @@
 import TypeAhead from '../../src/components/molecules/TypeAhead';
+import TextField from '../../src/components/molecules/TextField';
+import Button from '../../src/components/atoms/Button';
 import StatefulComponent from '../StatefulComponent';
+import EventRow from '../../src/components/molecules/EventRow';
 import { PropsTable, Playground } from 'docz'
+import { getTeamSuggestions, getHiearchalSuggestions, getCustomEventSuggestions, getCustomHiearchalSuggestions } from './getSuggestions';
 
 ---
     name: Type Ahead
@@ -18,13 +22,9 @@ import { PropsTable, Playground } from 'docz'
     <StatefulComponent initialState={{suggestions: []}}>
     {
         ({state, setState}) => {
-            const teams = ['Wisconsin Badgers', 'Illinois Fighting Illini', 'Iowa Hawkeyes', "Notre Dame Fighting Irish", 'Northwestern Wildcats', 'Clemson Tigers'];
             const getSuggestion = (input) => {
-                const suggestedTeams = teams.filter(team =>  {
-                    return !!input && team.includes(input)
-                });
                 setState({
-                     suggestions: suggestedTeams
+                     suggestions: getTeamSuggestions(input)
                  })
             }
 
@@ -42,21 +42,8 @@ import { PropsTable, Playground } from 'docz'
     <StatefulComponent initialState={{suggestions: []}}>
     {
         ({state, setState}) => {
-            const teams = ['Wisconsin Badgers', 'Illinois Fighting Illini', 'Iowa Hawkeyes', "Notre Dame Fighting Irish", 'Northwestern Wildcats', 'Clemson Tigers'];
-            const stadiums = ['Notre Dame Stadium', ' Memorial Stadium (Illinois)', 'Camp Randall Stadium', 'Kinnick Stadium', 'Ryan Field', 'Memorial Stadium (Clemson)'];
-            const events = ['Notre Dame vs Clemson', 'Wisconsin Badgers vs Iowa Hawkeyes', 'Illinois vs Northwestern'];
             const getSuggestion = (input) => {
-                const suggestedTeams = teams.filter(team =>  {
-                    return !!input && team.includes(input)
-                });
-
-                const suggestedStadiums = stadiums.filter(stadium => {
-                    return !!input && stadium.includes(input)
-                });
-
-                const suggestedEvents = events.filter(event => {
-                    return !!input && event.includes(input);
-                });
+                const { suggestedStadiums, suggestedEvents, suggestedTeams } = getHiearchalSuggestions(input)
 
                 setState({
                     suggestions: [{title: 'Stadiums', items: suggestedStadiums}, {title: 'Events',items: suggestedEvents}, {title: 'Teams', items: suggestedTeams }]
@@ -65,6 +52,77 @@ import { PropsTable, Playground } from 'docz'
             };
             const onSelect = (selected) => alert(selected);
             return <TypeAhead showHierarchicalDropdown placeholder="Search by team, artist, event or venue" onChange={e => getSuggestion(e)} onSelect={onSelect} suggestions={state.suggestions}/>
+        }
+    }
+    </StatefulComponent>
+</Playground>
+
+
+## Custom Suggestion Item
+<Playground>
+    <StatefulComponent initialState={{suggestions: []}}>
+    {
+        ({state, setState}) => {
+            const getSuggestion = (input) => {
+                setState({
+                    suggestions: getCustomEventSuggestions(input)
+                })
+
+            };
+            const onSelect = (selected) => alert(JSON.stringify(selected));
+            const SuggestionItem = ({suggestion, isHighlighted, onClick}) => <EventRow onClick={onClick} title={suggestion.name} date={suggestion.date} style={{background: isHighlighted ? '#eee' : '#FFF'}}/>
+            return <TypeAhead SuggestionItem={SuggestionItem} placeholder="Search by team, artist, event or venue" onChange={e => getSuggestion(e)} onSelect={onSelect} suggestions={state.suggestions}/>
+        }
+    }
+    </StatefulComponent>
+</Playground>
+
+## Using Render Props
+<Playground>
+    <StatefulComponent initialState={{suggestions: []}}>
+    {
+        ({state, setState}) => {
+            const getSuggestion = (input) => {
+                const { suggestedEvents, suggestedTeams, suggestedStadiums } = getCustomHiearchalSuggestions(input);
+                setState({
+                    suggestions: [
+                        {
+                            title: 'Events',
+                            items: suggestedEvents
+                        },
+                        {
+                            title: 'Teams',
+                            items: suggestedTeams
+                        },
+                        {
+                            title: 'Stadiums',
+                            items: suggestedStadiums
+                        }
+                    ]
+                    })
+
+            };
+            const onSelect = (selected) => alert(JSON.stringify(selected));
+            return (
+                <TypeAhead suggestions={state.suggestions} onSelect={onSelect} onChange={getSuggestion}>
+                    {
+                        ({
+                            highlightedIndex,
+                            onKeyDown,
+                            setHighlightedIndex,
+                            onInputSubmit,
+                            onChange
+                        }) => (
+                            <div className="type-ahead">
+                                <TextField id="typeAhead" label="Search for a football team" onChange={onChange} onKeyDown={onKeyDown}/>
+                                <Button importance="text">See All Results</Button>
+                                <div>
+                                </div>
+                            </div>
+                        )
+                    }
+                </TypeAhead>
+            )
         }
     }
     </StatefulComponent>
