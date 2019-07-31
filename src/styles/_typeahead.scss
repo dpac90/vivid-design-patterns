@@ -1,0 +1,29 @@
+@import 'tokens';
+@import 'mixins';
+
+.vdp-type-ahead {
+    .vdp-type-ahead__dropdown {
+        background: $color-white;
+        z-index: $z-index-nav !important;
+
+        @include size-only-mobile {
+            @include border(top);
+            bottom: 0;
+            overflow: auto;
+            padding-bottom: $sizing-XL;
+            position: fixed !important;
+            right: 0 !important;
+            top: $sizing-4XL !important;
+            width: 100vw !important;
+        }
+        @include size-min-tablet {
+            border-radius: $border-radius-LG;
+            box-shadow: $elevation-2;
+            left: -$sizing-3XL !important;
+            min-width: 360px;
+            top: calc(100% + #{$sizing-LG}) !important;
+            width: calc(100% + #{$sizing-5XL});
+            z-index: $z-index-nav !important;
+        }
+    }
+}

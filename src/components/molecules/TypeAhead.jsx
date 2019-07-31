@@ -1,9 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SearchField from './SearchField';
 import Subhead from '../atoms/Subhead';
 
+function defaultRenderSuggestion({ isHighlighted, suggestion, suggestionProps }) {
+    if (typeof suggestion === 'string') {
+        return (
+            <div className={`vdp-type-ahead-suggestion${isHighlighted ? '--highlight' : null}`} key={suggestion} {...suggestionProps}>
+                {isHighlighted ? '*' : null}
+                {suggestion}
+            </div>
+        );
+    } else {
+        throw new Error('A renderSuggestion prop is required if the suggestions is not an array of strings.');
+    }
+}
+
 class TypeAhead extends React.Component {
-    static getHierarchicalDropdown = (suggestions, SuggestionItem, onSelect, highlightedIndex, setHighlightedIndex) => {
+    static getHierarchicalDropdown = (suggestions, SuggestionItem, onSelect, highlightedIndex, setHighlightedIndex, renderSuggestion) => {
         let acc = 0;
         return suggestions.map((hierarchy, index) => {
             const { title, items } = hierarchy;
@@ -15,36 +29,31 @@ class TypeAhead extends React.Component {
                         <div className="vdp-type-ahead__section__header">
                             <Subhead state={'inverted'}>{title}</Subhead>
                         </div>
-                        {TypeAhead.getDropDown(items, SuggestionItem, onSelect, highlightedIndex, setHighlightedIndex, startingIndex)}
+                        <TypeAhead.DropDown
+                            suggestions={items}
+                            renderSuggestion={renderSuggestion}
+                            onSelect={onSelect}
+                            highlightedIndex={highlightedIndex}
+                            setHighlightedIndex={setHighlightedIndex}
+                            startingIndex={startingIndex}
+                        />
+                        >
                     </div>
                 )
             );
         });
     };
 
-    static getDropDown = (suggestions, SuggestionItem, onSelect, highlightedIndex, setHighlightedIndex, startingIndex = 0) => (
-        <div className="vdp-type-ahead__suggestions">
-            {suggestions.map((item, index) => {
+    static DropDown = ({ suggestions, onSelect, highlightedIndex, setHighlightedIndex, startingIndex = 0, renderSuggestion }) => (
+        <div className="vdp-type-ahead__dropdown">
+            {suggestions.map((suggestion, index) => {
                 const absoluteIndex = index + startingIndex;
                 const isHighlighted = highlightedIndex === absoluteIndex;
-                if (typeof item === 'string') {
-                    return (
-                        <div
-                            className={`vdp-type-ahead-suggestion${isHighlighted ? '--highlight' : null}`}
-                            onClick={() => onSelect(item)}
-                            key={item}
-                            onMouseEnter={() => setHighlightedIndex(absoluteIndex)}>
-                            {isHighlighted ? '*' : null}
-                            {item}
-                        </div>
-                    );
-                }
-
-                return (
-                    <div onClick={() => onSelect(item)} onMouseEnter={() => setHighlightedIndex(absoluteIndex)}>
-                        <SuggestionItem key={item.id} suggestion={item} isHighlighted={isHighlighted} />
-                    </div>
-                );
+                const suggestionProps = {
+                    onMouseEnter: () => setHighlightedIndex(absoluteIndex),
+                    onClick: () => onSelect(suggestion)
+                };
+                return renderSuggestion({ isHighlighted, suggestionProps, suggestion });
             })}
         </div>
     );
@@ -134,6 +143,7 @@ class TypeAhead extends React.Component {
             children,
             SuggestionItem,
             showHierarchicalDropdown,
+            renderSuggestion,
             ...htmlAttributes
         } = this.props;
         const { isDropdownShown } = !!suggestions.length;
@@ -158,23 +168,40 @@ class TypeAhead extends React.Component {
                 {...htmlAttributes}>
                 <SearchField placeholder={placeholder} onSubmit={this.onInputSubmit} onChange={this.onChange} />
                 <ul className="vdp-suggestion-list">
-                    {showHierarchicalDropdown
-                        ? TypeAhead.getHierarchicalDropdown(
-                              suggestions,
-                              SuggestionItem,
-                              onSelect,
-                              highlightedIndex,
-                              this.setHighlightedIndex
-                          )
-                        : TypeAhead.getDropDown(suggestions, SuggestionItem, onSelect, highlightedIndex, this.setHighlightedIndex)}
+                    {showHierarchicalDropdown ? (
+                        TypeAhead.getHierarchicalDropdown(
+                            suggestions,
+                            SuggestionItem,
+                            onSelect,
+                            highlightedIndex,
+                            this.setHighlightedIndex,
+                            renderSuggestion
+                        )
+                    ) : (
+                        <TypeAhead.DropDown
+                            {...{
+                                suggestions,
+                                SuggestionItem,
+                                onSelect,
+                                highlightedIndex,
+                                setHighlightedIndex: this.setHighlightedIndex,
+                                renderSuggestion
+                            }}
+                        />
+                    )}
                 </ul>
             </div>
         );
     }
 }
 
+TypeAhead.propTypes = {
+    suggestions: PropTypes.array
+};
+
 TypeAhead.defaultProps = {
-    suggestions: []
+    suggestions: [],
+    renderSuggestion: defaultRenderSuggestion
 };
 
 export default TypeAhead;
