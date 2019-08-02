@@ -5,7 +5,9 @@ import Subhead from '../atoms/Subhead';
 
 function defaultRenderSuggestion({ isHighlighted, suggestion, suggestionProps }) {
     if (typeof suggestion === 'string') {
-        return <Typeahead.SuggestionItem {...{ isHighlighted, ...suggestionProps }}>{suggestion}</Typeahead.SuggestionItem>;
+        return (
+            <Typeahead.SuggestionItem {...{ key: suggestion, isHighlighted, ...suggestionProps }}>{suggestion}</Typeahead.SuggestionItem>
+        );
     }
 
     throw new Error('A renderSuggestion prop is required if the suggestions is not an array of strings.');
@@ -208,7 +210,7 @@ class Typeahead extends React.Component {
 Typeahead.propTypes = {
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
-    suggestions: PropTypes.arrayOf(PropTypes.object),
+    suggestions: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.string])),
     /* callback when dropdown is displayed */
     onDropdownShown: PropTypes.func,
     /* callback when dropdown is hidden */
