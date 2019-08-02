@@ -1,15 +1,17 @@
+---
+    name: Typeahead
+    menu: Components
+    route: /components/typeahead
+---
+
 import TypeAhead from '../../src/components/molecules/TypeAhead';
 import TextField from '../../src/components/molecules/TextField';
 import Button from '../../src/components/atoms/Button';
 import StatefulComponent from '../StatefulComponent';
 import EventRow from '../../src/components/molecules/EventRow';
 import { PropsTable, Playground } from 'docz'
-import { getTeamSuggestions, getHiearchalSuggestions, getCustomEventSuggestions, getCustomHiearchalSuggestions } from './getSuggestions';
-
----
-    name: Type Ahead
----
-
+import { getTeamSuggestions, getHiearchalSuggestions, getCustomEventSuggestions, getCustomHiearchalSuggestions } from '../getSuggestions';
+import Toggle from '../../src/components/atoms/Toggle';
 
 ## Installation
 
@@ -70,60 +72,49 @@ import { getTeamSuggestions, getHiearchalSuggestions, getCustomEventSuggestions,
 
             };
             const onSelect = (selected) => alert(JSON.stringify(selected));
-            const SuggestionItem = ({suggestion, isHighlighted, onClick}) => <EventRow onClick={onClick} title={suggestion.name} date={suggestion.date} style={{background: isHighlighted ? '#eee' : '#FFF'}}/>
-            return <TypeAhead SuggestionItem={SuggestionItem} placeholder="Search by team, artist, event or venue" onChange={e => getSuggestion(e)} onSelect={onSelect} suggestions={state.suggestions}/>
+            const renderSuggestion = ({suggestion, suggestionProps, isHighlighted}) => <EventRow {...suggestionProps} title={suggestion.name} date={suggestion.date} style={{background: isHighlighted ? '#eee' : '#FFF'}}/>
+            return <TypeAhead renderSuggestion={renderSuggestion} placeholder="Search by team, artist, event or venue" onChange={e => getSuggestion(e)} onSelect={onSelect} suggestions={state.suggestions}/>
         }
     }
     </StatefulComponent>
 </Playground>
 
-## Using Render Props
+## Custom Dropdown Format
 <Playground>
     <StatefulComponent initialState={{suggestions: []}}>
     {
         ({state, setState}) => {
-            const getSuggestion = (input) => {
-                const { suggestedEvents, suggestedTeams, suggestedStadiums } = getCustomHiearchalSuggestions(input);
-                setState({
-                    suggestions: [
-                        {
-                            title: 'Events',
-                            items: suggestedEvents
-                        },
-                        {
-                            title: 'Teams',
-                            items: suggestedTeams
-                        },
-                        {
-                            title: 'Stadiums',
-                            items: suggestedStadiums
-                        }
-                    ]
-                    })
-
-            };
-            const onSelect = (selected) => alert(JSON.stringify(selected));
-            return (
-                <TypeAhead suggestions={state.suggestions} onSelect={onSelect} onChange={getSuggestion}>
-                    {
-                        ({
-                            highlightedIndex,
-                            onKeyDown,
-                            setHighlightedIndex,
-                            onInputSubmit,
-                            onChange
-                        }) => (
-                            <div className="type-ahead">
-                                <TextField id="typeAhead" label="Search for a football team" onChange={onChange} onKeyDown={onKeyDown}/>
-                                <Button importance="text">See All Results</Button>
-                                <div>
-                                </div>
-                            </div>
-                        )
-                    }
-                </TypeAhead>
-            )
+        const getSuggestion = (input) => {
+            setState({
+                suggestions: getCustomEventSuggestions(input)
+            })
+        };
+        const onSelect = (selected) => alert(JSON.stringify(selected));
+        const renderSuggestion = ({suggestion, suggestionProps, isHighlighted}) => <EventRow {...suggestionProps} title={suggestion.name} date={suggestion.date} style={{background: isHighlighted ? '#eee' : '#FFF'}}/>
+        const renderDropdown = (dropdownContent) => <React.Fragment><Button importance="text">Show all</Button>{dropdownContent}</React.Fragment>
+        return <TypeAhead renderDropdown={renderDropdown} renderSuggestion={renderSuggestion} placeholder="Search by team, artist, event or venue" onChange={e => getSuggestion(e)} onSelect={onSelect} suggestions={state.suggestions}/>
         }
     }
     </StatefulComponent>
+</Playground>
+
+
+## Custom Input Element
+Custom Input element will receive props for onKeyDown, onFocus, onChange
+<Playground>
+    <StatefulComponent initialState={{suggestions: []}}>
+        {
+            ({state, setState}) => {
+                const getSuggestion = (input) => {
+                setState({
+                    suggestions: getTeamSuggestions(input)
+                })
+            };
+            const onSelect = (selected) => alert(JSON.stringify(selected));
+            const renderSuggestion = ({suggestion, suggestionProps, isHighlighted}) => <EventRow {...suggestionProps} title={suggestion.name} date={suggestion.date} style={{background: isHighlighted ? '#eee' : '#FFF'}}/>
+            const renderDropdown = (dropdownContent) => <React.Fragment><Button importance="text">Show all</Button>{dropdownContent}</React.Fragment>
+            return <TypeAhead placeholder="Search by team, artist, event or venue" onChange={e => getSuggestion(e)} onSelect={onSelect} suggestions={state.suggestions}/>
+        }
+    }
+</StatefulComponent>
 </Playground>

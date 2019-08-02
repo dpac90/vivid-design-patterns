@@ -5,203 +5,238 @@ import Subhead from '../atoms/Subhead';
 
 function defaultRenderSuggestion({ isHighlighted, suggestion, suggestionProps }) {
     if (typeof suggestion === 'string') {
-        return (
-            <div className={`vdp-type-ahead-suggestion${isHighlighted ? '--highlight' : null}`} key={suggestion} {...suggestionProps}>
-                {isHighlighted ? '*' : null}
-                {suggestion}
-            </div>
-        );
+        return <TypeAhead.SuggestionItem {...{ isHighlighted, ...suggestionProps }}>{suggestion}</TypeAhead.SuggestionItem>;
     } else {
         throw new Error('A renderSuggestion prop is required if the suggestions is not an array of strings.');
     }
 }
 
+function defaultRenderDropdown(dropDownContent) {
+    return dropDownContent;
+}
+
 class TypeAhead extends React.Component {
-    static getHierarchicalDropdown = (suggestions, SuggestionItem, onSelect, highlightedIndex, setHighlightedIndex, renderSuggestion) => {
+    state = {
+        highlightedIndex: -1,
+        highlightedItem: {},
+        value: '',
+        isDropdownShown: !!this.props.suggestions
+    };
+
+    typeahead = React.createRef();
+
+    static Dropdown = ({ className, children, ...htmlProps }) => <div className={`vdp-typeahead__dropdown ${className}`}>{children}</div>;
+
+    static SuggestionItem = ({ isHighlighted, className = '', children, ...props }) => {
+        return (
+            <div className={`vdp-typeahead__suggestion ${isHighlighted ? '--highlight' : ''} ${className}`} {...props}>
+                {children}
+            </div>
+        );
+    };
+
+    static DropdownSection = ({ className = '', children, ...htmlProps }) => (
+        <div className={`vdp-typeahead__section ${className}`} {...htmlProps}>
+            {children}
+        </div>
+    );
+
+    static DropdownHeader = ({ className = '', children, ...htmlProps }) => (
+        <div className={`vdp-typeahead__section__header ${className}`} {...htmlProps}>
+            <Subhead state="inverted">{children}</Subhead>
+        </div>
+    );
+
+    componentDidMount() {
+        window.addEventListener('click', this.hideDropDown);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('click', this.hideDropDown);
+    }
+
+    getHierarchicalDropdown = suggestions => {
         let acc = 0;
         return suggestions.map((hierarchy, index) => {
-            const { title, items } = hierarchy;
+            const { title, items, renderSuggestion, limit } = hierarchy;
             const startingIndex = acc;
             acc += items.length;
             return (
                 !!items.length && (
-                    <div className="vdp-type-ahead__section" id={title}>
-                        <div className="vdp-type-ahead__section__header">
-                            <Subhead state={'inverted'}>{title}</Subhead>
-                        </div>
-                        <TypeAhead.DropDown
-                            suggestions={items}
-                            renderSuggestion={renderSuggestion}
-                            onSelect={onSelect}
-                            highlightedIndex={highlightedIndex}
-                            setHighlightedIndex={setHighlightedIndex}
-                            startingIndex={startingIndex}
-                        />
-                        >
-                    </div>
+                    <TypeAhead.DropdownSection className="vdp-typeahead__section" key={title}>
+                        <TypeAhead.DropdownHeader className="vdp-typeahead__section__header">{title}</TypeAhead.DropdownHeader>
+                        {this.getSuggestions({ suggestions: items, startingIndex, renderSuggestion, displayLimit: limit })}
+                    </TypeAhead.DropdownSection>
                 )
             );
         });
     };
 
-    static DropDown = ({ suggestions, onSelect, highlightedIndex, setHighlightedIndex, startingIndex = 0, renderSuggestion }) => (
-        <div className="vdp-type-ahead__dropdown">
+    getSuggestions = ({ suggestions, startingIndex = 0, renderSuggestion, displayLimit }) => (
+        <div className="vdp-typeahead__suggestions">
             {suggestions.map((suggestion, index) => {
+                if (displayLimit >= index) {
+                    return;
+                }
+                const { highlightedIndex } = this.state;
                 const absoluteIndex = index + startingIndex;
                 const isHighlighted = highlightedIndex === absoluteIndex;
                 const suggestionProps = {
-                    onMouseEnter: () => setHighlightedIndex(absoluteIndex),
-                    onClick: () => onSelect(suggestion)
+                    onMouseEnter: () => this.setState({ highlightedIndex: absoluteIndex, highlightedItem: suggestion }),
+                    onClick: () => this.props.onSelect(suggestion)
                 };
-                return renderSuggestion({ isHighlighted, suggestionProps, suggestion });
+                const renderSuggestionArgs = { isHighlighted, suggestionProps, suggestion };
+                return typeof renderSuggestion !== 'undefined'
+                    ? renderSuggestion(renderSuggestionArgs)
+                    : this.props.renderSuggestion(renderSuggestionArgs);
             })}
         </div>
     );
 
-    state = {
-        highlightedIndex: -1
-    };
-
     onKeyDown = e => {
         const { key, keyCode, which } = e;
-        if (keyCode === '40' || which === '40' || key === 'ArrowDown') {
-            this.setState(({ highlightedIndex }) => {
-                const withinBoundsOfDefaultDropdown =
-                    !this.props.showHierarchicalDropdown && highlightedIndex < this.props.suggestions.length - 1;
-                const withinBoundsOfHierarchicalDropdown =
-                    this.props.showHierarchicalDropdown && highlightedIndex < this.getTotalAmountOfSuggestionsInHierarchicalData() - 1;
-                if (withinBoundsOfDefaultDropdown || withinBoundsOfHierarchicalDropdown) {
-                    return { highlightedIndex: (highlightedIndex += 1) };
-                }
+        const { showHierarchicalDropdown, suggestions } = this.props;
+        const flatSuggestions = showHierarchicalDropdown ? this.flattenSuggestions() : suggestions;
+        let { highlightedIndex } = this.state;
+        if (key === 'Enter' || which === 13 || keyCode === 13) {
+            if (this.highlightedIndex === -1) {
+                this.props.onSelect(this.state.value);
+            } else {
+                this.props.onSelect(flatSuggestions[highlightedIndex]);
+            }
+        } else if (keyCode === '40' || which === '40' || key === 'ArrowDown') {
+            if (highlightedIndex < flatSuggestions.length - 1) {
+                highlightedIndex += 1;
+            }
+
+            this.setState({
+                highlightedIndex,
+                highlightedItem: flatSuggestions[highlightedIndex] || {}
             });
         } else if (keyCode === '38' || which === '38' || key === 'ArrowUp') {
-            this.setState(({ highlightedIndex }) => {
-                if (highlightedIndex > -1) {
-                    return { highlightedIndex: (highlightedIndex -= 1) };
-                }
+            if (highlightedIndex > -1) {
+                highlightedIndex -= 1;
+            }
+
+            this.setState({
+                highlightedIndex,
+                highlightedItem: flatSuggestions[highlightedIndex] || {}
             });
         }
     };
 
-    setHighlightedIndex = index => {
-        this.setState({
-            highlightedIndex: index
-        });
-    };
+    flattenSuggestions() {
+        const { suggestions } = this.props;
+        return suggestions.reduce((acc, curr) => {
+            return [...acc, ...curr.items];
+        }, []);
+    }
 
     onInputSubmit = value => {
-        const { highlightedIndex } = this.state;
+        const { highlightedIndex, highlightedItem } = this.state;
         if (highlightedIndex < 0) {
             this.props.onSelect(value);
-        } else if (!this.props.showHierarchicalDropdown) {
-            this.props.onSelect(this.props.suggestions[highlightedIndex]);
-        } else if (this.props.showHierarchicalDropdown) {
-            const item = this.getItemFromHierarchicalDropdownByIndex(highlightedIndex);
-            this.props.onSelect(item);
+        } else {
+            this.props.onSelect(highlightedItem);
         }
     };
 
-    onChange = e => {
+    onChange = value => {
+        this.setState({
+            highlightedIndex: -1,
+            value: value
+        });
+        this.props.onChange(value);
+    };
+
+    showDropdown = () => {
+        if (this.props.suggestions) {
+            this.setState(
+                {
+                    isDropdownShown: true
+                },
+                this.props.onDropdownShown
+            );
+        }
+    };
+
+    hideDropDown = e => {
+        if (this.typeahead.current && this.typeahead.current.contains(e.target)) {
+            return;
+        }
         this.setState(
             {
-                highlightedIndex: -1
+                isDropdownShown: false
             },
-            () => this.props.onChange(e)
+            this.props.onHideDropDown
         );
     };
 
-    getTotalAmountOfSuggestionsInHierarchicalData() {
-        return this.props.suggestions.reduce((acc, curr) => {
-            return (acc += curr.items.length);
-        }, 0);
-    }
-
-    getItemFromHierarchicalDropdownByIndex(index) {
-        let acc = 0;
-        let item;
-        for (let hierarchy of this.props.suggestions) {
-            const { items } = hierarchy;
-            const { length } = items;
-            const startingIndex = acc;
-            acc += length;
-            if (index < startingIndex + length) {
-                item = items[index - startingIndex];
-                break;
-            }
-        }
-
-        return item;
-    }
-
     render() {
         const {
+            className,
             placeholder,
             onChange,
             suggestions,
             onSelect,
-            onSubmit,
             children,
             SuggestionItem,
             showHierarchicalDropdown,
             renderSuggestion,
+            renderDropdown,
+            onHideDropdown,
+            onShowDropdown,
+            displayLimit,
+            InputElement,
             ...htmlAttributes
         } = this.props;
-        const { isDropdownShown } = !!suggestions.length;
-        const { highlightedIndex } = this.state;
-        if (typeof children === 'function') {
-            return this.props.children({
-                highlightedIndex,
-                onKeyDown: this.onKeyDown,
-                setHighlightedIndex: this.setHighlightedIndex,
-                onInputSubmit: this.onInputSubmit,
-                onChange: this.onChange
-            });
-        }
-
+        const { isDropdownShown } = this.state;
+        const showDropdown = !!suggestions.length && isDropdownShown;
+        const dropdownContent = showHierarchicalDropdown
+            ? this.getHierarchicalDropdown(suggestions)
+            : this.getSuggestions({ suggestions, displayLimit });
         return (
             <div
-                className="vdp-typeahead"
+                ref={this.typeahead}
+                className={`vdp-typeahead ${className}`}
                 role="combobox"
                 aria-haspopup="listbox"
-                aria-expanded={isDropdownShown}
+                aria-expanded={showDropdown}
                 onKeyDown={this.onKeyDown}
                 {...htmlAttributes}>
-                <SearchField placeholder={placeholder} onSubmit={this.onInputSubmit} onChange={this.onChange} />
-                <ul className="vdp-suggestion-list">
-                    {showHierarchicalDropdown ? (
-                        TypeAhead.getHierarchicalDropdown(
-                            suggestions,
-                            SuggestionItem,
-                            onSelect,
-                            highlightedIndex,
-                            this.setHighlightedIndex,
-                            renderSuggestion
-                        )
-                    ) : (
-                        <TypeAhead.DropDown
-                            {...{
-                                suggestions,
-                                SuggestionItem,
-                                onSelect,
-                                highlightedIndex,
-                                setHighlightedIndex: this.setHighlightedIndex,
-                                renderSuggestion
-                            }}
-                        />
-                    )}
-                </ul>
+                <SearchField placeholder={placeholder} onSubmit={this.onInputSubmit} onChange={this.onChange} onFocus={this.showDropdown} />
+                {showDropdown && <TypeAhead.Dropdown>{this.props.renderDropdown(dropdownContent)}</TypeAhead.Dropdown>}
             </div>
         );
     }
 }
 
 TypeAhead.propTypes = {
-    suggestions: PropTypes.array
+    suggestions: PropTypes.array,
+    /* callback when dropdown is displayed */
+    onShowDropdown: PropTypes.func,
+    /* callback when dropdown is hidden */
+    onHideDropdown: PropTypes.func,
+    showHierarchicalDropdown: PropTypes.bool,
+    onSelect: PropTypes.func.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    /* Custom suggestion render method */
+    renderSuggestion: PropTypes.func,
+    /* Custom dropdown render method *.
+    renderDropdown: PropTypes.func,
+    /* limit the number of suggestions displayed */
+    displayLimit: PropTypes.number
 };
 
 TypeAhead.defaultProps = {
     suggestions: [],
-    renderSuggestion: defaultRenderSuggestion
+    className: '',
+    showHierarchicalDropdown: false,
+    renderSuggestion: defaultRenderSuggestion,
+    renderDropdown: defaultRenderDropdown,
+    displayLimit: 10,
+    onShowDropdown: () => {},
+    onHideDropdown: () => {}
 };
 
 export default TypeAhead;

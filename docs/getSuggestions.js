@@ -1,5 +1,3 @@
-import TextField from '../../src/components/molecules/TextField';
-
 function getTeamSuggestions(input) {
     const teams = [
         'Wisconsin Badgers',
@@ -74,9 +72,9 @@ function getCustomEventSuggestions(input) {
 function getCustomHiearchalSuggestions(input) {
     const suggestedEvents = getCustomEventSuggestions(input);
     const suggestedTeams = getTeamSuggestions(input);
-    const suggestedStadiums = getStadiumSuggestions(input);
+    // const suggestedStadiums = getStadiumSuggestions(input);
 
-    return { suggestedEvents, suggestedTeams, suggestedStadiums };
+    return { suggestedEvents, suggestedTeams: [], suggestedStadiums: [] };
 }
 
 export { getTeamSuggestions, getHiearchalSuggestions, getCustomEventSuggestions, getCustomHiearchalSuggestions };

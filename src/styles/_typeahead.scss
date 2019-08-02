@@ -1,8 +1,18 @@
 @import 'tokens';
-@import 'mixins';
+@import './mixins/mixins';
 
-.vdp-type-ahead {
-    .vdp-type-ahead__dropdown {
+.vdp-typeahead {
+    position: relative;
+    display: inline-block;
+    direction: ltr;
+    .vdp-typeahead__section {
+        padding-top: $sizing-2XS;
+        .vdp-typeahead__section__header {
+            @include linear-gradient(to right, $color-gradient-slate);
+            padding: $sizing-XS $sizing-LG;
+        }
+    }
+    .vdp-typeahead__dropdown {
         background: $color-white;
         z-index: $z-index-nav !important;
 
@@ -24,6 +34,28 @@
             top: calc(100% + #{$sizing-LG}) !important;
             width: calc(100% + #{$sizing-5XL});
             z-index: $z-index-nav !important;
+        }
+    }
+
+    .vdp-typeahead__suggestion {
+        border-radius: $border-radius-SM;
+        color: $text-color-default;
+        cursor: pointer;
+        font-size: $font-size-MD;
+        line-height: $sizing-LG;
+        margin: 0 $sizing-SM;
+        padding: $sizing-SM;
+
+        &[class*='--highlight'] {
+            background-color: $color-brand-blue-light !important;
+            color: $color-brand-blue;
+        }
+
+        &:first-child {
+            margin-top: $sizing-SM;
+        }
+        &:last-child {
+            margin-bottom: $sizing-LG;
         }
     }
 }
