@@ -47,12 +47,10 @@ class SearchField extends React.Component {
 
     onChange = event => {
         const { value } = event.target;
-        this.setState(
-            {
-                inputValue: value
-            },
-            () => this.props.onChange(value)
-        );
+        this.setState({
+            inputValue: value
+        });
+        this.props.onChange(event);
     };
 
     onKeyPress = event => {

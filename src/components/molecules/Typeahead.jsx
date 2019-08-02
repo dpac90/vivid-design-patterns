@@ -5,7 +5,7 @@ import Subhead from '../atoms/Subhead';
 
 function defaultRenderSuggestion({ isHighlighted, suggestion, suggestionProps }) {
     if (typeof suggestion === 'string') {
-        return <TypeAhead.SuggestionItem {...{ isHighlighted, ...suggestionProps }}>{suggestion}</TypeAhead.SuggestionItem>;
+        return <Typeahead.SuggestionItem {...{ isHighlighted, ...suggestionProps }}>{suggestion}</Typeahead.SuggestionItem>;
     } else {
         throw new Error('A renderSuggestion prop is required if the suggestions is not an array of strings.');
     }
@@ -15,7 +15,11 @@ function defaultRenderDropdown(dropDownContent) {
     return dropDownContent;
 }
 
-class TypeAhead extends React.Component {
+function defaultRenderInput({ placeholder, onChange, onFocus }) {
+    return <SearchField placeholder={placeholder} onChange={onChange} onFocus={onFocus} />;
+}
+
+class Typeahead extends React.Component {
     state = {
         highlightedIndex: -1,
         highlightedItem: {},
@@ -63,10 +67,10 @@ class TypeAhead extends React.Component {
             acc += items.length;
             return (
                 !!items.length && (
-                    <TypeAhead.DropdownSection className="vdp-typeahead__section" key={title}>
-                        <TypeAhead.DropdownHeader className="vdp-typeahead__section__header">{title}</TypeAhead.DropdownHeader>
+                    <Typeahead.DropdownSection className="vdp-typeahead__section" key={title}>
+                        <Typeahead.DropdownHeader className="vdp-typeahead__section__header">{title}</Typeahead.DropdownHeader>
                         {this.getSuggestions({ suggestions: items, startingIndex, renderSuggestion, displayLimit: limit })}
-                    </TypeAhead.DropdownSection>
+                    </Typeahead.DropdownSection>
                 )
             );
         });
@@ -75,7 +79,7 @@ class TypeAhead extends React.Component {
     getSuggestions = ({ suggestions, startingIndex = 0, renderSuggestion, displayLimit }) => (
         <div className="vdp-typeahead__suggestions">
             {suggestions.map((suggestion, index) => {
-                if (displayLimit >= index) {
+                if (index >= displayLimit) {
                     return;
                 }
                 const { highlightedIndex } = this.state;
@@ -99,7 +103,7 @@ class TypeAhead extends React.Component {
         const flatSuggestions = showHierarchicalDropdown ? this.flattenSuggestions() : suggestions;
         let { highlightedIndex } = this.state;
         if (key === 'Enter' || which === 13 || keyCode === 13) {
-            if (this.highlightedIndex === -1) {
+            if (highlightedIndex === -1) {
                 this.props.onSelect(this.state.value);
             } else {
                 this.props.onSelect(flatSuggestions[highlightedIndex]);
@@ -141,10 +145,12 @@ class TypeAhead extends React.Component {
         }
     };
 
-    onChange = value => {
+    onChange = e => {
+        const { value } = e.target;
         this.setState({
             highlightedIndex: -1,
-            value: value
+            value,
+            highlightedItem: {}
         });
         this.props.onChange(value);
     };
@@ -187,7 +193,7 @@ class TypeAhead extends React.Component {
             onHideDropdown,
             onShowDropdown,
             displayLimit,
-            InputElement,
+            renderInput,
             ...htmlAttributes
         } = this.props;
         const { isDropdownShown } = this.state;
@@ -204,14 +210,14 @@ class TypeAhead extends React.Component {
                 aria-expanded={showDropdown}
                 onKeyDown={this.onKeyDown}
                 {...htmlAttributes}>
-                <SearchField placeholder={placeholder} onSubmit={this.onInputSubmit} onChange={this.onChange} onFocus={this.showDropdown} />
-                {showDropdown && <TypeAhead.Dropdown>{this.props.renderDropdown(dropdownContent)}</TypeAhead.Dropdown>}
+                {renderInput({ placeholder, onFocus: this.showDropdown, onChange: this.onChange })}
+                {showDropdown && <Typeahead.Dropdown>{renderDropdown(dropdownContent)}</Typeahead.Dropdown>}
             </div>
         );
     }
 }
 
-TypeAhead.propTypes = {
+Typeahead.propTypes = {
     suggestions: PropTypes.array,
     /* callback when dropdown is displayed */
     onShowDropdown: PropTypes.func,
@@ -222,16 +228,19 @@ TypeAhead.propTypes = {
     placeholder: PropTypes.string.isRequired,
     /* Custom suggestion render method */
     renderSuggestion: PropTypes.func,
-    /* Custom dropdown render method *.
+    /* Custom dropdown render method */
     renderDropdown: PropTypes.func,
+    /* Custom input render method */
+    renderInput: PropTypes.func,
     /* limit the number of suggestions displayed */
     displayLimit: PropTypes.number
 };
 
-TypeAhead.defaultProps = {
+Typeahead.defaultProps = {
     suggestions: [],
     className: '',
     showHierarchicalDropdown: false,
+    renderInput: defaultRenderInput,
     renderSuggestion: defaultRenderSuggestion,
     renderDropdown: defaultRenderDropdown,
     displayLimit: 10,
@@ -239,4 +248,4 @@ TypeAhead.defaultProps = {
     onHideDropdown: () => {}
 };
 
-export default TypeAhead;
+export default Typeahead;
