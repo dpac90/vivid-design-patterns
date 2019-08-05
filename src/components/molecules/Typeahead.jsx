@@ -23,7 +23,7 @@ function defaultRenderInput({ placeholder, onChange, onFocus, ...a11yAttributes 
 }
 
 class Typeahead extends React.Component {
-    static Dropdown = ({ className, children, ...htmlProps }) => (
+    static Dropdown = ({ className, children = '', ...htmlProps }) => (
         <div className={`vdp-typeahead__dropdown ${className}`} {...htmlProps}>
             {children}
         </div>
@@ -73,8 +73,8 @@ class Typeahead extends React.Component {
             acc += items.length;
             return (
                 !!items.length && (
-                    <Typeahead.DropdownSection className="vdp-typeahead__section" key={title}>
-                        <Typeahead.DropdownHeader className="vdp-typeahead__section__header">{title}</Typeahead.DropdownHeader>
+                    <Typeahead.DropdownSection key={title}>
+                        <Typeahead.DropdownHeader>{title}</Typeahead.DropdownHeader>
                         {this.getSuggestions({ suggestions: items, startingIndex, renderSuggestion, displayLimit: limit })}
                     </Typeahead.DropdownSection>
                 )
