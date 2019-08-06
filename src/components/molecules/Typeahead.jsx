@@ -75,7 +75,12 @@ class Typeahead extends React.Component {
                 !!items.length && (
                     <Typeahead.DropdownSection key={title}>
                         <Typeahead.DropdownHeader>{title}</Typeahead.DropdownHeader>
-                        {this.getSuggestions({ suggestions: items, startingIndex, renderSuggestion, displayLimit: limit })}
+                        {this.getSuggestions({
+                            suggestions: items,
+                            startingIndex: limit || startingIndex,
+                            renderSuggestion,
+                            displayLimit: limit
+                        })}
                     </Typeahead.DropdownSection>
                 )
             );
