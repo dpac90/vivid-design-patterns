@@ -52,3 +52,4 @@ export { default as Select } from './components/molecules/Select';
 export { default as SkeletonLoader } from './components/molecules/SkeletonLoader';
 export { default as TabGroup } from './components/molecules/TabGroup';
 export { default as TextField } from './components/molecules/TextField';
+export { default as Typeahead } from './components/molecules/Typeahead';

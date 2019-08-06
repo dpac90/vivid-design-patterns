@@ -49,7 +49,7 @@ interface TypographyProps<T> extends HTMLAttributes<T> {
 declare var Badge: FC<BadgeProps>;
 
 interface BodyTextProps extends TypographyProps<HTMLParagraphElement> {
-    importance: 1 | 2;
+    importance?: 1 | 2;
 }
 declare var BodyText: FC<BodyTextProps>;
 
@@ -148,7 +148,7 @@ interface FilterGroupItem extends HTMLAttributes<HTMLLIElement> {
 declare var FilterGroupItem: FC<FilterGroupItem>;
 
 interface Headline extends TypographyProps<HTMLHeadingElement> {
-    importance: 1 | 2 | 3 | 4 | 5 | 6;
+    importance?: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
 declare var Headline: FC<Headline>;
@@ -370,7 +370,7 @@ interface FormContextConsumer {
 declare const FormContextConsumer: FC<FormContextConsumer>;
 
 interface LinkGroup extends HTMLAttributes<HTMLUListElement> {
-    type: 'striped' | 'muted';
+    type?: 'striped' | 'muted';
 }
 
 declare const LinkGroup: FC<LinkGroup>;
