@@ -85,7 +85,7 @@ class Typeahead extends React.Component {
     getSuggestions = ({ suggestions, startingIndex = 0, renderSuggestion, displayLimit }) => (
         <div className="vdp-typeahead__suggestions">
             {suggestions.map((suggestion, index) => {
-                if (index >= displayLimit) {
+                if (index >= displayLimit && typeof displayLimit !== undefined) {
                     return;
                 }
                 const { highlightedIndex } = this.state;
