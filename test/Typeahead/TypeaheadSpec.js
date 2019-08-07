@@ -190,17 +190,48 @@ describe('<Typeahead />', () => {
     describe('Typeahead component with custom render suggestion method', () => {
         const renderMethod = ({ suggestion, isHighlighted, suggestionProps }) => (
             <Typeahead.SuggestionItem key={suggestion} isHighlighted={isHighlighted} {...suggestionProps}>
-                <p id="customRender">{suggestion}</p>
+                <p className="custom-render">{suggestion}</p>
             </Typeahead.SuggestionItem>
         );
+        const suggestion = 'Hello';
         const component = <Typeahead onChange={getSuggestions} placeholder={'Hello'} onSelect={onSelect} renderSuggestion={renderMethod} />;
         it('it should display the custom rendermethod item', () => {
-            const suggestion = 'Hello';
             const wrapper = mount(component);
             wrapper.setProps({ suggestions: [suggestion] });
-            const customRenderP = wrapper.find('#customRender');
+            const customRenderP = wrapper.find('.custom-render');
             expect(customRenderP.exists()).toBe(true);
             expect(customRenderP.text()).toBe(suggestion);
+        });
+
+        it('it should highlight the correct items when hovering over the sections ', () => {
+            const wrapper = mount(component);
+            const suggestion2 = 'Good bye';
+            wrapper.setProps({ suggestions: [suggestion, suggestion2] });
+            wrapper
+                .find('.vdp-typeahead__suggestion')
+                .first()
+                .simulate('mouseenter');
+            console.log(wrapper.debug());
+            expect(
+                wrapper
+                    .find('.vdp-typeahead__suggestion')
+                    .filterWhere(item => {
+                        return item.getDOMNode().className.includes('--highlight');
+                    })
+                    .text()
+            ).toBe(suggestion);
+            const secondSuggestion = wrapper.find('.vdp-typeahead__suggestion').at(1);
+            secondSuggestion.simulate('mouseenter');
+            expect(
+                wrapper
+                    .find('.vdp-typeahead__suggestion')
+                    .filterWhere(item => {
+                        return item.getDOMNode().className.includes('--highlight');
+                    })
+                    .text()
+            ).toBe(suggestion2);
+            secondSuggestion.simulate('click');
+            expect(onSelect).toBeCalledWith(suggestion2);
         });
     });
 });
