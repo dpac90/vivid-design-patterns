@@ -3,9 +3,9 @@ import React from 'react';
 import { shallow, mount, extend } from 'enzyme';
 
 describe('<Typeahead />', () => {
+    const getSuggestions = jest.fn();
+    const onSelect = jest.fn();
     describe('Default typeahead component', () => {
-        const getSuggestions = jest.fn();
-        const onSelect = jest.fn();
         const component = <Typeahead onChange={getSuggestions} placeholder="Search" onSelect={onSelect} />;
         it('Calls onChange when user starts typing in the input', () => {
             const wrapper = mount(component);
@@ -24,6 +24,7 @@ describe('<Typeahead />', () => {
             expect(suggestionItem.text()).toBe(suggestion);
             suggestionItem.simulate('click');
             expect(onSelect).toBeCalledWith(suggestion);
+            expect(wrapper.find('.vdp-typeahead__dropdown').exists()).toBe(false);
         });
 
         it('It displays users to select a suggestion using the up/down arrow', () => {
@@ -183,6 +184,23 @@ describe('<Typeahead />', () => {
             input.simulate('change', { target: { value: 'a' } });
             input.simulate('keyDown', { key: 'Enter' });
             expect(onSelect).toBeCalledWith('a');
+        });
+    });
+
+    describe('Typeahead component with custom render suggestion method', () => {
+        const renderMethod = ({ suggestion, isHighlighted, suggestionProps }) => (
+            <Typeahead.SuggestionItem key={suggestion} isHighlighted={isHighlighted} {...suggestionProps}>
+                <p id="customRender">{suggestion}</p>
+            </Typeahead.SuggestionItem>
+        );
+        const component = <Typeahead onChange={getSuggestions} placeholder={'Hello'} onSelect={onSelect} renderSuggestion={renderMethod} />;
+        it('it should display the custom rendermethod item', () => {
+            const suggestion = 'Hello';
+            const wrapper = mount(component);
+            wrapper.setProps({ suggestions: [suggestion] });
+            const customRenderP = wrapper.find('#customRender');
+            expect(customRenderP.exists()).toBe(true);
+            expect(customRenderP.text()).toBe(suggestion);
         });
     });
 });
