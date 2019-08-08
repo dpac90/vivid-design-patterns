@@ -2,9 +2,18 @@
 @import './mixins/mixins';
 
 .vdp-typeahead {
-    position: relative;
-    display: inline-block;
     direction: ltr;
+    position: relative;
+    .vdp-search-field {
+        margin: 0;
+    }
+
+    .vdp-typeahead__suggestions {
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+    }
+
     .vdp-typeahead__section {
         padding-top: $sizing-2XS;
         .vdp-typeahead__section__header {
@@ -15,6 +24,7 @@
     .vdp-typeahead__dropdown {
         background: $color-white;
         z-index: $z-index-nav !important;
+        width: 100%;
 
         @include size-only-mobile {
             @include border(top);
@@ -29,10 +39,8 @@
         @include size-min-tablet {
             border-radius: $border-radius-LG;
             box-shadow: $elevation-2;
-            left: -$sizing-3XL !important;
             min-width: 360px;
             top: calc(100% + #{$sizing-LG}) !important;
-            width: calc(100% + #{$sizing-5XL});
             z-index: $z-index-nav !important;
         }
     }
