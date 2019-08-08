@@ -300,9 +300,9 @@ interface Column extends HTMLAttributes<HTMLDivElement> {}
 declare var Column: FC<Column>;
 
 interface Venue {
-    name: string;
-    city: string;
-    regionCode: string;
+    name?: string;
+    city?: string;
+    regionCode?: string;
     countryCode?: string;
 }
 
@@ -311,8 +311,8 @@ interface Thumbnail {
     alt?: string;
 }
 interface EventRow extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
-    href: string;
-    venue: Venue;
+    href?: string;
+    venue?: Venue;
     title: ReactNode;
     subtitle?: ReactNode;
     dateRange?: string;
