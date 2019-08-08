@@ -23,7 +23,7 @@ function defaultRenderInput({ placeholder, onChange, onFocus, value, ...a11yAttr
 }
 
 class Typeahead extends React.Component {
-    static Dropdown = ({ className, children = '', ...htmlProps }) => (
+    static Dropdown = ({ className = '', children, ...htmlProps }) => (
         <div className={`vdp-typeahead__dropdown ${className}`} {...htmlProps}>
             {children}
         </div>

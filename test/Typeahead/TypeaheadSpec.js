@@ -3,9 +3,9 @@ import React from 'react';
 import { shallow, mount, extend } from 'enzyme';
 
 describe('<Typeahead />', () => {
+    const getSuggestions = jest.fn();
+    const onSelect = jest.fn();
     describe('Default typeahead component', () => {
-        const getSuggestions = jest.fn();
-        const onSelect = jest.fn();
         const component = <Typeahead onChange={getSuggestions} placeholder="Search" onSelect={onSelect} />;
         it('Calls onChange when user starts typing in the input', () => {
             const wrapper = mount(component);
@@ -24,6 +24,7 @@ describe('<Typeahead />', () => {
             expect(suggestionItem.text()).toBe(suggestion);
             suggestionItem.simulate('click');
             expect(onSelect).toBeCalledWith(suggestion);
+            expect(wrapper.find('.vdp-typeahead__dropdown').exists()).toBe(false);
         });
 
         it('It displays users to select a suggestion using the up/down arrow', () => {
@@ -183,6 +184,54 @@ describe('<Typeahead />', () => {
             input.simulate('change', { target: { value: 'a' } });
             input.simulate('keyDown', { key: 'Enter' });
             expect(onSelect).toBeCalledWith('a');
+        });
+    });
+
+    describe('Typeahead component with custom render suggestion method', () => {
+        const renderMethod = ({ suggestion, isHighlighted, suggestionProps }) => (
+            <Typeahead.SuggestionItem key={suggestion} isHighlighted={isHighlighted} {...suggestionProps}>
+                <p className="custom-render">{suggestion}</p>
+            </Typeahead.SuggestionItem>
+        );
+        const suggestion = 'Hello';
+        const component = <Typeahead onChange={getSuggestions} placeholder={'Hello'} onSelect={onSelect} renderSuggestion={renderMethod} />;
+        it('it should display the custom rendermethod item', () => {
+            const wrapper = mount(component);
+            wrapper.setProps({ suggestions: [suggestion] });
+            const customRenderP = wrapper.find('.custom-render');
+            expect(customRenderP.exists()).toBe(true);
+            expect(customRenderP.text()).toBe(suggestion);
+        });
+
+        it('it should highlight the correct items when hovering over the sections ', () => {
+            const wrapper = mount(component);
+            const suggestion2 = 'Good bye';
+            wrapper.setProps({ suggestions: [suggestion, suggestion2] });
+            wrapper
+                .find('.vdp-typeahead__suggestion')
+                .first()
+                .simulate('mouseenter');
+            console.log(wrapper.debug());
+            expect(
+                wrapper
+                    .find('.vdp-typeahead__suggestion')
+                    .filterWhere(item => {
+                        return item.getDOMNode().className.includes('--highlight');
+                    })
+                    .text()
+            ).toBe(suggestion);
+            const secondSuggestion = wrapper.find('.vdp-typeahead__suggestion').at(1);
+            secondSuggestion.simulate('mouseenter');
+            expect(
+                wrapper
+                    .find('.vdp-typeahead__suggestion')
+                    .filterWhere(item => {
+                        return item.getDOMNode().className.includes('--highlight');
+                    })
+                    .text()
+            ).toBe(suggestion2);
+            secondSuggestion.simulate('click');
+            expect(onSelect).toBeCalledWith(suggestion2);
         });
     });
 });
