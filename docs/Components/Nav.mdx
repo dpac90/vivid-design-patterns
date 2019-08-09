@@ -1,0 +1,44 @@
+
+---
+    name: Nav
+    menu: Components
+    route: /components/nav
+---
+
+import Collapse from '../../src/components/molecules/Collapse';
+import Nav from '../../src/components/molecules/Nav';
+import { PropsTable, Playground } from 'docz';
+import LinkGroup from '../../src/components/molecules/LinkGroup';
+import Link from '../../src/components/atoms/Link';
+import StatefulComponent from '../StatefulComponent';
+
+# Accordion
+## Installation
+Using the react components:
+
+    `import Nav from @vividseats/vivid-design-patterns/dist/molecules/Nav;`
+    
+Using the scss files:
+
+## Accordion Props
+<PropsTable of={Nav}/>
+
+# Examples
+
+## Basic Usage
+<Playground>
+    <Nav />
+</Playground>
+
+## As a controlled component
+<Playground>
+    {/* <StatefulComponent initialState={{openedIndex: 0}}>
+        {
+            ({state, setState}) => {
+
+            }
+        }
+    </StatefulComponent> */}
+</Playground>
+
+
