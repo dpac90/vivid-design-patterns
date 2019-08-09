@@ -11,17 +11,21 @@
     .vdp-typeahead__suggestions {
         display: flex;
         flex-direction: column;
-        margin-top: 5px;
     }
 
     .vdp-typeahead__section {
         padding-top: $sizing-2XS;
+        &:first-child {
+            padding-top: 0.75em;
+        }
+
         .vdp-typeahead__section__header {
             @include linear-gradient(to right, $color-gradient-slate);
             padding: $sizing-XS $sizing-LG;
         }
     }
     .vdp-typeahead__dropdown {
+        margin-top: 0.5em;
         background: $color-white;
         z-index: $z-index-nav !important;
         width: 100%;
