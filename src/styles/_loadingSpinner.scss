@@ -1,10 +1,10 @@
 $offset: 200;
 $duration: 1.5s;
 
-.loading-spinner-container {
+.vdp-loading-spinner__container {
     width: fit-content;
 
-    .loading-spinner {
+    .vdp-loading-spinner {
         animation: rotator $duration linear infinite;
         width: 65px;
         height: 65px;
