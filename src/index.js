@@ -17,6 +17,7 @@ export { default as Headline } from './components/atoms/Headline';
 export { default as Icon } from './components/atoms/Icon';
 export { default as Input } from './components/atoms/Input';
 export { default as Label } from './components/atoms/Label';
+export { default as LoadingSpinner } from './components/atoms/LoadingSpinner';
 export { default as Link } from './components/atoms/Link';
 export { default as ModalBody } from './components/atoms/ModalBody';
 export { default as ModalFooter } from './components/atoms/ModalFooter';
@@ -31,6 +32,7 @@ export { default as Subtitle } from './components/atoms/Subtitle';
 export { default as Tab } from './components/atoms/Tab';
 export { default as TinyText } from './components/atoms/TinyText';
 export { default as Toggle } from './components/atoms/Toggle';
+export { default as Toast } from './components/atoms/Toast';
 export { default as VividSeatsLogo } from './components/atoms/VividSeatsLogo';
 
 /** MOLECULES */
