@@ -29,8 +29,10 @@
     margin: $sizing-LG;
     max-height: calc(100% - 32px);
     max-width: 600px;
+    min-width: 200px;
     opacity: 0;
     width: auto;
+    -ms-flex: 1 0 auto;
 
     [data-state='opening'] &,
     [data-state='closing'] & {
@@ -53,25 +55,61 @@
     }
 }
 @include size-only-mobile {
-    [class^='vdp-modal--sheet'] {
-        .vdp-modal__container {
-            @include position(absolute, null null -100vh null);
-            @include transform(scale(1));
-            border-radius: $border-radius-LG $border-radius-LG 0 0;
-            margin: 0;
-            opacity: 1;
-            width: 100%;
+    [class^='vdp-modal'] {
+        &[class*='--sheet'] {
+            .vdp-modal__container {
+                @include position(absolute, null null -100vh null);
+                @include transform(scale(1));
+                border-radius: $border-radius-LG $border-radius-LG 0 0;
+                margin: 0;
+                opacity: 1;
+                width: 100%;
+            }
+            &[data-state='opened'] .vdp-modal__container {
+                @include position(absolute, null null 0 null);
+            }
         }
-        &[data-state='opened'] .vdp-modal__container {
-            @include position(absolute, null null 0 null);
+        &[class*='--full-screen'] {
+            .vdp-modal__container {
+                border-radius: 0;
+                margin: 0;
+                height: 100vh;
+                max-height: unset;
+                width: 100vw;
+                background-size: 120vw 120vh;
+                background-position: center;
+                padding: $sizing-XL;
+                @include justify-content(center);
+                @include align-items(center);
+
+                .vdp-modal__header,
+                .vdp-modal__body {
+                    @include flex-grow(0);
+                }
+                .vdp-modal__header {
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+                .vdp-modal__footer {
+                    @include flex;
+                    @include flex-direction(column);
+                    @include align-items(space-around);
+                    text-align: left;
+                }
+            }
         }
+    }
+}
+@include size-min-tablet {
+    [class^='vdp-modal'][class*='--full-screen'] {
+        display: none;
     }
 }
 
 .vdp-modal__body {
     flex: 1 1 auto;
     overflow-y: auto;
-    min-height: 0;
+    min-height: 100px;
     padding: 0 $sizing-XL $sizing-LG;
 }
 .vdp-modal__footer {
@@ -79,12 +117,13 @@
     text-align: right;
 }
 .vdp-modal__header {
+    @include align-items(center);
+    @include flex(1 0 auto);
+    @include justify-content(space-between);
     padding: $sizing-2XL $sizing-XL $sizing-LG;
-    position: relative;
 
     button {
-        @include position(absolute, $sizing-LG $sizing-LG 0 null);
-        margin: auto;
+        margin-left: $sizing-XL;
     }
 }
 

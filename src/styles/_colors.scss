@@ -5,7 +5,11 @@ $gradients: (
     blue: $color-gradient-blue,
     gold: $color-gradient-gold,
     red: $color-gradient-red,
-    slate: $color-gradient-slate
+    slate: $color-gradient-slate,
+    teal: (
+        #2376a8,
+        #21c8a7
+    )
 );
 
 @mixin text-gradient($gradient: $color-gradient-red) {
@@ -52,8 +56,12 @@ $overlays: (
 }
 
 .bg {
-    &-black {
-        background-color: $color-black;
+    // Brand
+    &-brand-black {
+        background-color: $color-brand-black;
+    }
+    &-brand-red {
+        background-color: $color-brand-red;
     }
     &-blue {
         background-color: $color-brand-blue;
@@ -64,9 +72,49 @@ $overlays: (
     &-slate {
         background-color: $color-brand-slate;
     }
+    // Neutrals
+    &-black {
+        background-color: $color-black;
+    }
+    &-gray-dark {
+        background-color: $color-gray-dark;
+    }
+    &-gray-medium {
+        background-color: $color-gray-medium;
+    }
+    &-gray {
+        background-color: $color-gray;
+    }
+    &-gray-light {
+        background-color: $color-gray-light;
+    }
+    &-gray-highlight {
+        background-color: $color-gray-highlight;
+    }
+    &-off-white {
+        background-color: $color-off-white;
+    }
     &-white {
         background-color: $color-white;
     }
+    // States
+    &-state-success {
+        background-color: $color-state-success;
+    }
+    &-state-warning {
+        background-color: $color-state-warning;
+    }
+    &-state-error {
+        background-color: $color-state-error;
+    }
+    // Marketing Colors
+    &-marketing-teal {
+        background-color: $color-marketing-teal;
+    }
+    &-marketing-yellow {
+        background-color: $color-marketing-yellow;
+    }
+    // Gradients
     &-gradient {
         @each $name, $attr in $gradients {
             &-#{$name}--horz {

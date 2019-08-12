@@ -64,7 +64,7 @@
         }
     }
     // Nested Row
-    [class^='vdp-row'] {
+    [class*='vdp-row'] {
         margin-left: 0;
         margin-right: 0;
     }
@@ -79,6 +79,7 @@
 @include grid-modifier(vdp-row, align-top, align-items, flex-start);
 @include grid-modifier(vdp-row, align-center, align-items, center);
 @include grid-modifier(vdp-row, align-bottom, align-items, flex-end);
+@include grid-modifier(vdp-row, column, flex-direction, column);
 
 // Responsive Row Modifiers
 @include size-only-mobile {
@@ -104,7 +105,7 @@
 }
 .vdp-col,
 [class^='vdp-col--']:not([class*='--sm-']) {
-    @include flex-basis(0);
+    @include flex-basis(auto);
 }
 
 $gridBreakpoints: sm null, md $breakpoint-tablet, lg $breakpoint-desktop, xl $breakpoint-desktop-XL;
@@ -142,11 +143,11 @@ $gridBreakpoints: sm null, md $breakpoint-tablet, lg $breakpoint-desktop, xl $br
     }
     &[class*='--col-3'] {
         @include size-min-tablet {
-            -ms-grid-columns: $grid-gutter (1fr $grid-gutter) [2];
+            -ms-grid-columns: 1fr 1fr;
             grid-template-columns: repeat(2, 1fr);
         }
         @include size-min-desktop {
-            -ms-grid-columns: $grid-gutter (1fr $grid-gutter) [3];
+            -ms-grid-columns: 1fr 1fr 1fr;
             grid-template-columns: repeat(3, 1fr);
         }
     }

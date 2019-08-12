@@ -2,8 +2,8 @@
 @import 'mixins/mixins';
 @import 'mixins/prefixes';
 $fontFaces: (
-    $font-family-icons: (
-        $font-family-icons,
+    MaterialIcons: (
+        'MaterialIcons',
         400,
         normal,
         Regular
@@ -139,7 +139,7 @@ $typeStyles: (
 .material-icons {
     direction: ltr;
     display: inline-block;
-    font-family: $font-family-icons;
+    font-family: 'MaterialIcons';
     font-feature-settings: 'liga';
     font-size: $font-size-2XL; /* Preferred icon size */
     font-style: normal;
@@ -255,6 +255,9 @@ a {
     &[class*='--muted'] {
         color: $text-color-muted;
     }
+    &[class*='--gold'] {
+        color: $color-brand-gold;
+    }
     &[class*='--left'] {
         text-align: left;
     }
@@ -281,5 +284,8 @@ a {
     }
     &[class*='--underline'] {
         text-decoration: underline;
+    }
+    &[class*='--opaque'] {
+        opacity: 0.5;
     }
 }

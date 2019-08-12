@@ -53,10 +53,26 @@ describe('<Modal />', () => {
         }, 750);
     });
 
+    it("won't be dismissed by clicking on the backdrop if prop is false", done => {
+        const mockOnClose = jest.fn();
+        const wrapper = mount(<Modal dataState="opened" onClose={mockOnClose} closeOnBackdropClick={false} />);
+        wrapper.find('.vdp-backdrop').simulate('click');
+
+        setTimeout(() => {
+            expect(mockOnClose).toHaveBeenCalledTimes(0);
+            expect(wrapper.state('dataState')).toEqual('opened');
+            done();
+        }, 750);
+    });
+
     it('supports header, body, and footer subcomponents', () => {
         const wrapper = mount(
             <Modal dataState="opened">
-                <Modal.Header className="modalHeaderClass">Modal Header</Modal.Header>
+                <Modal.Header className="modalHeaderClass" title="Modal Header">
+                    <Button className="modalHeaderButtonClass" importance="text">
+                        Click
+                    </Button>
+                </Modal.Header>
                 <Modal.Body className="modalBodyClass">Modal Body</Modal.Body>
                 <Modal.Footer className="modalFooterClass">
                     <Button className="modalButtonClass" importance="tertiary">
@@ -67,6 +83,7 @@ describe('<Modal />', () => {
         );
 
         expect(wrapper.exists('.vdp-modal__header.modalHeaderClass'));
+        expect(wrapper.exists('.vdp-modal__header.modalHeaderClass button.modalHeaderButtonClass'));
         expect(wrapper.exists('.vdp-modal__body.modalBodyClass'));
         expect(wrapper.exists('.vdp-modal__footer.modalFooterClass button.modalFooterClass'));
     });

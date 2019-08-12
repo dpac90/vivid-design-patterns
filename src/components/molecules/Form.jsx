@@ -24,6 +24,7 @@ FormContextConsumer.propTypes = {
 
 class Form extends React.Component {
     static propTypes = {
+        /** Callback is passed plain JavaScript object with key/value pairs of `name` props and input value at time of submission. */
         onSubmit: PropTypes.func,
         /** Custom callback when validation fails on the form. Takes in an array of inputs with errors as the parameter */
         onValidationFailure: PropTypes.func,
@@ -42,11 +43,27 @@ class Form extends React.Component {
         this.inputs.push(ref);
     };
 
+    getInputValue = input => {
+        const { state, props } = input;
+        let inputVal = state.value || props.value;
+
+        if (state.checked !== undefined) {
+            inputVal = state.checked;
+        } else if (props.checked !== undefined) {
+            inputVal = props.checked;
+        }
+        return inputVal;
+    };
+
     afterValidation = componentsWithErrors => {
         const isFormValid = this.inputs.every(input => !input.state.error);
         const { onSubmit, onValidationFailure } = this.props;
         if (isFormValid) {
-            onSubmit();
+            const formOutput = {};
+            this.inputs.forEach(input => {
+                formOutput[input.props.name] = this.getInputValue(input);
+            });
+            onSubmit(formOutput);
         } else {
             onValidationFailure(componentsWithErrors);
         }
@@ -69,17 +86,8 @@ class Form extends React.Component {
     };
 
     validateInput = component => {
-        let componentValue;
-
-        const { state, props } = component;
-        if (state.checked) {
-            componentValue = state.checked;
-        } else if (props.checked) {
-            componentValue = props.checked;
-        } else {
-            componentValue = state.value;
-        }
-        return props.validationMethod(componentValue);
+        const { props } = component;
+        return props.validationMethod(this.getInputValue(component));
     };
 
     onSubmit = e => {

@@ -10,8 +10,8 @@ const Radio = ({ checked, className = '', label, onChange = () => {}, ...attribu
 
 Radio.propTypes = {
     checked: PropTypes.bool,
-    id: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
+    id: PropTypes.string,
+    label: PropTypes.node.isRequired,
     className: PropTypes.string,
     onChange: PropTypes.func
 };

@@ -54,6 +54,7 @@
     cursor: pointer;
 
     &:hover {
+        @include transform(scale(1.025));
         box-shadow: $elevation-3;
 
         .vdp-card__hero {
@@ -71,8 +72,13 @@
         &[class*='--centered'] {
             justify-content: space-around;
         }
-        [class*='vdp-button--text'] {
+        [class*='vdp-button--text'],
+        [class*='vdp-button'][class*='--text'] {
+            display: block;
             margin: $sizing-2XS 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
 }
@@ -93,16 +99,33 @@
     &__image {
         @include position(absolute, 50% 0 0 50%);
         @include transform(translate(-50%, -50%));
-        height: auto;
-        max-width: none;
         min-height: 100%;
         min-width: 100%;
     }
 }
 
-[class^='vdp-grid'] {
-    .vdp-card,
-    .vdp-card--list {
-        margin-bottom: 0;
+[class^='vdp-grid'] [class^='vdp-card'] {
+    margin-bottom: 0;
+}
+
+@include size-only-mobile {
+    .vdp-scroll-deck {
+        margin: 0 -#{$sizing-MD};
+        overflow-x: scroll;
+        overflow-y: hidden;
+        padding: $sizing-XL $sizing-MD;
+
+        > * {
+            flex-wrap: nowrap;
+            max-width: none;
+        }
+        [class^='vdp-card'] {
+            margin-bottom: 0;
+        }
+    }
+}
+@include size-min-tablet {
+    .vdp-scroll-deck {
+        padding: $sizing-XL 0 $sizing-SM;
     }
 }

@@ -3,6 +3,7 @@
 @import 'layout';
 @import 'mixins/mixins';
 @import 'mixins/prefixes';
+@import '_badge.scss';
 
 $column-date-width: 5rem;
 $column-thumb-width: 4.25rem;
@@ -60,12 +61,26 @@ $row-height: 4.5rem;
         + .vdp-event-row__col--info {
             max-width: calc(100% - #{$column-date-width});
         }
+
+        .vdp-badge {
+            margin-top: $sizing-XS;
+        }
     }
     &[class*='--info'] {
         @include flex-basis(0%);
         @include flex-grow(1);
         @include flex-shrink(1);
         padding: $sizing-2XS $sizing-LG;
+    }
+    &[class*='--range'] {
+        padding: 0 $sizing-LG;
+
+        + .vdp-event-row__col--button {
+            width: auto;
+        }
+        @include size-only-mobile {
+            @include flex-basis(100%);
+        }
     }
     &[class*='--thumb'] {
         border-radius: $border-radius-SM;
