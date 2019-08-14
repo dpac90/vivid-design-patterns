@@ -1,0 +1,18 @@
+@import 'tokens';
+@import 'mixins/mixins';
+@import 'mixins/prefixes';
+
+[class^='vdp-interstitial'] {
+    @include position(fixed, 0 null null 0);
+    @include transition(all $transition-2);
+    height: 100%;
+    width: 100%;
+    z-index: 12200;
+    background-color: #fff;
+}
+
+@include size-min-desktop {
+    [class^='vdp-interstitial'] {
+        display: none !important;
+    }
+}

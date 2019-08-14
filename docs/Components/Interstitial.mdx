@@ -1,0 +1,30 @@
+---
+    name: Interstitial
+    menu: Components
+    route: /components/interstitial
+---
+
+import { PropsTable, Playground } from 'docz'
+
+import Interstitial from '../../src/components/atoms/Interstitial';
+import InterstitialButtonExample from '../InterstitialButtonExample';
+
+
+# Interstitial
+## Installation
+Using the react components:
+
+`import Interstitial from '@vividseats/vivid-design-patterns/dist/molecules/Interstitial';`
+
+Using the scss files:
+
+`@import @vividseats/vivid-design-patterns/src/styles/_interstitial.scss;`
+
+## Basic Example
+`
+Will only be shown on display sizes < desktop
+`
+<Playground style={ { minHeight: '400px', height: '100%' } } >
+    <InterstitialButtonExample/>
+</Playground>
+
