@@ -15,7 +15,9 @@ import {
     Ref,
     MouseEventHandler,
     FocusEventHandler,
-    KeyboardEventHandler
+    KeyboardEventHandler,
+    RefObject,
+    MutableRefObject
 } from 'react';
 
 type ValidationMethod = (value: string) => string | null;
@@ -38,7 +40,7 @@ interface TypographyProps<T> extends HTMLAttributes<T> {
     className?: string;
     weight?: 'black' | 'bold' | 'medium' | 'regular';
     height?: 'compressed' | 'expanded';
-    state?: 'disabled' | 'inverted' | 'muted';
+    state?: 'disabled' | 'inverted' | 'muted' | 'hover';
     alignment?: 'left' | 'center' | 'right';
     capitalization?: 'uppercase' | 'lowercase';
     truncate?: boolean;
@@ -65,11 +67,12 @@ interface ButtonProps extends Partial<HTMLAttributes<HTMLButtonElement | HTMLAnc
     className?: string;
     grouped?: boolean;
     importance?: 'secondary' | 'tertiary' | 'text';
-    onClick?: (e?: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
-    onFocus?: (e?: FocusEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
-    onBlur?: (e?: FocusEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
-    onMouseLeave?: (e?: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
-    onMouseEnter?: (e?: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+    onClick?: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+    onFocus?: (e: FocusEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+    onBlur?: (e: FocusEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+    onMouseLeave?: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+    onMouseEnter?: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+    icon?: string;
 }
 
 declare var Button: FC<ButtonProps>;
@@ -267,13 +270,14 @@ interface VividSeatsLogo extends HTMLAttributes<HTMLAnchorElement> {
 declare var VividSeatsLogo: FC<VividSeatsLogo>;
 
 interface Accordion {
+    children?: ReactNode | ReactNodeArray;
     initialOpenedIndex?: number;
     /** For controlled components. Use -1 to indicate no Collapse components are open. */
     openedIndex?: number;
     /** For use with controlled props. Fires when an accordion is open with the opened element's index */
-    onAccordionOpen: (currentIndex: number) => void;
+    onAccordionOpen?: (currentIndex: number) => void;
 }
-declare var Accordion: FC<Accordion>;
+declare const Accordion: FC<Accordion> & { Collapse: FC<Collapse> };
 
 interface Card {
     type?: 'standard' | 'list' | 'anchor';
@@ -283,7 +287,7 @@ interface Card {
     role?: string;
 }
 
-declare var Card: FC<Card>;
+declare const Card: FC<Card>;
 
 interface Collapse extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
     open?: boolean;
@@ -291,10 +295,10 @@ interface Collapse extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
     wrap?: boolean;
     collapseOnMobileOnly?: boolean;
     onOpenChange?: (openState: boolean) => void;
-    title: ReactNode;
+    title?: ReactNode;
 }
 
-declare var Collapse: FC<Collapse>;
+declare const Collapse: FC<Collapse>;
 
 interface Column extends HTMLAttributes<HTMLDivElement> {}
 declare var Column: FC<Column>;
@@ -310,7 +314,7 @@ interface Thumbnail {
     src?: string;
     alt?: string;
 }
-interface EventRow extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+interface EventRow extends Omit<Omit<HTMLAttributes<HTMLDivElement>, 'title'>, 'onChange'> {
     href?: string;
     venue?: Venue;
     title: ReactNode;
@@ -327,6 +331,8 @@ interface EventRow extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
     performerType?: string;
     performerUrl?: string;
     hasButton?: boolean;
+    hasCheckbox?: boolean;
+    onChange?: (checked: boolean) => void;
 }
 declare var EventRow: FC<EventRow>;
 
@@ -370,7 +376,7 @@ interface FormContextConsumer {
 declare const FormContextConsumer: FC<FormContextConsumer>;
 
 interface LinkGroup extends HTMLAttributes<HTMLUListElement> {
-    type?: 'striped' | 'muted';
+    type?: 'striped' | 'muted' | 'hover';
 }
 
 declare const LinkGroup: FC<LinkGroup>;
@@ -386,7 +392,7 @@ interface Modal extends HTMLAttributes<HTMLElement> {
     closeOnBackdropClick?: boolean;
 }
 
-declare const Modal: FC<Modal>;
+declare const Modal: FC<Modal> & { Footer: FC<ModalFooter>; Header: FC<ModalHeader>; Body: FC<ModalBody>; Backdrop: FC<BackdropProps> };
 
 interface PasswordInput extends Input {}
 declare const PasswordInput: FC<PasswordInput>;
@@ -443,11 +449,12 @@ declare const SkeletonLoader: FC<SkeletonLoader>;
 interface TabGroup extends HTMLAttributes<HTMLUListElement> {
     dark?: boolean;
     compressed?: boolean;
+    type?: 'bar' | 'group';
 }
 declare const TabGroup: FC<TabGroup>;
 
 interface TextField extends Input {
-    id: string;
+    id?: string;
     label: string;
     name: string;
     /** If the noValidate prop is present, the field will not turn green or red to indicate its validation status. Do not pass this in if you are passing in a validationMethod Prop */
@@ -494,3 +501,17 @@ interface SuggestionGroup<T> {
     items: T[];
     renderSuggestion: SuggestionRenderProp<T>;
 }
+
+/** refine this! */
+declare const Typeahead: FC<any> & any;
+
+interface Drawer {}
+
+/** refine this! */
+declare const Drawer: FC<any> & { Header: FC<any>; Body: FC<any>; Footer: FC<any> };
+
+interface Header {
+    inputRef?: MutableRefObject<HTMLElement | undefined>;
+    children: ReactNode | ReactNodeArray;
+}
+declare const Header: FC<Header>;
