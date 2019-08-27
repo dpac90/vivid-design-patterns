@@ -9,6 +9,38 @@ import SmallText from '../atoms/SmallText';
 import DateColumn from '../atoms/DateColumn';
 import Icon from '../atoms/Icon';
 
+const MinListPriceButton = ({ minListPrice = 0, isInternationalVenue }) => (
+    <Button>
+        <i>from</i>&nbsp;
+        <strong>
+            ${minListPrice}
+            {!!isInternationalVenue && ' USD'}
+        </strong>
+    </Button>
+);
+
+MinListPriceButton.propTypes = {
+    minListPrice: PropTypes.number,
+    isInternationalVenue: PropTypes.bool
+};
+
+const MobileMinListCol = ({ minListPrice = 0, isInternationalVenue }) => (
+    <div className="vdp-event-row__col--mobile-min-price">
+        <SmallText>
+            <i>from</i>
+        </SmallText>
+        <BodyText height="compressed" className="lead-price" importance={2}>
+            ${minListPrice}
+            {!!isInternationalVenue && <p className="usd">USD</p>}
+        </BodyText>
+    </div>
+);
+
+MobileMinListCol.propTypes = {
+    minListPrice: PropTypes.number,
+    isInternationalVenue: PropTypes.bool
+};
+
 const EventRow = ({
     href,
     subtitle,
@@ -29,6 +61,7 @@ const EventRow = ({
     performerUrl,
     onChange = () => {},
     onClick = () => {},
+    isInternationalVenue = false,
     ...htmlAttributes
 }) => {
     const { getColClassName, BASE_CLASSNAME, COL_CLASSNAMES, BUTTON_TEXT } = EventRow;
@@ -91,11 +124,17 @@ const EventRow = ({
                 </div>
             )}
             {/* Button */}
-            {hasButton && !hasCheckbox && (
-                <div className={getColClassName(BUTTON)}>
-                    <Button>{!!dateRange ? BUTTON_TEXT.DATE_RANGE : BUTTON_TEXT.DATE}</Button>
+            {!!hasButton && !hasCheckbox && (
+                <div className={`${getColClassName(BUTTON)}`}>
+                    {!!minListPrice ? (
+                        <MinListPriceButton minListPrice={minListPrice} isInternationalVenue={isInternationalVenue} />
+                    ) : (
+                        <Button>{!!dateRange ? BUTTON_TEXT.DATE_RANGE : BUTTON_TEXT.DATE}</Button>
+                    )}
                 </div>
             )}
+            {/* Mobile Col for Min List Price */}
+            {!!minListPrice && <MobileMinListCol minListPrice={minListPrice} isInternationalVenue={isInternationalVenue} />}
             {/* Checkbox */}
             {hasCheckbox && (
                 <div className={getColClassName(BUTTON)}>
@@ -166,6 +205,7 @@ EventRow.propTypes = {
     isTimeTbd: PropTypes.bool,
     imageUrl: PropTypes.string,
     minListPrice: PropTypes.number,
+    isInternationalVenue: PropTypes.bool,
     schemaDescription: PropTypes.string,
     ticketCount: PropTypes.number,
     performerName: PropTypes.string,
