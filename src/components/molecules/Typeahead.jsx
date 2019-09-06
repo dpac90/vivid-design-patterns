@@ -231,11 +231,6 @@ class Typeahead extends React.Component {
         );
     }
 
-    handleReset = () => {
-        this.setState({ value: '', highlightedIndex: -1, isDropdownShown: false });
-        this.props.onChange('');
-    };
-
     render() {
         const {
             className,
