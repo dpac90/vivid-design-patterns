@@ -208,6 +208,11 @@ class Typeahead extends React.Component {
         return resultLength > 0 && isDropdownShown && value.length >= minQueryLength;
     };
 
+    handleReset = () => {
+        this.setState({ value: '', highlightedIndex: -1, isDropdownShown: false });
+        this.props.onChange('');
+    };
+
     flattenSuggestions() {
         const { suggestions } = this.props;
         return suggestions.reduce((acc, curr) => {
