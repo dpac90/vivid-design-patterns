@@ -49,7 +49,6 @@
             border-radius: $border-radius-LG;
             box-shadow: $elevation-2;
             min-width: 360px;
-            top: calc(100% + #{$sizing-LG}) !important;
             z-index: $z-index-nav !important;
         }
     }
