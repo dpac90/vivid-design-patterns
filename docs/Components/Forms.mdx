@@ -8,6 +8,7 @@ import { Props, Playground } from 'docz';
 import Form from '../../src/components/molecules/Form';
 import TextField from '../../src/components/molecules/TextField';
 import Button from '../../src/components/atoms/Button';
+import StatefulComponent from '../StatefulComponent';
 import '../docz.scss';
 
 # Forms
@@ -40,6 +41,44 @@ Forms provide a `setForm` callback via a Context Consumer. This `setForm` callba
         </Form.ContextConsumer>
     </Form>
 
+</Playground>
+
+## Server Side Validation
+<Playground>
+    <StatefulComponent>
+        {
+            ({state, setState}) => {
+                const validate = (output) => {
+                    if(output.email !== 'zoidberg@freemail.web') {
+                        console.log(output);
+                        setState({
+                            error: "Wrong email address"
+                        });
+                    } else {
+                        alert("Form submitted" + JSON.stringify(output));
+                    }
+                };
+                return (
+                    <Form onSubmit={validate}>
+                        <Form.ContextConsumer>
+                            {({ setForm }) => (
+                                <React.Fragment>
+                                    <TextField ref={setForm}
+                                               id='#formTextField'
+                                               name='email'
+                                               error={state.error}
+                                               validationMethod={ value => (!value || value.length <= 10) ? "Input length must be greater than 10" : null}
+                                               label="Input Length > 10"/>
+                                    <Button type="submit">Submit</Button>
+                                </React.Fragment>
+
+                            )}
+                        </Form.ContextConsumer>
+                    </Form>
+                )
+            }
+        }
+    </StatefulComponent>
 </Playground>
 
 ## Props
