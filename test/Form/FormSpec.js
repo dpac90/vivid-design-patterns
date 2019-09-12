@@ -47,7 +47,7 @@ describe('<Form />', () => {
         expect(mockOnValidationFailure).not.toHaveBeenCalled();
     });
 
-    it('calls onSubmit with the correct param', () => {
+    it('calls onSubmit with the correct parameters', () => {
         const wrapper = mount(form);
         wrapper.find(TextField).setState({ value: 13 });
         wrapper.find('form').simulate('submit');
@@ -60,5 +60,17 @@ describe('<Form />', () => {
         wrapper.find('form').simulate('submit');
         expect(mockOnSubmit).not.toHaveBeenCalled();
         expect(mockOnValidationFailure).toHaveBeenCalledWith(expect.arrayContaining([expect.any(TextField)]));
+    });
+
+    it('resets error props on onSubmit', () => {
+        const errorText = 'error';
+        const wrapper = mount(form);
+        wrapper.find(TextField).setState({ error: errorText });
+        expect(wrapper.find('.vdp-helper-text--validation').text()).toBe(errorText);
+        wrapper.find('input').simulate('change', { target: { value: 'a' } });
+        expect(wrapper.exists('.vdp-helper-text--validation')).toBe(false);
+        wrapper.find('form').simulate('submit');
+        wrapper.find(TextField).setState({ error: errorText });
+        expect(wrapper.find('.vdp-helper-text--validation').text()).toBe(errorText);
     });
 });

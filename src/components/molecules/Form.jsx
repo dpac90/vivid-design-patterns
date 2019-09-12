@@ -61,6 +61,7 @@ class Form extends React.Component {
         if (isFormValid) {
             const formOutput = {};
             this.inputs.forEach(input => {
+                input.resetPrevErrorProp && input.resetPrevErrorProp();
                 formOutput[input.props.name] = this.getInputValue(input);
             });
             onSubmit(formOutput);

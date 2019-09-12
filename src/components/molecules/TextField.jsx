@@ -44,8 +44,19 @@ class TextField extends React.Component {
         dirty: false
     };
 
+    static getDerivedStateFromProps(props, state) {
+        if (props.error !== state.prevErrorProp) {
+            return {
+                prevErrorProp: props.error,
+                error: props.error
+            };
+        }
+
+        return null;
+    }
+
     componentDidUpdate(prevProps) {
-        const { error, value } = this.props;
+        const { value } = this.props;
         const { dirty } = this.state;
         const isDirty = !!value;
 
@@ -53,9 +64,6 @@ class TextField extends React.Component {
             this.setState({
                 dirty: isDirty
             });
-        }
-        if (error !== prevProps.error) {
-            this.setState({ error });
         }
     }
 
@@ -82,6 +90,13 @@ class TextField extends React.Component {
         this.setState({ active: !!value, dirty: true, error });
         this.props.onBlur(e);
     };
+
+    // Called By Ref in Parent Form
+    resetPrevErrorProp() {
+        this.setState({
+            prevErrorProp: ''
+        });
+    }
 
     render() {
         const {

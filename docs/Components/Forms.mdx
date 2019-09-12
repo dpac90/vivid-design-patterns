@@ -55,6 +55,9 @@ Forms provide a `setForm` callback via a Context Consumer. This `setForm` callba
                             error: "Wrong email address"
                         });
                     } else {
+                        setState({
+                            error: "",
+                        });
                         alert("Form submitted" + JSON.stringify(output));
                     }
                 };
