@@ -26,3 +26,23 @@
         z-index: -1;
     }
 }
+
+.vdp-react-backdrop {
+    @include position(fixed, 0 null null 0);
+    background-color: rgba($color-black, 0.75);
+    height: 100%;
+    pointer-events: none;
+    width: 100%;
+    z-index: $z-index-backdrop;
+
+    pointer-events: all;
+
+    [class^='vdp-modal'] & {
+        z-index: -1;
+    }
+}
+.vdp-react-modal + .vdp-react-backdrop {
+    &.vdp-react-backdrop {
+        z-index: $z-index-modal - 1;
+    }
+}

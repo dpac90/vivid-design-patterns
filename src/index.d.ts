@@ -23,8 +23,8 @@ import {
 type ValidationMethod = (value: string) => string | null;
 
 interface BackdropProps {
+    isOpen: boolean;
     className?: string;
-    dataState: 'opening' | 'closing' | 'opened' | 'closed';
     onClick?: MouseEventHandler<HTMLDivElement>;
 }
 declare const Backdrop: FC<BackdropProps>;
@@ -273,7 +273,7 @@ interface Accordion {
 }
 declare const Accordion: FC<Accordion> & { Collapse: FC<Collapse> };
 
-interface Card {
+interface Card extends HTMLAttributes<HTMLDivElement> {
     type?: 'standard' | 'list' | 'anchor';
     /** this method is also called upon when users presses the enter key on the card element */
     onClick?: (e: MouseEvent<HTMLElement> | KeyboardEvent) => void;
@@ -386,14 +386,11 @@ interface LinkGroup extends HTMLAttributes<HTMLUListElement> {
 declare const LinkGroup: FC<LinkGroup>;
 
 interface Modal extends HTMLAttributes<HTMLElement> {
+    isOpen: boolean;
     backgroundImage?: string;
-    dataState?: 'opened' | 'closed';
     disableBackdrop?: boolean;
-    onClose?: () => void;
-    onOpen?: () => void;
-    title?: string;
     type?: 'sheet' | 'full-screen';
-    closeOnBackdropClick?: boolean;
+    onClickBackdrop?: () => void;
 }
 
 declare const Modal: FC<Modal> & { Footer: FC<ModalFooter>; Header: FC<ModalHeader>; Body: FC<ModalBody>; Backdrop: FC<BackdropProps> };
@@ -483,9 +480,10 @@ declare const LoadingSpinner: FC<LoadingSpinner>;
 
 interface Notification extends HTMLAttributes<HTMLDivElement> {
     isOpen: boolean;
-    type: 'toast';
     children?: ReactNode;
     onClickClose?: () => void;
+    onClickBackdrop?: () => void;
+    hasBackdrop?: boolean;
 }
 declare const Notification: FC<Notification>;
 

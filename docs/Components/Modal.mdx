@@ -10,10 +10,15 @@ import Modal from '../../src/components/molecules/Modal';
 import Icon from '../../src/components/atoms/Icon';
 import Headline from '../../src/components/atoms/Headline';
 import Button from '../../src/components/atoms/Button';
-import ModalButtonExample from '../ModalButtonExample';
+import BodyText from '../../src/components/atoms/BodyText';
+import StatefulComponent from '../StatefulComponent';
 import '../docz.scss';
 
 # Modal
+
+### WARNING
+
+Due to the JS enter/exit animations for the react component, use `vdp-modal` and `data-state` for plain HTML elements and the prop API `isOpen` for React components.
 
 ## Installation
 
@@ -27,15 +32,53 @@ Using the scss files:
 
 ## Basic Example
 
-`React: className="vdp-modal" dataState="opened" HTML: class="vdp-modal" data-state="opened"`
+`React: isOpen={true} HTML: className="vdp-modal" data-state="opened"`
 
 <Playground style={{ minHeight: '400px', height: '100%' }}>
-    <Modal dataState="opened">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-        in culpa qui officia deserunt mollit anim id est laborum.
+    <Modal isOpen>
+        <Modal.Header>Header For Modal</Modal.Header>
+        <Modal.Body>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+            enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+            sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </Modal.Body>
+        <Modal.Footer>Footer</Modal.Footer>
     </Modal>
+</Playground>
+
+### Modal is rendered by a component that passes in a changing isOpen prop
+
+<Playground style={{ minHeight: '400px', height: '100%' }}>
+    <StatefulComponent initialState={{ isOpen: false }}>
+        {({ state, setState }) => {
+            return (
+                <React.Fragment>
+                    <Button onClick={() => setState({ isOpen: !state.isOpen })}>Click</Button>
+                    <Modal isOpen={state.isOpen} onClickBackdrop={() => setState({ isOpen: false })}>
+                        <Modal.Header>Modal Header</Modal.Header>
+                        <Modal.Body>
+                            <BodyText importance={2}>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                                anim id est laborum.
+                            </BodyText>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button muted importance="text" onClick={() => setState({ isOpen: false })}>
+                                Dismiss
+                            </Button>
+                            <Button importance="text" onClick={() => setState({ isOpen: false })}>
+                                Confirm
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </React.Fragment>
+            );
+        }}
+    </StatefulComponent>
 </Playground>
 
 ## Modal Props
@@ -55,114 +98,3 @@ Modal headers can either take in a title prop to render a default Header, or tak
 ### Modal Footer Props
 
 <Props of={Modal.Footer} />
-
-### Backdrop Props
-
-<Props of={Modal.Backdrop} />
-
-## Props Example
-
-`dataState="opened" title="Modal Title" type="sheet" onClose={() => window.alert('on close fired')`
-
-<Playground style={{ minHeight: '400px', height: '100%' }}>
-    <Modal dataState="opened" title="Modal Title" type="sheet" onClose={() => window.alert('on close fired')}>
-        This sheet modal is uses a prop for the modal title, passes in the body text, and uses the default modal footer and dismiss button.
-    </Modal>
-</Playground>
-
-## Sub-Component Example
-
-```
-<Modal>
-    <Modal.Header />
-    <Modal.Body />
-    <Modal.Footer />
-</Modal>
-```
-
-<Playground style={{ minHeight: '400px', height: '100%' }}>
-    <Modal dataState="opened">
-        <Modal.Header>
-            <Headline importance={6}>Custom Modal H4 Header</Headline>
-        </Modal.Header>
-        <Modal.Body>
-            <p>This modal is using subcomponents for the modal header, body, and footer.</p>
-        </Modal.Body>
-        <Modal.Footer>
-            <Button importance="tertiary" onClick={() => window.alert('custom button clicked')}>
-                Custom button
-            </Button>
-        </Modal.Footer>
-    </Modal>
-</Playground>
-
-## Full Screen Example
-
-```
-    <Modal type="full-screen"/>
-```
-
-The full screen modal is available only for mobile screen sizes and doesn't have a default modal footer subcomponent.
-
-<Playground style={{ minHeight: '400px', height: '100%' }}>
-    <Modal type="full-screen" dataState="opened">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-        in culpa qui officia deserunt mollit anim id est laborum.
-    </Modal>
-</Playground>
-
-## Example with External Button
-
-### Modal is rendered by a component that passes in a changing dataState prop
-
-`dataState={!!state.opened ? 'opened' : 'closed'}`
-
-<Playground style={ { minHeight: '400px', height: '100%' } } >
-    {/*
-        class ModalButtonExample extends React.Component {
-            state = {
-                opened: false
-            };
-
-            onClick = opened => {
-                this.setState({ opened });
-            };
-
-            render() {
-                const { state, onClick } = this;
-
-                return (
-                    <React.Fragment>
-                        <Button onClick={() => onClick(true)}>Click</Button>
-                        <Modal dataState={!!state.opened ? 'opened' : 'closed'}>
-                            <Modal.Header>Modal Header</Modal.Header>
-                            <Modal.Body>
-                                <BodyText importance={2}>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                                    laborum.
-                                </BodyText>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button muted importance="text" onClick={() => onClick(false)}>
-                                    Dismiss
-                                </Button>
-                                <Button importance="text" onClick={() => onClick(false)}>
-                                    Confirm
-                                </Button>
-                            </Modal.Footer>
-                        </Modal>
-                    </React.Fragment>
-                );
-            }
-        }
-
-    */}
-
-    <ModalButtonExample />
-
-</Playground>
