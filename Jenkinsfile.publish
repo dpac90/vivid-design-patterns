@@ -48,9 +48,7 @@ pipeline {
                       passwordVariable: 'GITHUB_TOKEN',
                       usernameVariable: 'GITHUB_USERNAME')]) {
 
-                          sh "
-                            GITHUB_AUTH=${env.GITHUB_TOKEN} yarn changelog
-                          "
+                          sh "GITHUB_AUTH=${env.GITHUB_TOKEN} yarn changelog"
 
                      }
 
