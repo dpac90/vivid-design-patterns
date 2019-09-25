@@ -43,23 +43,19 @@ pipeline {
 
     stage('Publish') {
         steps {
-            sh "export GITHUB_AUTH=${env.GITHUB_TOKEN}"
-            sh "yarn publish --new-version ${params.SEM_VER_TYPE}"
+            withCredentials([
+                                  usernamePassword(
+                                  credentialsId: GIT_CREDENTIALS,
+                                  passwordVariable: 'GITHUB_TOKEN',
+                                  usernameVariable: 'GITHUB_USERNAME')]) {
+
+                                      sh """
+                                                    sh "export GITHUB_AUTH=${env.GITHUB_TOKEN}"
+                                                    sh "yarn changelog"
+                                      """
+
+                                 }
         }
     }
 
-    stage('Push version change to github') {
-      steps {
-        sh "git push origin HEAD:master --follow-tag"
-       }
-     }
-   }
-
-  post {
-    always {
-        script {
-            sendSlackNotification(buildStatus: currentBuild.currentResult, channel: "#eng-team-web")
-        }
-    }
-  }
 }
