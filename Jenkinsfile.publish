@@ -10,6 +10,10 @@ pipeline {
     }
   }
 
+  environment {
+    GITHUB_AUTH = "${env.GITHUB_TOKEN}"
+  }
+
   parameters {
     choice(choices: ['patch', 'minor', 'major'], description: 'What kind of change are you publishing? Major changes are breaking changes. Minor changes are new features, eg. new components, and patches are bug fixes on components. For more information, visit: https://semver.org/', name: 'SEM_VER_TYPE')
   }
@@ -48,7 +52,6 @@ pipeline {
                       credentialsId: GIT_CREDENTIALS,
                       passwordVariable: 'GITHUB_TOKEN',
                       usernameVariable: 'GITHUB_USERNAME')]) {
-                          sh "export GITHUB_AUTH=${env.GITHUB_TOKEN}"
                           sh "yarn publish --new-version ${params.SEM_VER_TYPE}"
                      }
         }
