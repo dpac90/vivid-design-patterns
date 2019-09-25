@@ -52,7 +52,7 @@ pipeline {
                       credentialsId: GIT_CREDENTIALS,
                       passwordVariable: 'GITHUB_TOKEN',
                       usernameVariable: 'GITHUB_USERNAME')]) {
-                          sh "yarn publish --new-version ${params.SEM_VER_TYPE}"
+                          sh "yarn changelog"
                      }
         }
     }
