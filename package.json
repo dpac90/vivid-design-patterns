@@ -90,7 +90,7 @@
     },
     "scripts": {
         "clean": "./node_modules/.bin/rimraf ./dist",
-        "changelog": "./node_modules/.bin/lerna-changelog",
+        "changelog": "./node_modules/.bin/lerna-changelog > CHANGELOG.md",
         "start:docs": "./node_modules/.bin/docz dev",
         "build:docs": "./node_modules/.bin/docz build",
         "build:js": "./node_modules/.bin/gulp bundle_js && ./node_modules/.bin/gulp copy_ts",
