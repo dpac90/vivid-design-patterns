@@ -50,7 +50,7 @@ pipeline {
         }
     }
 
-    stage('Push version change to github') {
+    stage('Push version change and changelog to github') {
           steps {
             sh "git add CHANGELOG.md"
             sh "git commit -m 'Post publish change-log generation commit'"
