@@ -40,19 +40,13 @@ pipeline {
 
     stage('Install dependencies') {
         steps {
-            sh "yarn install"
+            sh "echo $GITHUB_AUTH"
         }
     }
 
     stage('Publish') {
         steps {
-            withCredentials([
-                      usernamePassword(
-                      credentialsId: GIT_CREDENTIALS,
-                      passwordVariable: 'GITHUB_TOKEN',
-                      usernameVariable: 'GITHUB_USERNAME')]) {
-                          sh "yarn postversion"
-                     }
+            sh "yarn postversion"
         }
     }
 
