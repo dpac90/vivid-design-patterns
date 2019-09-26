@@ -28,8 +28,6 @@ pipeline {
                       usernameVariable: 'GITHUB_USERNAME')]) {
 
                           sh """
-                            export GITHUB_AUTH=${env.GITHUB_TOKEN}
-                            echo $GITHUB_AUTH
                             git config --replace-all user.email ${env.GITHUB_USERNAME}@vividseats.com
                             git config --replace-all user.name ${env.GITHUB_USERNAME}
                             git config credential.helper store
