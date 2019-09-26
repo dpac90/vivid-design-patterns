@@ -11,7 +11,7 @@ pipeline {
   }
 
   environment {
-    GITHUB_AUTH = "${buildContext}"
+    GITHUB_AUTH = vault path: 'jenkins/master', key: 'GITHUB_TOKEN'
   }
 
   parameters {
