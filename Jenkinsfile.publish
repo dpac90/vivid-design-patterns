@@ -46,7 +46,7 @@ pipeline {
 
     stage('Publish') {
         steps {
-            sh "yarn changelog"
+            sh "yarn postversion"
         }
     }
 
