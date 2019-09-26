@@ -21,7 +21,6 @@ pipeline {
   stages {
     stage('Prepare git environment') {
         steps {
-            sendSlackNotification(buildStatus: "Publishing ${params.SEM_VER_TYPE} update to Vivid Design Patterns", channel: "#eng-team-web")
             withCredentials([
                       usernamePassword(
                       credentialsId: GIT_CREDENTIALS,
@@ -52,7 +51,7 @@ pipeline {
                       credentialsId: GIT_CREDENTIALS,
                       passwordVariable: 'GITHUB_TOKEN',
                       usernameVariable: 'GITHUB_USERNAME')]) {
-                          sh "yarn publish --new-version ${params.SEM_VER_TYPE}"
+                          sh "yarn postversion"
                      }
         }
     }
@@ -63,13 +62,5 @@ pipeline {
            }
      }
   }
-
-   post {
-      always {
-          script {
-              sendSlackNotification(buildStatus: currentBuild.currentResult, channel: "#eng-team-web")
-          }
-      }
-    }
 
 }
