@@ -47,12 +47,13 @@ pipeline {
     stage('Publish') {
         steps {
             sh "yarn changelog"
-            sh "tail ./CHANGELOG.md"
         }
     }
 
     stage('Push version change to github') {
           steps {
+            sh "git add CHANGELOG.md"
+            sh "git commit -m 'Post publish change-log generation commit'"
             sh "git push origin HEAD:master --follow-tag"
            }
      }
