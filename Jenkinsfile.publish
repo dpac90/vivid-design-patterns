@@ -10,6 +10,10 @@ pipeline {
     }
   }
 
+  environment {
+    GITHUB_AUTH = vault path: "jenkins/master", key: "GITHUB_TOKEN", engineVersion: "1"
+  }
+
   parameters {
     choice(choices: ['patch', 'minor', 'major'], description: 'What kind of change are you publishing? Major changes are breaking changes. Minor changes are new features, eg. new components, and patches are bug fixes on components. For more information, visit: https://semver.org/', name: 'SEM_VER_TYPE')
   }
@@ -47,12 +51,14 @@ pipeline {
         }
     }
 
-    stage('Push version change to github') {
-      steps {
-        sh "git push origin HEAD:master --follow-tag"
-       }
+    stage('Push version change and changelog to github') {
+          steps {
+            sh "git add CHANGELOG.md"
+            sh "git commit -m 'Post publish change-log generation commit'"
+            sh "git push origin HEAD:master --follow-tag"
+           }
      }
-   }
+  }
 
   post {
     always {

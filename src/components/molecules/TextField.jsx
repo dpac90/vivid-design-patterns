@@ -55,6 +55,11 @@ class TextField extends React.Component {
         return null;
     }
 
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        // Dont trigger update when parent form and set prevErrorProp to null to clear errors on submission
+        return !(this.state.prevErrorProp !== '' && nextState == '');
+    }
+
     componentDidUpdate(prevProps) {
         const { value } = this.props;
         const { dirty } = this.state;

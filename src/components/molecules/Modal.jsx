@@ -1,160 +1,96 @@
+import 'core-js/es6/string';
+import 'core-js/es6/object';
+import 'core-js/es7/object';
+import 'core-js/es6/array';
+import 'core-js/es7/array';
+import 'core-js/es6/set';
+import 'core-js/es7/set';
+import 'core-js/modules/es6.regexp.constructor';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Transition, animated } from 'react-spring/renderprops.cjs';
+import useMedia from 'use-media';
 
 import ModalHeader from '../atoms/ModalHeader';
 import ModalBody from '../atoms/ModalBody';
 import ModalFooter from '../atoms/ModalFooter';
 import Backdrop from '../atoms/Backdrop';
 
-class Modal extends React.Component {
-    static Header = ModalHeader;
-    static Body = ModalBody;
-    static Footer = ModalFooter;
-    static Backdrop = Backdrop;
+/* eslint-disable react/display-name */
 
-    static TYPES = {
-        SHEET: 'sheet',
-        FULL_SCREEN: 'full-screen'
+const Modal = ({
+    backgroundImage,
+    className = '',
+    disableBackdrop = false,
+    isOpen = false,
+    type = '',
+    children,
+    onClickBackdrop = () => {},
+    animate = true,
+    ...htmlAtrributes
+}) => {
+    const isMobile = useMedia({ maxWidth: 768 });
+    const sheet = {
+        open: { bottom: '0%' },
+        closed: { bottom: '-100%' }
     };
 
-    static DATA_STATE = {
-        OPENED: 'opened',
-        OPENING: 'opening',
-        CLOSED: 'closed',
-        CLOSING: 'closing'
+    const transitionProps = {
+        from: type === 'sheet' && isMobile ? sheet.closed : { opacity: 1, transform: 'scale(0.3)' },
+        enter: type === 'sheet' && isMobile ? sheet.open : { opacity: 1, transform: 'scale(1.0)' },
+        leave: type === 'sheet' && isMobile ? sheet.closed : { opacity: 0, transform: 'scale(0.3)' }
     };
 
-    static propTypes = {
-        backgroundImage: PropTypes.string,
-        className: PropTypes.string,
-        children: PropTypes.node,
-        dataState: PropTypes.oneOf([Modal.DATA_STATE.OPENED, Modal.DATA_STATE.CLOSED]),
-        disableBackdrop: PropTypes.bool,
-        onClose: PropTypes.func,
-        onOpen: PropTypes.func,
-        title: PropTypes.string,
-        type: PropTypes.oneOf([Modal.TYPES.SHEET, Modal.TYPES.FULL_SCREEN]),
-        closeOnBackdropClick: PropTypes.bool
-    };
+    const typeClassName = !!type.length ? `--${type}` : type;
+    const isIe11 = !!window.MSInputMethodContext && !!document.documentMode;
+    const shouldAnimate = !isIe11 && animate;
+    const backgroundStyle = !!backgroundImage ? { backgroundImage: `url('${backgroundImage}')` } : null;
+    return (
+        <>
+            <Transition native items={isOpen} immediate={!shouldAnimate} {...transitionProps}>
+                {show =>
+                    show &&
+                    (animationProps => {
+                        return (
+                            <animated.aside
+                                className={`vdp-react-modal ${typeClassName}${!!className ? ` ${className}` : ''}`}
+                                onClick={onClickBackdrop}
+                                {...htmlAtrributes}>
+                                <animated.div
+                                    style={{ ...animationProps, ...backgroundStyle }}
+                                    onClick={e => e.stopPropagation()}
+                                    className={`vdp-react-modal__container ${isOpen ? '--open' : ''}`}>
+                                    {children}
+                                </animated.div>
+                            </animated.aside>
+                        );
+                    })
+                }
+            </Transition>
+            {!disableBackdrop && <Backdrop isOpen={isOpen} />}
+        </>
+    );
+};
 
-    static defaultProps = {
-        dataState: Modal.DATA_STATE.CLOSED,
-        onOpen: () => {},
-        onClose: () => {},
-        closeOnBackdropClick: true
-    };
+Modal.Header = ModalHeader;
+Modal.Body = ModalBody;
+Modal.Footer = ModalFooter;
+Modal.Backdrop = Backdrop;
 
-    constructor(props) {
-        super(props);
+Modal.TYPES = {
+    SHEET: 'sheet',
+    FULL_SCREEN: 'full-screen'
+};
 
-        this.state = {
-            dataState: this.props.dataState
-        };
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        const { props, state } = this;
-        const { OPENED, OPENING, CLOSED, CLOSING } = Modal.DATA_STATE;
-        const TRANSITION_TIME = 500;
-
-        const hasStateChange = state.dataState !== prevState.dataState && props.dataState === prevProps.dataState;
-        const hasPropChange = props.dataState !== prevProps.dataState && prevState.dataState === state.dataState;
-
-        // delay for transition
-        const handleOpen = () => {
-            setTimeout(() => this.setState({ dataState: OPENED }), TRANSITION_TIME);
-        };
-
-        const handleClose = () => {
-            setTimeout(() => this.setState({ dataState: CLOSED }), TRANSITION_TIME);
-        };
-
-        if (hasStateChange && state.dataState === OPENING) {
-            handleOpen();
-        } else if (hasPropChange && props.dataState === OPENED) {
-            this.setState({ dataState: OPENING }, handleOpen);
-        } else if (hasStateChange && state.dataState === CLOSING) {
-            handleClose();
-        } else if (hasPropChange && props.dataState === CLOSED) {
-            this.setState({ dataState: CLOSING }, handleClose);
-        }
-    }
-
-    toggleModal = () => {
-        const { dataState } = this.state;
-
-        if (dataState === Modal.DATA_STATE.CLOSED) {
-            this.setState({ dataState: Modal.DATA_STATE.OPENING }, this.props.onOpen); // opening and closing dataStates for scss transitions
-        } else if (dataState === Modal.DATA_STATE.OPENED) {
-            this.setState({ dataState: Modal.DATA_STATE.CLOSING }, this.props.onClose);
-        }
-    };
-
-    getChild = (children = [], childName) => {
-        const matches = children.filter(child => !!child.type && child.type.displayName === childName);
-        return !!matches.length ? matches[0] : null;
-    };
-
-    render() {
-        const { props, state, toggleModal, getChild } = this;
-        const {
-            backgroundImage,
-            className = '',
-            disableBackdrop = false,
-            title = '',
-            dataState: dataStateProp,
-            onOpen,
-            closeOnBackdropClick,
-            type = '',
-            ...htmlAtrributes
-        } = props;
-        let { children } = props;
-        const { dataState = '' } = state;
-
-        if (dataState === Modal.DATA_STATE.CLOSED) {
-            return null;
-        }
-
-        children = React.Children.toArray(children);
-        const typeClassName = !!type.length ? `--${type}` : type;
-
-        const ModalHeaderChild = getChild(children, ModalHeader.displayName);
-        const ModalBodyChild = getChild(children, ModalBody.displayName);
-        const ModalFooterChild = getChild(children, ModalFooter.displayName);
-        const BackdropChild = getChild(children, Backdrop.displayName);
-
-        const bodyChildren = children.filter(child => {
-            if (!child.type) {
-                return true;
-            }
-
-            const { displayName } = child.type;
-            const childDisplayNames = [ModalHeader.displayName, ModalBody.displayName, ModalFooter.displayName, Backdrop.displayName];
-
-            return !displayName || !childDisplayNames.includes(displayName);
-        });
-
-        const style = !!backgroundImage ? { backgroundImage: `url('${backgroundImage}')` } : null;
-
-        return (
-            <React.Fragment>
-                <aside
-                    className={`vdp-modal${typeClassName}${!!className ? ` ${className}` : ''}`}
-                    data-state={dataState.length ? dataState : Modal.DATA_STATE.CLOSED}
-                    {...htmlAtrributes}>
-                    <div className="vdp-modal__container" style={style}>
-                        {ModalHeaderChild || title ? ModalHeaderChild || <Modal.Header title={title} /> : null}
-                        {ModalBodyChild || <Modal.Body>{bodyChildren}</Modal.Body>}
-                        {type !== Modal.TYPES.FULL_SCREEN ? ModalFooterChild || <Modal.Footer onDismiss={toggleModal} /> : null}
-                    </div>
-                    {BackdropChild ||
-                        (!disableBackdrop && (
-                            <Modal.Backdrop dataState={dataState} onClick={closeOnBackdropClick ? toggleModal : () => {}} />
-                        ))}
-                </aside>
-            </React.Fragment>
-        );
-    }
-}
+Modal.propTypes = {
+    backgroundImage: PropTypes.string,
+    animate: PropTypes.bool,
+    className: PropTypes.string,
+    children: PropTypes.node,
+    isOpen: PropTypes.bool.isRequired,
+    disableBackdrop: PropTypes.bool,
+    type: PropTypes.oneOf([Modal.TYPES.SHEET, Modal.TYPES.FULL_SCREEN]),
+    onClickBackdrop: PropTypes.func
+};
 
 export default Modal;
