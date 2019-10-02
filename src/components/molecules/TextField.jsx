@@ -40,25 +40,10 @@ class TextField extends React.Component {
     state = {
         active: !!this.props.defaultValue,
         value: this.props.defaultValue,
-        error: this.props.error,
-        dirty: false
+        error: '',
+        dirty: false,
+        showControlledError: !!this.props.error
     };
-
-    static getDerivedStateFromProps(props, state) {
-        if (props.error !== state.prevErrorProp) {
-            return {
-                prevErrorProp: props.error,
-                error: props.error
-            };
-        }
-
-        return null;
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        // Dont trigger update when parent form and set prevErrorProp to null to clear errors on submission
-        return !(this.state.prevErrorProp !== '' && nextState.prevErrorProp === '');
-    }
 
     componentDidUpdate(prevProps) {
         const { value } = this.props;
@@ -79,7 +64,8 @@ class TextField extends React.Component {
         this.setState({
             value,
             error,
-            active: !!value
+            active: !!value,
+            showControlledError: false
         });
         this.props.onChange(e);
     };
@@ -97,9 +83,9 @@ class TextField extends React.Component {
     };
 
     // Called By Ref in Parent Form
-    resetPrevErrorProp() {
+    setShowControlledErrorState() {
         this.setState({
-            prevErrorProp: ''
+            showControlledError: true
         });
     }
 
@@ -119,18 +105,21 @@ class TextField extends React.Component {
             type,
             className,
             value,
+            error: controlledError,
             ...htmlAttributes
         } = this.props;
-        const { active, dirty, error } = this.state;
+        const { active, dirty, error, showControlledError } = this.state;
         const inputContainerClassName = classNames('vdp-textfield', {
             [`${className}`]: className,
             '--outlined': outlined
         });
 
+        const shouldShowControlledError = showControlledError && controlledError;
+        const errorState = !!error || shouldShowControlledError;
         const dataState = classNames({
-            error,
+            error: errorState,
             filled: active || !!value,
-            success: !error && dirty && !noValidate
+            success: !errorState && dirty && !noValidate
         });
 
         const inputProps = {
@@ -157,6 +146,7 @@ class TextField extends React.Component {
                     {label}
                 </label>
                 {!!error && <span className="vdp-helper-text--validation">{error}</span>}
+                {!!shouldShowControlledError && <span className="vdp-helper-text--validation">{controlledError}</span>}
                 {!!helperText && <span className="vdp-helper-text">{error}</span>}
             </div>
         );

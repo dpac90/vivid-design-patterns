@@ -25,8 +25,8 @@ module.exports = {
         }),
         commonjs({
             extensions: ['.js', '.jsx']
-        }),
-        !isDev && uglify()
+        })
+        // !isDev && uglify()
     ],
     isCache: isDev
 };

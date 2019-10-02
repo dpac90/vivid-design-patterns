@@ -15,6 +15,7 @@ import ModalHeader from '../atoms/ModalHeader';
 import ModalBody from '../atoms/ModalBody';
 import ModalFooter from '../atoms/ModalFooter';
 import Backdrop from '../atoms/Backdrop';
+import onEnterPress from '../../utils/onEnterPress';
 
 /* eslint-disable react/display-name */
 
@@ -25,8 +26,11 @@ const Modal = ({
     isOpen = false,
     type = '',
     children,
-    onClickBackdrop = () => {},
+    onClickBackdrop,
     animate = true,
+    closeWithEscapeKey = true,
+    // Method called when user wants to close the Modal
+    onClose = () => {},
     ...htmlAtrributes
 }) => {
     const isMobile = useMedia({ maxWidth: 768 });
@@ -45,16 +49,20 @@ const Modal = ({
     const isIe11 = !!window.MSInputMethodContext && !!document.documentMode;
     const shouldAnimate = !isIe11 && animate;
     const backgroundStyle = !!backgroundImage ? { backgroundImage: `url('${backgroundImage}')` } : null;
+    const handleKeyDown = e => {
+        closeWithEscapeKey && onEnterPress(onClose, e);
+    };
+
     return (
         <>
-            <Transition native items={isOpen} immediate={!shouldAnimate} {...transitionProps}>
+            <Transition onKeyDown={handleKeyDown} native items={isOpen} immediate={!shouldAnimate} {...transitionProps}>
                 {show =>
                     show &&
                     (animationProps => {
                         return (
                             <animated.aside
                                 className={`vdp-react-modal ${typeClassName}${!!className ? ` ${className}` : ''}`}
-                                onClick={onClickBackdrop}
+                                onClick={typeof onClickBackdrop === 'undefined' ? onClose : onClickBackdrop}
                                 {...htmlAtrributes}>
                                 <animated.div
                                     style={{ ...animationProps, ...backgroundStyle }}
@@ -90,7 +98,9 @@ Modal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     disableBackdrop: PropTypes.bool,
     type: PropTypes.oneOf([Modal.TYPES.SHEET, Modal.TYPES.FULL_SCREEN]),
-    onClickBackdrop: PropTypes.func
+    onClickBackdrop: PropTypes.func,
+    onClose: PropTypes.func,
+    closeWithEscapeKey: PropTypes.bool
 };
 
 export default Modal;
