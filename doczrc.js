@@ -2,7 +2,7 @@ import { css } from 'docz-plugin-css';
 
 export default {
     debug: true,
-    port: 8080,
+    port: 9090,
     onCreateWebpackChain: config => {
         // Allow SCSS imports
         config.module
