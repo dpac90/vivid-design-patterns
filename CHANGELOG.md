@@ -1,5 +1,5 @@
 
-## Unreleased (2019-10-09)
+## v5.1.0 (2019-10-09)
 
 #### :rocket: Enhancement
 * [#117](https://github.com/VividSeats/vivid-design-patterns/pull/117) Allow closing of Modal with escape key ([@ylin6](https://github.com/ylin6))
