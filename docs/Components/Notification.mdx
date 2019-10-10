@@ -67,29 +67,29 @@ If no `onClickClose` callback is passed, the notification component will not ren
 <Playground>
     <StatefulComponent initialState={{open: false}}>
         {
-                ({state, setState}) => {
-                    const { open } = state;
-                    const handleClose = () => {
-                        setState({open: false})
-                    }
+            ({state, setState}) => {
+                const { open } = state;
+                const handleClose = () => {
+                    setState({open: false})
+                }
 
-                    const toggleNotification = () => {
-                        setState({open: !open})
-                    }
+                const toggleNotification = () => {
+                    setState({open: !open})
+                }
 
-                    return (
-                        <Fragment>
-                            <Button onClick={toggleNotification}>Toggle Notification</Button>
-                            <Notification isOpen={open}>
-                                <Headline state="inverted" importance={3}>Vivid Seats </Headline>
-                                <Headline state="inverted" importance={3}>Buy In-App,</Headline>
-                                <Headline state="inverted" importance={3}>Earn Credit Back</Headline>
-                                <Button onClick={handleClose}> Close </Button>
-                    </Notification>
-                </Fragment>
-            )
+                return (
+                    <Fragment>
+                        <Button onClick={toggleNotification}>Toggle Notification</Button>
+                        <Notification isOpen={open}>
+                            <Headline state="inverted" importance={3}>Vivid Seats </Headline>
+                            <Headline state="inverted" importance={3}>Buy In-App,</Headline>
+                            <Headline state="inverted" importance={3}>Earn Credit Back</Headline>
+                            <Button onClick={handleClose}> Close </Button>
+                        </Notification>
+                    </Fragment>
+                )
+            }
         }
-    }
     </StatefulComponent>
 
 </Playground>

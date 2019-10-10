@@ -30,5 +30,5 @@ export default {
             }
         }
     },
-    dest: 'server/static/'
+    dest: 'server/'
 };
