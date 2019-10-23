@@ -62,6 +62,7 @@ const EventRow = ({
     onChange = () => {},
     onClick = () => {},
     isInternationalVenue = false,
+    eventType = 'Event',
     ...htmlAttributes
 }) => {
     const { getColClassName, BASE_CLASSNAME, COL_CLASSNAMES, BUTTON_TEXT } = EventRow;
@@ -77,7 +78,7 @@ const EventRow = ({
             href={href}
             type="anchor"
             itemScope
-            itemType="http://schema.org/Event"
+            itemType={`http://schema.org/${eventType}`}
             role="row"
             onClick={e => {
                 onChange(!checkboxState);
@@ -216,7 +217,8 @@ EventRow.propTypes = {
     hasCheckbox: PropTypes.bool,
     /** onChange is passed a boolean indicating the new checkbox state */
     onChange: PropTypes.func,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    eventType: PropTypes.string
 };
 
 export default EventRow;
