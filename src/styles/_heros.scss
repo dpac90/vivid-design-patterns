@@ -167,6 +167,11 @@ $hero-overlay-gradient: rgba($color-black, 0), $color-black;
             border-top-width: 5rem;
         }
     }
+    // IE11 text overflow fix
+    .vdp-page-hero__subtitle,
+    .vdp-page-hero__title {
+        width: 100%;
+    }
 }
 
 // Centered
@@ -174,7 +179,6 @@ $hero-overlay-gradient: rgba($color-black, 0), $color-black;
 [class^='vdp-page-hero'][class*='--marketing'] {
     .vdp-page-hero__content {
         @include align-content(center);
-        @include flex-direction(column);
         @include flex-wrap(wrap);
         @include justify-content(center);
         margin: 0 auto;
