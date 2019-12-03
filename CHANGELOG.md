@@ -1,5 +1,5 @@
 
-## Unreleased (2019-11-26)
+## Unreleased (2019-12-03)
 
 #### :boom: Breaking Change
 * [#111](https://github.com/VividSeats/vivid-design-patterns/pull/111) animate-js ([@cmoog](https://github.com/cmoog))
