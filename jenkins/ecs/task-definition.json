@@ -4,7 +4,7 @@
       "memoryReservation": 256,
       "portMappings": [
         {
-          "containerPort": 3636,
+          "containerPort": 80,
           "protocol": "tcp"
         }
       ],
