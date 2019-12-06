@@ -9,7 +9,7 @@
         }
       ],
       "essential": true,
-      "name": "vivid-design-patterns",
+      "name": "patterns-service",
       "environment": [
         {"name": "ENVIRONMENT", "value": "production"},
         {"name": "APP_ENV", "value": "production"},
