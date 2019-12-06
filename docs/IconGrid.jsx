@@ -187,7 +187,7 @@ const IconGrid = () => {
                     <IconExample onCopy={onCopyText} type={type} entity={entity} />
                 ))}
             </Row>
-            <Notification isOpen={showNotification}>
+            <Notification isOpen={showNotification} style={{ background: 'white' }}>
                 <BodyText weight="medium" importance={2}>
                     {copiedText}
                 </BodyText>{' '}
