@@ -11,7 +11,11 @@ ephemeral: true
 
 web:
   hosts:
+    {{ if eq (index .Env "BRANCH_LOWER") "master" }}
+    - patterns.vividseats.com
+    {{ else }}
     - vivid-design-patterns-{{ index .Env "BRANCH_LOWER" }}.vividseats.test
+    {{ end }}
   port: 80
 
 containers:
