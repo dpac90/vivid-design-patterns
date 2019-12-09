@@ -154,37 +154,37 @@ const IconGrid = () => {
             {!!inputIcons.length && <Headline importance={6}>Inputs</Headline>}
             <Row>
                 {inputIcons.map(({ type, entity }) => (
-                    <IconExample onCopy={onCopyText} type={type} entity={entity} />
+                    <IconExample key={entity} onCopy={onCopyText} type={type} entity={entity} />
                 ))}
             </Row>
             {!!interactionIcons.length && <Headline importance={6}>Interaction</Headline>}
             <Row>
                 {interactionIcons.map(({ type, entity }) => (
-                    <IconExample onCopy={onCopyText} type={type} entity={entity} />
+                    <IconExample key={entity} onCopy={onCopyText} type={type} entity={entity} />
                 ))}
             </Row>
             {!!objectIcons.length && <Headline importance={6}>Objects</Headline>}
             <Row>
                 {objectIcons.map(({ type, entity }) => (
-                    <IconExample onCopy={onCopyText} type={type} entity={entity} />
+                    <IconExample key={entity} onCopy={onCopyText} type={type} entity={entity} />
                 ))}
             </Row>
             {!!stateIcons.length && <Headline importance={6}>States</Headline>}
             <Row>
                 {stateIcons.map(({ type, entity }) => (
-                    <IconExample onCopy={onCopyText} type={type} entity={entity} />
+                    <IconExample key={entity} onCopy={onCopyText} type={type} entity={entity} />
                 ))}
             </Row>
             {!!thirdPartyIcons.length && <Headline importance={6}>Third Party</Headline>}
             <Row>
                 {thirdPartyIcons.map(({ type, entity }) => (
-                    <IconExample onCopy={onCopyText} type={type} entity={entity} />
+                    <IconExample key={entity} onCopy={onCopyText} type={type} entity={entity} />
                 ))}
             </Row>
             {!!ticketIcons.length && <Headline importance={6}>Tickets</Headline>}
             <Row>
                 {ticketIcons.map(({ type, entity }) => (
-                    <IconExample onCopy={onCopyText} type={type} entity={entity} />
+                    <IconExample key={entity} onCopy={onCopyText} type={type} entity={entity} />
                 ))}
             </Row>
             <Notification isOpen={showNotification} style={{ background: 'white' }}>
