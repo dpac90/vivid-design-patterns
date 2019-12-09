@@ -45,13 +45,10 @@ This component can be used as both a controlled and uncontrolled component. If y
                     const { checked } = state;
                     setState({checked: !checked});
                 };
-
                 const onChange = (checked) => {
                     setState({checked})
                 };
-
                 const validationMethod = (value) => value ? '' : "Required";
-
                 return (
                     <React.Fragment>
                         <Button onClick={onClick}> Toggle Checkbox</Button>

@@ -35,15 +35,12 @@ Using the scss files:
             {
         ({state, setState}) => {
             const { open } = state;
-
             const handleClose = () => {
                 setState({open: false})
             }
-
             const toggleNotification = () => {
                 setState({open: !open})
             }
-
             return (
                 <Fragment>
                     <Button onClick={toggleNotification}>Toggle Notification</Button>
@@ -57,7 +54,6 @@ Using the scss files:
         }
     }
     </StatefulComponent>
-
 </Playground>
 
 ## Without an 'X' button
@@ -72,11 +68,9 @@ If no `onClickClose` callback is passed, the notification component will not ren
                     const handleClose = () => {
                         setState({open: false})
                     }
-
                     const toggleNotification = () => {
                         setState({open: !open})
                     }
-
                     return (
                         <Fragment>
                             <Button onClick={toggleNotification}>Toggle Notification</Button>
@@ -91,5 +85,4 @@ If no `onClickClose` callback is passed, the notification component will not ren
         }
     }
     </StatefulComponent>
-
 </Playground>

@@ -37,14 +37,11 @@ The example below shows typeahead searching a database of football teams that in
                      suggestions: getTeamSuggestions(input)
                  })
             }
-
             const onSelect = (selected) => alert(selected)
-
             return <Typeahead placeholder="Search by team, artist, event or venue" onChange={e => getSuggestion(e)} onSelect={onSelect} suggestions={state.suggestions}/>
         }
     }
     </StatefulComponent>
-
 </Playground>
 
 ## Hierarchal Data
@@ -68,18 +65,15 @@ Try typing `No` in the example below.
         ({state, setState}) => {
             const getSuggestion = (input) => {
                 const { suggestedStadiums, suggestedEvents, suggestedTeams } = getHiearchalSuggestions(input)
-
                 setState({
                     suggestions: [{title: 'Stadiums', items: suggestedStadiums}, {title: 'Events',items: suggestedEvents}, {title: 'Teams', items: suggestedTeams }]
                 })
-
             };
             const onSelect = (selected) => alert(selected);
             return <Typeahead showHierarchicalDropdown placeholder="Search by team, artist, event or venue" onChange={e => getSuggestion(e)} onSelect={onSelect} suggestions={state.suggestions}/>
         }
     }
     </StatefulComponent>
-
 </Playground>
 
 ## Custom Suggestion Item
@@ -94,7 +88,6 @@ By default the dropdown just renders string. If you want something more complex,
                 setState({
                     suggestions: getCustomEventSuggestions(input)
                 })
-
             };
             const onSelect = (selected) => alert(JSON.stringify(selected));
             const renderSuggestion = ({suggestion, suggestionProps, isHighlighted}) => <EventRow {...suggestionProps} title={suggestion.name} date={suggestion.date} style={{background: isHighlighted ? '#eee' : '#FFF'}}/>
@@ -103,7 +96,6 @@ By default the dropdown just renders string. If you want something more complex,
         }
     }
     </StatefulComponent>
-
 </Playground>
 
 ## Custom Dropdown Format

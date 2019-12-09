@@ -36,7 +36,6 @@ May be used on its own.
             {
         ({state, setState}) => {
             const { open } = state;
-
             return (
                 <React.Fragment>
                     <Button style={{zIndex: 10000000}} onClick={() => setState({open: !open})}>{open ? 'Close' : 'Open'}</Button>
@@ -48,5 +47,4 @@ May be used on its own.
         }
     }
         </StatefulComponent>
-
 </Playground>

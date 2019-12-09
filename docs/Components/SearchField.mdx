@@ -81,11 +81,9 @@ When nested as a child of `<Header />`, pass a `RefObject` as a prop to `<Header
         <StatefulComponent initialState={{open: true}}>
             { ({state, setState}) => {
             const ref = React.createRef();
-
             const handleClick = () => {
                 ref.current.focus();
             }
-
             return (
                 <>
                 <Button onClick={handleClick}>Focus!</Button>
